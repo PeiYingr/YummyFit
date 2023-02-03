@@ -1,0 +1,295 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Open+Sans:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap');
+*{
+    font-family: "Poppins";
+    letter-spacing:1.3px;
+}
+body{
+    margin:0;
+    padding:0;
+}
+.desktop,.mobile{
+    height: 100%;
+    background-color:#bf9d7e;
+    display: flex;
+	align-items: center;
+	justify-content: center;
+    padding:70px 0;
+}
+.mobile{
+    display:none;
+}
+.entireContainer{
+    height: 800px;
+    width:1200px;
+    background-color:#e9dacb;
+    border-radius: 15px;
+}
+.projectName{
+    height:70px;
+    width:90%;
+    font-size:70px;
+    font-weight:700;
+    color: #922c21;
+    line-height:70px;
+    text-align: center;
+    margin:40px auto;
+    font-family: "Poppins";
+    text-shadow: -1px -1px 0 #bf9d7e, 1px -1px 0 #bf9d7e,-1px 1px 0 #bf9d7e, 1px 1px 0 #bf9d7e,2px 2px 2px black;
+    letter-spacing:3px;
+}
+.mainFrame{
+    height:600px;
+    width:90%;
+    display:flex;
+    align-items: center;
+	justify-content: center;
+    margin:auto;
+    box-shadow: 10px 10px 20px #9f6a47;
+    border-radius:15px;
+    position:relative;
+}
+.signFrame{
+    height:100%;
+    width:650px;
+    border-radius: 15px 0px 0px 15px;
+    margin:0px 20px;
+}
+.signinSection,.signupSection{
+    width: 70%;
+    height:auto;
+    margin: auto;
+}
+.signupSection{
+    display:none;
+}
+.welcomeIcon, .helloIcon{
+    flex:none;
+    width: 250px;
+    height: 200px;
+    cursor: pointer;
+}
+.helloIcon{
+    margin: 60px auto 50px;
+}
+.welcomeIcon{
+    margin: 15px auto;
+}
+.welcomeIcon img, .helloIcon img{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+}
+.signinEmail, .signinPassword, .signupName, .signupEmail, .signupPassword{
+    width: 100%;
+    height: 47px;
+    box-sizing: border-box;
+    border: 1px solid #CCCCCC;
+    border-radius: 15px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height:47px;
+    color: #7f5539;
+    margin-bottom: 20px;
+    outline: none;
+    padding-left:55px ;
+    padding-right:20px;
+    /*input icon*/
+    background-position: 20px center;
+    background-repeat: no-repeat;
+    /* text-indent: 60px; 
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+    /padding: 10px 5px 10px 20px;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 2s;
+    transition: all 0.2s; */
+}
+::placeholder{
+    font-size: 14px; 
+    letter-spacing:0.5px;
+}
+.signinEmail,.signupEmail{
+    background-image: url("/Images/gmail.png");
+}
+.signinPassword, .signupPassword{
+    background-image: url("/Images/password.png");
+}
+.signupName{
+    background-image: url("/Images/user.png");
+}
+.signinButton, .signupButton{
+    border:0;
+    width: 100%;
+    height: 47px;
+    background: #7f5539;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 27px;
+    text-align: center;
+    color: #FFFFFF;
+    margin-bottom: 10px;
+}
+.signinResult, .signupResult{
+    width: 100%;
+    height: 30px;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 30px;
+    text-align: center;
+    margin-bottom: 10px;
+    letter-spacing: 1.3px; 
+}
+.changeToSignup, .changeToSignin{
+    width: 100%;
+    height: 22px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    text-align: center;
+    color: #7f5539; 
+    padding-bottom: 10px;
+}
+.signinButton:hover, .signupButton:hover{
+    font-weight: bold;
+    cursor: pointer;
+    background:#9f6a47;
+}
+.changeToSignup:hover, .changeToSignin:hover{
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: underline;
+}
+.sloganFrame,.sloganRWD{
+    height:100%;
+    width:450px;
+    background-color:#bf9d7e;
+    border-radius: 0px 15px 15px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.sloganRWD{
+    display:none;
+}
+.slogan{
+    height:auto;
+    width:100%;
+}
+.sloganText,.sloganTextMobile{
+    width: 100%;
+    font-weight:700;
+    color: #922c21;
+    text-align: center;
+    font-family: "Poppins";
+    text-shadow: -1px -1px 0 #bf9d7e, 1px -1px 0 #bf9d7e,-1px 1px 0 #bf9d7e, 1px 1px 0 #bf9d7e,2px 2px 2px black;
+    letter-spacing:3px;
+}
+.sloganText{
+    height:50px;
+    font-size:46px;
+    line-height:50px;
+    margin:40px auto;
+}
+.sloganTextMobile{
+    height:40px;
+    background-color:#bf9d7e;
+    display:none;
+    font-size:24px;
+    color: #922c21;
+    line-height:40px;
+    text-align: center;
+    margin:auto;
+    position:absolute;
+    bottom:0px;
+    border-radius: 0px 0px 15px 15px;
+}
+@media (max-width:1230px){
+    .entireContainer{
+        width:95%;
+    }
+}
+@media (max-width:1155px) {
+    .signFrame{
+        width:60%
+    }
+    .signinEmail, .signinPassword, .signupName, .signupEmail, .signupPassword{
+        font-size: 14px;
+    }
+    .signinSection,.signupSection{
+        width: 90%;
+    }
+}
+@media (max-width:960px) {
+    .sloganText{
+        font-size: 44px;
+    }
+}
+@media (max-width:880px) {
+    .sloganFrame{
+        display:none;
+    }
+    .sloganRWD{
+        display:flex;
+        width:50%;
+    }
+}
+@media (max-width:775px) {
+    .mainFrame{
+        display:block
+    }
+    .signFrame{
+        width:80%;
+        height:90%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin:auto;
+    }
+    .sloganRWD{
+        width:100%;
+        height:auto;
+    }
+    .sloganRWD{
+        display:none;
+    }
+    .sloganTextMobile{
+        display:block;
+    }
+    .projectName{
+        font-size:58px; 
+    }
+}
+@media (max-width:500px) {
+    .signFrame{
+        width:90%
+    }
+    .sloganTextMobile{
+        font-size:20px;
+    }
+    .projectName{
+        width:100%;
+        font-size:50px; 
+    }
+    .signinEmail,.signupEmail,.signinPassword, .signupPassword,.signupName{
+        background-position: 10px center;
+        padding-left:45px;
+        padding-right: 10px;
+    }
+}
+@media (max-width:425px) {
+    .sloganTextMobile{
+        font-size:18px;
+    }
+    .projectName{
+        font-size:44px; 
+    }
+    .signinEmail,.signupEmail,.signinPassword, .signupPassword,.signupName{
+        letter-spacing: normal;
+    }
+}

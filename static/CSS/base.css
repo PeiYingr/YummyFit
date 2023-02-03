@@ -1,0 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Open+Sans:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap');
+*{
+    font-family:"Noto Sans TC";
+    font-family: "Poppins";
+    letter-spacing:1.3px;
+}
+body{
+    margin:0;
+    padding:0;
+    background:#bf9d7e;
+}
+.frameColor{
+    background:#e9dacb;
+    position: sticky;
+    top:0px;
+    z-index:2;
+    margin-bottom: 40px;
+    border-bottom: 0.5px solid #d4a9a5;
+}
+.frame{
+    display:flex;
+    width:1200px;
+    height:70px;
+    margin:auto;
+    background:#e9dacb;
+    align-items: center;
+}
+.title{
+    width:300px;
+    height:40px;
+    font-size:36px;
+    font-family: "Poppins";
+    font-weight:700;
+    letter-spacing:3px;
+    color: #922c21;
+    text-align:center;
+    line-height:40px;
+    margin-right:auto;
+    cursor: pointer;
+    text-shadow: -1px -1px 0 #bf9d7e, 1px -1px 0 #bf9d7e,-1px 1px 0 #bf9d7e, 1px 1px 0 #bf9d7e,2px 2px 2px black;
+}
+.community,.diary,.memberCenter{
+    height:40px;
+    color: #6c0807;
+    font-weight:500;
+    font-size: 16px;
+    text-align: center;
+    line-height:40px;
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+    letter-spacing:0.3px;
+}
+.userIcon,.diaryIcon, .communityIcon{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin-right:5px;
+}
+.userIcon img, .communityIcon img,.diaryIcon img{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+    border-radius: 5px;
+}
+.memberCenter{
+    margin-right:10px;
+}
+.memberCenterFrame{
+    display:none;
+    width:1200px;
+    height:120px;
+    margin:auto;
+    justify-content: end;
+    position: absolute;
+    top: 60px;
+}
+.memberCenterBlock{
+    width:120px;
+    height: 80px;
+    text-align: center;
+    background: #ede0d4;
+    box-shadow: 10px 10px 20px #9f6a47;
+    border-radius: 5px;
+}
+.memberInfo,.signoutText{
+    height: 40px; 
+    color: #6c0807;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 40px;  
+}
+.community:hover,.diary:hover, .memberCenter:hover, .memberInfo:hover, .signoutText:hover{
+    background-color: antiquewhite;
+    cursor: pointer;
+    border-radius:5px;
+    color: #9f6a47;
+    font-weight: bold;
+}
+.noticeWindow{
+    display: none;
+    width:100%;
+    height:100%;
+    background-color: rgba(0,0,0,0.25);
+    position: fixed;
+    z-index: 5;
+}
+.noticeSection{
+    width: 280px;
+    height:auto;
+    margin: auto;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 60px #AAAAAA;
+    border-radius: 6px;
+    position:relative;
+    top:110px;
+}
+.decoratorBar{
+    width: 100%;
+    height: 10px;
+    background: linear-gradient(270deg, #7f5539 0%, #bf9d7e 100%);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    margin-bottom:15px;
+}   
+.closeIcon{
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top:17px;
+    right:17px;
+    cursor: pointer;
+}
+.closeIcon img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.closeIcon:hover{
+    transform: scale(1.1);
+}
+.noticeMain{
+    width: 100%;
+    height:auto;
+    font-weight: 700;
+    font-size: 18px;
+    line-height:40px;
+    text-align: center;
+    color: #666666;
+    margin: 20px auto;
+}
+.footer{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width: 100%;
+    height: 80px;
+    margin-top:40px;
+    background: #7f5539;
+    position:relative;
+}
+.footerText{
+    font-family: "Poppins";
+    width:400px;
+    height: 14px;
+    line-height:14px;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    padding-top:32px;
+    padding-bottom:32px;
+    color: #FFFFFF;
+}
+
+@media (max-width:1230px){
+    .frame{
+        width:98%;
+    }
+    .title{
+        margin-right:auto;
+    }
+    .memberCenterFrame{
+        width:98%;
+    }
+}
+
+@media (max-width:600px) {
+    .frame{
+        width:100%;
+    }
+    .title{
+        margin-left:10px;
+        margin-right:35px;
+    }
+    .community{
+        margin-left: auto;
+    }
+    .memberCenterBlock{
+        width:110px;
+    }
+}
+
+@media (max-width:450px) {
+    .frame{
+        width:100%;
+    }
+    .title{
+        margin-left:10px;
+        margin-right:20px;
+        width:130px;
+        font-size: 26px;
+    }
+    .community{
+        width:95px;
+        margin-right: 5px;
+    }
+    .memberCenter{
+        width:95px;
+    }
+    .memberCenterBlock{
+        width:100px;
+    }
+    .userIcon, .communityIcon,.diaryIcon{
+        margin-right: 3px;
+    }
+}
