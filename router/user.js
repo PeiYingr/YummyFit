@@ -43,7 +43,7 @@ userRouter.post("/", async(req, res) => {
                         "email":result.email
                     }
                     const token = jwt.sign(user, JwtSecret);
-                    response = {
+                    let response = {
                         "ok": true
                     }
                     res.cookie("token", token, { httpOnly: true, expires: new Date(Date.now() + 3600000 * 24 * 7) });
@@ -86,7 +86,7 @@ userRouter.put("/", async(req, res) => {
                         "email":result.email
                     }
                     const token = jwt.sign(user, JwtSecret);
-                    response = {
+                    let response = {
                         "ok": true
                     }
                     res.cookie("token", token, { httpOnly: true, expires: new Date(Date.now() + 3600000 * 24 * 7) });
@@ -119,7 +119,7 @@ userRouter.get("/", async(req, res) => {
         if (cookie){
             const token = cookie.replace("token=","")
             const userCookie = jwt.verify(token, JwtSecret)
-            response = {
+            let response = {
                 "data": {
                     "userID": userCookie.userID,
                     "name": userCookie.name,
@@ -143,7 +143,7 @@ userRouter.get("/", async(req, res) => {
 
  // signout 
 userRouter.delete("/", async(req, res) => {
-	response = {
+	let response = {
 		"ok": true
 	}
     res.clearCookie("token", "", { httpOnly: true, expires: new Date(0) });
