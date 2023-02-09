@@ -142,9 +142,9 @@ body{
 .noticeMain{
     width: 100%;
     height:auto;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 18px;
-    line-height:40px;
+    line-height:50px;
     text-align: center;
     color: #666666;
     margin: 20px auto;
