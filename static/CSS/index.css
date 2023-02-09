@@ -1,0 +1,748 @@
+body{
+    margin:0;
+    padding:0;
+}
+.ownFoodFrame{
+    width:600px;
+    height:400px;
+    z-index: 6;
+    background: #ede0d4;
+    border-radius: 15px;
+    border: 1px solid #bf7e78;
+    box-sizing: border-box;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display:none;
+}
+.ownFoodName{
+    width:22%;
+    text-align: center;
+    line-height: 35px;
+}
+.ownFoodProtein ,.ownFoodFat ,.ownFoodCarbs{
+    width:20%;
+    text-align: center;
+    line-height: 35px;
+}
+.closeOwnFoodFrame{
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    top:16px;
+    right:17px;
+    cursor: pointer;
+}
+.closeOwnFoodFrame img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.closeOwnFoodFrame:hover{
+    transform: scale(1.1);
+}
+.ownFoodList{
+    width:100%;   
+    height:400px;
+    overflow-y: scroll;
+    border-radius: 0px 0px 15px 15px;
+}
+.ownFood{
+    width:100%;
+    display:flex;
+    justify-content: center;
+    box-sizing: border-box;
+    align-items: center;
+    margin: auto;
+    border-bottom: 1px solid #bf7e78;
+    height:auto;
+}
+/* ownFoodList scrollbar style */
+.ownFoodList:-webkit-scrollbar{
+    width: 7px;
+}
+.ownFoodList::-webkit-scrollbar-thumb {
+    background-color: #f0d4bc;
+    border: 1px solid #922c21;
+    border-radius: 15px;
+}
+.deleteSpace{
+    width: 20px;
+    height: 20px;
+    margin-left: 15px;
+}
+.deleteOwnFoodIcon{
+    width: 20px;
+    height: 20px;
+    cursor:pointer;
+    margin-left: 15px;
+}
+.deleteOwnFoodIcon img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.deleteOwnFoodIcon:hover{
+    transform: scale(1.1);
+}
+.deleteOwnFoodIcon:active{
+    transform:translateZ(2px) rotate(5deg) ;
+}
+.noOwnFood{
+    width:100%;   
+    align-items: center;
+    display:none;
+}
+.mealFrame{
+    width:1200px;
+    margin:auto;
+    box-shadow: 10px 10px 20px #9f6a47;
+    border-radius:15px;
+}
+.mealType{
+    width: 100%;
+    height:60px;
+    margin:auto;
+    display: flex;
+    justify-content: center;
+    background: #ede0d4;
+    border-bottom: 1px solid #e0bfa0;
+    border-radius:15px 15px 0px 0px;
+}
+.calendar input{
+    border: none;
+    box-sizing: border-box;
+    outline: 0;
+    padding: .75rem;
+    position: relative;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    margin-left:20px;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: transparent;
+    background-image: url("/Images/calendar.png");
+    background-size: 100% 100%;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+}
+.date{
+    color: #922c21;
+    width: 240px;
+    height:60px;
+    font-size: 22px;
+    line-height: 60px;  
+    font-weight: 700;
+    text-align: center;
+}
+.breakfast, .lunch, .dinner, .snacks, .dailyIntake{
+    width: 155px;
+    height:60px;
+    font-size: 18px;
+    text-align: center;
+    line-height: 60px;
+}
+.breakfast{
+    color: #922c21;
+    border-bottom: 2px solid #7f5539;
+    box-sizing: border-box;
+}
+.lunch, .dinner,.snacks,.dailyIntake{
+    color: #bf9d7e;
+    box-sizing: border-box;       
+}
+.breakfast:hover, .lunch:hover, .dinner:hover,.snacks:hover,.dailyIntake:hover{
+    background-color: antiquewhite;;
+    color: #9f6a47;
+    font-weight:700;
+    cursor: pointer;
+}
+.mealRecordFrame{
+    width: 100%;
+    height: 655px;
+    margin: auto;
+    background-color: #ede0d4;
+    border-radius:0px 0px 15px 15px;
+}
+.mealRecordBlock{
+    width: 95%;
+    height: 100%;
+    margin:auto;
+}
+.foodRecordRegion{
+    width: 100%;
+    height: 70%;
+    display:flex;
+    border-bottom: 1px solid #e0bfa0;
+}
+.addFoodRecord{
+    width: 30%;
+    height:100%;
+    margin-left: 10px;
+    position: relative;
+}
+.searchbar{
+    width: 100%;
+    height: 50px;
+    display:flex;
+    margin-top:20px;
+}
+.search{
+    width: 40px;
+    height: 100%; 
+    cursor: pointer;
+    border-bottom:1px solid #922c21;
+    box-sizing: border-box;
+}
+.search img{
+    width:30px; 
+    height:30px;
+    padding:10px 5px;
+}
+.foodInput,.gramInput{ 
+    box-sizing: border-box;
+    height: 100%;
+    font-size: 16px;
+    padding:5px 8px;
+    outline:none;
+    background:none;
+    border:none;
+    border-bottom:1px solid #922c21;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+.foodInput{
+    width:170px;
+}
+.inputGap{
+    width:20px; 
+}
+.gramInput{
+    width:50px; 
+    text-align: center;
+}
+.add{
+    width: 60px;
+    height: 100%; 
+    cursor: pointer;
+}
+.add:hover{
+    transform: scale(1.1);
+}
+.add:active{
+    transform:translateZ(1px) rotate(2deg) ;
+}
+.add img{
+    width:30px; 
+    height:30px;
+    padding:15px 10px;
+}
+.searchResultBox, .noResultBox{
+    display:none;
+    align-items:center;
+    width: 280px;
+    height: 200px;
+    border-radius:5px;
+    background:#ece8e4;
+    box-shadow: 5px 5px 20px #922c21;
+    margin-top:5px;
+    position: absolute;
+    z-index:1;
+    overflow-y: scroll;
+}
+.noResultBox{
+    align-items: center;
+    justify-content: center;
+}
+/* searchResultBox scrollbar style */
+.searchResultBox::-webkit-scrollbar{
+    width: 7px;
+}
+.searchResultBox::-webkit-scrollbar-thumb {
+    background-color: #f0d4bc;
+    border: 1px solid #922c21;
+    border-radius: 15px;
+}
+.searchResults, .noResult{
+    width: 90%;
+    height: auto;
+    font-size: 14px;
+    line-height: 20px;
+    margin: 10px auto;
+}
+.searchResults:hover{
+    background-color: antiquewhite;
+    cursor: pointer;
+    border-radius:5px;
+    color: #922c21;
+}
+.searchOwnFoodButton{
+    background: #bf7e78;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 5px;
+    line-height: 20px;
+    text-align: center;
+    color: #FFFFFF;
+    cursor: pointer;
+    margin-top: 30px;
+    margin-left: 30px;
+    width:70%
+}
+.searchOwnFoodButton:hover{
+    background: #db776c;
+    font-weight: bold;
+    transform: scale(1.05);
+}
+.addNewFoodBar{
+    width: 85%;
+    height: auto;
+    margin-top:40px;
+    border:1px solid #bf7e78;
+    border-radius: 15px;
+    font-weight: 500;
+}
+.addNewFood{
+    width: 100%;
+    height: 50px; 
+    line-height: 50px;
+    display: flex;
+    justify-content: center;
+}
+.addNewFood img{
+    width:30px; 
+    height:30px;
+    padding:10px;
+}
+.newFoodInfoFrame{
+    display: flex;
+}
+.newFoodInfo{
+    width:45%;
+}
+.newFoodInfoInput{
+    width:55%;
+}
+.newFoodName,.newFoodProtein, .newFoodFat ,.newFoodCarbs{
+    display: flex;
+    margin:5px 0px 0px 30px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 15px;
+}
+.newFoodNameInput,.newFoodProteinInput,.newFoodFatInput,.newFoodCarbsInput{
+    width:80%;
+    box-sizing: border-box;
+    font-size: 15px;
+    padding:11px 7px 5px;
+    outline:none;
+    background:none;
+    border:none;
+    border-bottom:1px solid #922c21;
+    font-weight: 500;
+}
+.gramInput::placeholder,.newFoodProteinInput::placeholder,.newFoodFatInput::placeholder,.newFoodCarbsInput::placeholder{
+    font-size: 12px;
+    text-align: end;
+}
+.notice{
+    display:flex;
+    margin:10px;
+    font-size: 12px;
+    height: 30px;
+}
+.unit{
+    width: 50%;
+    margin-left:18px ;
+    line-height:30px;
+}
+.addNewFoodButton{
+    background: #bf7e78;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 5px;
+    line-height: 20px;
+    text-align: center;
+    color: #FFFFFF;
+    cursor: pointer;
+    margin-left: 50px;
+}
+.addNewFoodButton:hover{
+    background: #db776c;
+    font-weight: bold;
+    transform: scale(1.05);
+}
+.addNewFoodButton:active{
+    transform:translateZ(1px) rotate(2deg) ;
+}
+.addNewFoodResult{
+    display:none;
+    line-height:30px;
+    text-align: center;
+    color: #922c21;
+    font-size: 14px;
+    margin-left: 25px;
+    text-shadow: -1px -1px 0 #bf9d7e, 1px -1px 0 #bf9d7e, -1px 1px 0 #bf9d7e, 1px 1px 0 #bf9d7e, 2px 2px 2px black;
+}
+.foodRecordFrame{
+    width: 70%;
+    height:100%;
+    display:flex;
+    align-items: center;
+}
+.foodRecord{
+    width: 100%;
+    height:90%;
+    border-radius:15px;
+    border:1px solid #bf7e78;
+    box-sizing: border-box;
+}
+.nutrientType, .oneRecord{
+    width:100%;
+    display:flex;
+    justify-content: center;
+    box-sizing: border-box;
+    align-items: center;
+    margin: auto;
+}
+.nutrientType{
+    background: #bf7e78;
+    font-weight: 500;
+    border-radius: 10px 10px 0px 0px;
+    height:50px;
+}
+.oneRecord{
+    border-bottom: 1px solid #bf7e78;
+    height:auto;
+}
+.food{
+    width:21%;
+}
+.amount, .protein ,.fat ,.carbs, .kcal{
+    width:15%;
+}
+.food, .amount, .protein ,.fat ,.carbs, .kcal{
+    text-align: center;
+    line-height: 35px;
+}
+.gram{
+    font-size: 12px;
+}
+.records{
+    width:100%;   
+    height:370px;
+    overflow-y: scroll;
+}
+.noRecord{
+    width:100%;   
+    align-items: center;
+    display: none;
+}
+.noRecordPicture{
+    width: 150px;
+    height: 150px;
+    margin: 50px auto 30px;
+}
+.noRecordPicture img{
+    width: 100%;
+    height: 100%;
+    object-fit:cover;
+    border-radius: 5px;
+}
+.noRecordText{
+    width: 100%;
+    height: 50px;
+    line-height: 25px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+    color: #7f5539;
+    margin: auto;
+}
+.leftIcon{
+    width: 40px;
+    height: 40px;
+    margin: 15px auto;
+    display: flex;
+    justify-content: center;
+}
+.leftIcon img{
+    width: 100%;
+    height: 100%;
+    object-fit:cover;
+}
+/* foodRecord scrollbar style */
+.records::-webkit-scrollbar{
+    width: 7px;
+}
+.records::-webkit-scrollbar-thumb {
+    background-color: #f0d4bc;
+    border: 1px solid #922c21;
+    border-radius: 15px;
+}
+.deleteIconSpace{
+    width: 27px;
+    height: 30px;
+}
+.deleteIcon{
+    width: 20px;
+    height: 20px;
+    cursor:pointer;
+}
+.deleteIcon img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.deleteIcon:hover{
+    transform: scale(1.1);
+}
+.deleteIcon:active{
+    transform:translateZ(2px) rotate(5deg) ;
+}
+
+/*dailyRecordFrame*/
+.dailyRecordFrame{
+    display: none;
+    width: 100%;
+    height: 655px;
+    margin: auto;
+    background-color: #ede0d4;
+    border-radius:0px 0px 15px 15px;
+}
+.dailyRecordBlock{
+    width:50%;
+}
+.macroCompareList{
+    width:80%;
+    margin: 50px auto 10px;
+    height:40%;
+}
+.compareText{
+    width:100%;
+    display: flex;
+    height:40px;
+    line-height: 40px;
+    font-size: 20px;
+    color: #7f5539;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.targetText, .dailyText{
+    width:30%;
+    margin: auto; 
+    border-bottom: 2px solid #7f5539;
+}
+.compare{
+    width:100%;
+    display: flex;
+    height:auto;
+    font-size: 16px;
+}
+.macrosText, .macros{
+    width:25%; 
+    margin-left: 12px;
+}
+.targetMacros, .dailyMacros{
+    width:30%;
+    margin: auto; 
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: auto;
+}
+.macros,.targetMacros, .dailyMacros{
+    color: #a44e45;
+    font-weight: 500;
+    line-height: 40px;
+}
+.targetMacrosValue,.dailyMacrosValue{
+    width:90px;
+}
+.targetMacrosPercentage, .dailyMacrosPercentage{
+    font-size: 14px;
+    margin-left:5px;
+}
+.textKcal, .targetKcalValue, .targetKcalPercentage, .dailyKcal, .dailyKcalPercentage{
+    height: 40px;
+    color: #922c21;
+}
+.textProtein, .targetProteinValue, .targetProteinPercentage, .dailyProtein, .dailyProteinPercentage{
+    color: #ff8900;
+}
+.textFat, .targetFatValue, .targetFatPercentage, .dailyFat, .dailyFatPercentage{
+    color: #79573d;
+}
+.textCarbs, .targetCarbsValue, .targetCarbsPercentage, .dailyCarbs, .dailyCarbsPercentage{
+    color: #db776c;
+}
+.noTargetData{
+    width:100%;
+    display:none;
+    line-height: 50px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+    color: #7f5539;
+    margin: auto;
+}
+.goAddTarget{
+    width: 100px;
+    height: 30px;
+    line-height: 20px;
+    background: #bf9d7e;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 5px;
+    text-align: center;
+    color: #FFFFFF;
+    cursor: pointer;
+    border: none;
+    font-size: 12px;
+    margin: auto;
+}
+.goAddTarget:hover{
+    background: #9f6a47;
+    font-weight: bold;
+    transform: scale(1.05);
+}
+.goAddTarget:active{
+    transform:translateZ(1px) rotate(2deg) ;
+}
+.recordChart{
+    width:50%;
+    display: flex;
+    /* justify-content: center;
+	align-items: center; */
+}
+/*imageRecordRegion*/
+.imageRecordRegion{
+    width: 100%;
+    height: auto;
+    display:flex;
+}
+.addFoodPhoto{
+    width: 28%;
+    height: 180px;
+    margin-left:10px ;
+    font-weight: 500;
+}
+.limitText{
+    height: 15px; 
+    line-height: 15px;
+    font-size: 12px;
+    margin-left: 2px;
+    letter-spacing: 0.3px;
+}
+.imageFileText{
+    height: 40px; 
+    line-height: 40px;
+    display: flex;
+}
+.imageFileText img{
+    width:30px; 
+    height:30px;
+    padding:5px;
+    margin-right:10px ;
+}
+.sendImageRegion{
+    width: 100%;
+    display: flex;
+    height:135px;
+}
+#form{
+    width: 40%;
+    height: 40px;
+    align-items: center;
+}
+.form{
+    width: 100%;
+    height:30px;
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
+    border: 1px groove #db776c;
+    text-align:center;  
+    /* -web-border-radius:10px;
+    -moz-border-radius:10px; */
+    border-radius:10px;
+    font-size:12px;
+    line-height:30px;
+    box-sizing: border-box;
+    margin-top: 25px;
+}
+.form input{
+    position: absolute;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    top: 0;
+    right: 0;
+    width:100%;
+    height:100%;
+    cursor:pointer;
+}
+.form:hover {
+    color: #922c21;
+    background: #faebd7;
+    border-color: #7f5539;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+::-webkit-file-upload-button{ 
+    cursor:pointer;
+}
+.form img{
+    width:25px;
+    height:25px;
+    padding-bottom: 2.5px;
+    margin-right:10px;  
+    vertical-align:middle;
+}
+.preview{
+    width: 180px;
+    height: 130px;
+    margin-left: 10px;
+    margin-top: 5px;
+    display:none;
+}
+#previewImage{
+    width: 100%;
+    height: 100%;
+    object-fit:fill;
+    border-radius: 5px;
+}
+.sendImageButton{
+    height:30px;
+    line-height: 20px;
+    background: #bf7e78;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 5px;
+    text-align: center;
+    color: #FFFFFF;
+    cursor: pointer;
+    border: none;
+    font-size: 12px;
+    margin-top: 10px;
+}
+.sendImageButton:hover{
+    background: #db776c;
+    font-weight: bold;
+    transform: scale(1.05);
+}
+.sendImageButton:active{
+    transform:translateZ(1px) rotate(2deg) ;
+}
