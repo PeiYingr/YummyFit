@@ -40,13 +40,13 @@ signupButton.addEventListener("click", () => {
     const signupPassword = document.querySelector(".signupPassword").value;
     if(signupName == "" ||signupEmail == "" || signupPassword == ""){
         signupResult.setAttribute("style","color:#FF0000");        
-        signupResult.innerHTML="⚠️ Enter your name, Email and password";    
+        signupResult.textContent="⚠️ Enter your name, Email and password";    
     }else{
         const emailResult = signupEmail.match(emailRegex);
         const passwordResult = signupPassword.match(passwordRegex);
         if(emailResult == null || passwordResult == null){
             signupResult.setAttribute("style","color:#FF0000");        
-            signupResult.innerHTML="⚠️ Invalid Email or password";
+            signupResult.textContent="⚠️ Invalid Email or password";
         }else{
             const addMember = { 
                 "name":signupName,
@@ -65,14 +65,14 @@ signupButton.addEventListener("click", () => {
             }).then(function(data){ 
                 if(data.error == true){
                     signupResult.setAttribute("style","color:#FF0000");        
-                    signupResult.innerHTML=data.message; 
+                    signupResult.textContent = data.message; 
                 }  
                 if(data.ok == true){
                     signupResult.setAttribute("style","color:#008000");           
-                    signupResult.innerHTML="Welcome !";  
-                    setTimeout(function(){
+                    signupResult.textContent = "Welcome ! Loading...";  
+                    setTimeout(() => {
                         location.href="/";
-                    },1000)
+                    },2000)
                 }                     
             })
         }        
@@ -90,7 +90,7 @@ signinButton.addEventListener("click", () => {
     const signinPassword = document.querySelector(".signinPassword").value;
     if(signinEmail == ""|| signinPassword == ""){
         signinResult.setAttribute("style","color:#FF0000");        
-        signinResult.innerHTML="⚠️ Enter your Email and password";
+        signinResult.textContent = "⚠️ Enter your Email and password";
         signinSection.insertBefore(signinResult,changeToSignup);  
     }else{
         const member = { 
@@ -109,7 +109,7 @@ signinButton.addEventListener("click", () => {
         }).then(function(data){   
             if(data.error == true){
                 signinResult.setAttribute("style","color:#FF0000");        
-                signinResult.innerHTML=data.message;  
+                signinResult.textContent = data.message;  
                 signinSection.insertBefore(signinResult,changeToSignup);  
             }
             if(data.ok == true){
