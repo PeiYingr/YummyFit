@@ -5,6 +5,8 @@ const port = 3000;
 const usersRouter = require("./router/user");
 const foodsRouter = require("./router/food");
 const intakeRouter = require("./router/intake");
+const photoRouter = require("./router/photo");
+const targetRouter = require("./router/target");
 
 app.use(express.static("./static"));
 app.set("view engine", "ejs");
@@ -19,11 +21,16 @@ app.get("/", (req, res) => {
 app.get("/sign", (req, res) => {
   res.render("sign");
 });
+app.get("/member", (req, res) => {
+  res.render("member");
+});
 
 // 將users的requests，導入到對應的Router處理
 app.use("/api/user", usersRouter);
 app.use("/api/food", foodsRouter);
 app.use("/api/intake", intakeRouter);
+app.use("/api/photo", photoRouter);
+app.use("/api/target", targetRouter);
 
 app.listen(port, () => {
   console.log(`伺服器已經啟動在 http://localhost:${port}/`);
