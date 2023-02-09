@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YummyFit</title>
+    <link rel="shortcut icon" href="/Images/candy.png">
+    <link rel="stylesheet" type="text/css" href="/CSS/member.css">
+</head>
+<body>
+    <%- include("navbar") %>
+    <div class="memberFrame">
+        <div class="memberBase">Member Profile</div>
+        <div class="memberDetailFrame">
+            <div class="memberPhotoFrame">
+                <div class="memberPhotoBlock">
+                    <div class="memberPhoto"><img/></div>
+                    <div class="avatarPreviewText">preview</div>
+                </div>
+                <form id="form" enctype="multipart/form-data">
+                    <div class="form">
+                        <img src="/Images/add2.png"/>
+                        <span>Select Avatar</span>
+                        <input type="file" class="avatarFile" accept="image/*"/>                                
+                    </div>
+                    <div class="avatarUpload" type="button">Upload</div>
+                </form>
+                <ul>
+                    <li><span class="flowerEmoji">✿</span> Name：<span class="memberName"></span></li>
+                    <li><span class="flowerEmoji">✿</span> E-mail：<span class="memberMail"></span></li>                    
+                </ul>
+                <!-- <div class="passwordChange">✐ Click here to change password.</div>
+                <div class="passwordChangeWindow">        
+                    <div class="passwordDecoratorBar"></div>
+                    <div class="closeWindow"><img src="/Images/icon_close.png"/></div>
+                    <div class="passwordChangeMain">
+                        <div class="newPasswordText">Enter New Password</div>
+                        <div>
+                            <input type="password" class="changePassword" placeholder="New Password"/> 
+                            <div>send</div>                           
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+            <div class="targetFrame">
+                <div class="targetBlock">
+                    <div class="target">
+                        <div class="targetText">Target Nutrients</div>
+                        <div class="editTarget">Edit</div>
+                    </div>
+                    <div class="targetMacros">
+                        <div class="macros">
+                            <div class="textKcal">Calories</div>
+                            <div class="textProtein">Protein</div>
+                            <div class="textFat">Fat</div>
+                            <div class="textCarbs">Carbos</div>                            
+                        </div>
+                        <div class="targetMacrosValue">
+                            <div class="targetKcalValue"></div>
+                            <div class="targetProteinValue"></div>
+                            <div class="targetFatValue"></div>
+                            <div class="targetCarbsValue"></div>                            
+                        </div>
+                        <div class="targetMacrosPercentage">
+                            <div class="targetKcalPercentage"></div>
+                            <div class="targetProteinPercentage"></div>
+                            <div class="targetFatPercentage"></div>
+                            <div class="targetCarbsPercentage"></div>                            
+                        </div>
+                        <div class="noTargetData">No target.<br>Please edit.</div>
+                    </div>                    
+                </div>
+                <div class="targetInputBlock">
+                    <div class="target">
+                        <div class="targetText">Target Nutrients</div>
+                        <div class="cancelEditTarget">Cancel</div>
+                    </div>
+                    <div class="targetMacros">
+                        <div class="macros">
+                            <div class="textKcal">Calories</div>
+                            <div class="textProtein">Protein</div>
+                            <div class="textFat">Fat</div>
+                            <div class="textCarbs">Carbos</div>                            
+                        </div>
+                        <div class="targetMacrosInput">
+                            <input type="text"  class="targetKcalInput" autocomplete="off"/>
+                            <input type="text"  class="targetProteinInput" placeholder="(%)" autocomplete="off"/>
+                            <input type="text"  class="targetFatInput" placeholder="(%)" autocomplete="off"/>
+                            <input type="text"  class="targetCarbsInput" placeholder="(%)" autocomplete="off"/>                         
+                        </div>
+                    </div>
+                    <div class="updateTarget">Confirm</div>               
+                </div>                              
+            </div>
+        </div>
+    </div>
+    <%- include("footer") %>
+    <script src="/JS/member.js"></script>
+</body>
+</html>
