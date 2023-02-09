@@ -1,19 +1,32 @@
-const signoutText=document.querySelector(".signoutText");
+const title = document.querySelector(".title");
+const signoutText = document.querySelector(".signoutText");
+const foodDiary = document.querySelector(".diary");
 const memberCenter = document.querySelector(".memberCenter");
-let memberCenterFrameStatus = 0 // status = close
-// click memberCenter(text) : show/hide memberCenterFrame
 const memberCenterFrame = document.querySelector(".memberCenterFrame");
 const memberInfo = document.querySelector(".memberInfo");
 const noticeWindow = document.querySelector(".noticeWindow");
+const noticeSection = document.querySelector(".noticeSection");
 const noticeMain = document.querySelector(".noticeMain");
 const closeIcon = document.querySelector(".closeIcon");
-let memberID;
+let memberCenterFrameStatus = 0 // status = close
+// click memberCenter(text) : show/hide memberCenterFrame
 
-closeIcon.addEventListener("click",function(){
+title.addEventListener("click", () =>{
+    location.href="/";
+})
+
+memberInfo.addEventListener("click", () =>{
+    location.href="/member";
+})
+foodDiary.addEventListener("click", () =>{
+    location.href="/";
+})
+
+closeIcon.addEventListener("click", () =>{
     noticeWindow.style.display="none";
 })
 
-memberCenter.addEventListener("click",function(){
+memberCenter.addEventListener("click", () =>{
     if(memberCenterFrameStatus == 0){
         memberCenterFrame.style.display = "flex";
         memberCenterFrameStatus = 1;
@@ -36,7 +49,7 @@ fetch("/api/user").then(function(response){
 });
 
  // signout API
- signoutText.addEventListener("click",function(){
+ signoutText.addEventListener("click", () =>{
     fetch("/api/user",{
         method:"DELETE"
     }).then(function(response){
