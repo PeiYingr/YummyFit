@@ -30,7 +30,7 @@ fetch("/api/user").then(function(response){
     return response.json();
 }).then(function(data){
     if(data.error == true){
-        location.href="/sign"
+        location.href="/"
     }else{
         const userData = data.data;
         memberName.textContent = userData.name;
