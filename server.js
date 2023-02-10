@@ -16,10 +16,10 @@ app.use(express.urlencoded({ extended: false })); // 通常是接收前端提交
 
 // pages
 app.get("/", (req, res) => {
-  res.render("index");
-});
-app.get("/sign", (req, res) => {
   res.render("sign");
+});
+app.get("/index", (req, res) => {
+  res.render("index");
 });
 app.get("/member", (req, res) => {
   res.render("member");
