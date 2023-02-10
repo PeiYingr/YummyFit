@@ -69,9 +69,9 @@ signupButton.addEventListener("click", () => {
                 }  
                 if(data.ok == true){
                     signupResult.setAttribute("style","color:#008000");           
-                    signupResult.textContent = "Welcome ! Loading...";  
+                    signupResult.textContent = "Welcome ...";  
                     setTimeout(() => {
-                        location.href="/";
+                        location.href="/index";
                     },2000)
                 }                     
             })
@@ -113,7 +113,7 @@ signinButton.addEventListener("click", () => {
                 signinSection.insertBefore(signinResult,changeToSignup);  
             }
             if(data.ok == true){
-                location.href="/";
+                location.href="/index";
             }
         })
     }
@@ -128,6 +128,6 @@ fetch("/api/user").then(function(response){
         return;
     }
     else{
-        location.href="/"
+        location.href="/index"
     }
 });
