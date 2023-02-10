@@ -43,9 +43,8 @@ const ownFoodFrame = document.querySelector(".ownFoodFrame");
 const closeOwnFoodFrame = document.querySelector(".closeOwnFoodFrame");
 const ownFoodList = document.querySelector(".ownFoodList");
 const noOwnFood = document.querySelector(".noOwnFood");
-const preview = document.querySelector(".preview");
-const previewImage = document.querySelector("#previewImage");
-const fileUploader = document.querySelector(".fileUploader");
+const pieChart = document.querySelector("#myChart");
+const noChart = document.querySelector(".noChart");
 let chooseIntakeMeal = "breakfast"; //default
 
 const today = new Date();
@@ -174,16 +173,26 @@ async function getDailyIntakeData(){
         noticeWindow.style.display="block";
         noticeMain.textContent = data.message;  
     }else if (data.data == null){
-        dailyRecordFrame.style.display="none";
-        mealRecordFrame.style.display="block";
-        noRecord.style.display="block";
-        records.style.display="none";
+        mealRecordFrame.style.display = "none";
+        dailyRecordFrame.style.display ="flex";
+        pieChart.style.display = "none";
+        noChart.style.display = "block";
+        await getTargetData();
+        dailyKcal.textContent = "0";
+        dailyProtein.textContent = "0";
+        dailyFat.textContent = "0";
+        dailyCarbs.textContent = "0";
+        dailyProteinPercentage.textContent = "(0%)";
+        dailyFatPercentage.textContent = "(0%)";
+        dailyCarbsPercentage.textContent = "(0%)";
     }else{
         const dailyIntakeData = data.data;
-        await updateChart(dailyIntakeData);
-        await getTargetData();
         mealRecordFrame.style.display="none";
         dailyRecordFrame.style.display="flex";
+        noChart.style.display = "none";
+        pieChart.style.display = "block";
+        await updateChart(dailyIntakeData);
+        await getTargetData();
         dailyKcal.textContent = dailyIntakeData.totalKcal;
         dailyProtein.textContent = dailyIntakeData.totalProtein;
         dailyFat.textContent = dailyIntakeData.totalFat;
@@ -264,6 +273,7 @@ async function getOwnFoodData(){
         noOwnFood.style.display="block";
     }else{
         const ownFoodData = data.data;
+        ownFoodList.innerHTML="";
         for(let i=0;i<ownFoodData.length;i++){
             const ownFood = document.createElement("div");
             ownFood.setAttribute("class","ownFood");
@@ -572,18 +582,3 @@ addNewFoodButton.addEventListener("click", ()=> {
         })
     }
 })
-
-// preview photo of meal
-fileUploader.addEventListener("change", (e) => {
-    preview.style.display="block";
-    const imageFile = e.target.files[0];
-    imageType = imageFile["type"].slice(6)
-    const reader = new FileReader();
-    reader.readAsArrayBuffer(imageFile)
-    // 這會在readAS後才執行
-    reader.onload =  () => {
-        arrayBuffer = reader.result;
-        const blob = new Blob([arrayBuffer], {type:`image/${imageType}`});
-        previewImage.src = URL.createObjectURL(blob);
-    };
-});
