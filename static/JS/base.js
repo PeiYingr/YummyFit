@@ -12,14 +12,14 @@ let memberCenterFrameStatus = 0 // status = close
 // click memberCenter(text) : show/hide memberCenterFrame
 
 title.addEventListener("click", () =>{
-    location.href="/";
+    location.href="/index";
 })
 
 memberInfo.addEventListener("click", () =>{
     location.href="/member";
 })
 foodDiary.addEventListener("click", () =>{
-    location.href="/";
+    location.href="/index";
 })
 
 closeIcon.addEventListener("click", () =>{
@@ -41,7 +41,7 @@ fetch("/api/user").then(function(response){
     return response.json();
 }).then(function(data){
     if(data.error == true){
-        location.href="/sign"
+        location.href="/";
     }else{
         const userData = data.data;
         return;
