@@ -28,7 +28,7 @@
             </div> -->
         </div>
         <div class="noOwnFood">
-            <div class="noRecordPicture"><img src="/Images/food.jpg"></div>
+            <div class="noRecordPicture"><img src="http://dle57qor2pt0d.cloudfront.net/norecord.jpg"></div>
             <div class="noRecordText">No food yet.
                 <br/>Go ahead to add your own food!
             </div>
@@ -58,6 +58,7 @@
                         </div>
                         <div class="searchResultBox"></div>
                         <div class="noResultBox"></div>
+                        <div class="searchOwnFoodButton">Your food list</div>
                         <div class="addNewFoodBar">
                             <div class="addNewFood"><img src="/Images/create.png"/>Add Your Own Food</div>
                             <div class="newFoodInfoFrame">
@@ -74,13 +75,19 @@
                                     <input type="text"  class="newFoodCarbsInput" placeholder="(g)" autocomplete="off"/>
                                 </div>                                
                             </div>
+                            <div class="unit">(per 100g food)</div>
                             <div class="notice">
-                                <div class="unit">(per 100g food)</div>
+                                <form id="foodForm" enctype="multipart/form-data">
+                                    <div class="foodForm">
+                                        <img src="/Images/camera.png"/>
+                                        <span>Nutrition Facts</span>
+                                        <input type="file" class="foodFile" accept="image/*"/>                                
+                                    </div>
+                                </form>
                                 <div class="addNewFoodButton">save</div>
                                 <div class="addNewFoodResult">success!</div>
                             </div>
                         </div>
-                        <div class="searchOwnFoodButton">Check your own food</div>
                     </div>
                     <div class="foodRecordFrame">
                         <div class="foodRecord">
@@ -105,7 +112,7 @@
                                 </div> -->
                             </div>
                             <div class="noRecord">
-                                <div class="noRecordPicture"><img src="/Images/food.jpg"></div>
+                                <div class="noRecordPicture"><img src="http://dle57qor2pt0d.cloudfront.net/norecord.jpg"></div>
                                 <div class="noRecordText">No record yet.
                                     <br/>Go ahead to add your food records!
                                 </div>
@@ -123,12 +130,22 @@
                                 <div class="form">
                                     <img src="/Images/addImage.png"/>
                                     <span>Select File</span>
-                                    <input type="file" class="fileUploader"  accept="image/*"/>                                
+                                    <input type="file" class="fileUploader" accept="image/*" multiple="multiple"/>                                
                                 </div>
-                                <button class="sendImageButton" type="button">send</button>
+                                <div class="sendImageButton" type="button">Upload</div>
                             </form>
-                            <div class="preview"><img id="previewImage"/></div>                            
                         </div>
+                    </div>
+                    <div class="foodPhotoRegion">
+                        <!-- <div class="foodPhotoBlock">
+                            <div class="foodPhoto"><img/></div>
+                            <div class="photoDeleteIcon"><img src="/Images/delete.png"/></div>
+                            <div class="foodPhotoPreviewText">preview</div>
+                        </div> -->
+                    </div>
+                    <div class="noPhotos">
+                        <div class="noPhotosText">No photos yet.</div>
+                        <div class="photoIcon"><img src="/Images/photo.png"></div>
                     </div>
                 </div>
             </div>         
@@ -184,12 +201,21 @@
                 </div>
             </div>
             <div class="recordChart">
-                 <canvas id="myChart"></canvas>           
+                <canvas id="myChart"></canvas>
+                <div class="noChart">
+                    <div class="noChartPicture"><img src="http://dle57qor2pt0d.cloudfront.net/norecord.jpg"></div>
+                    <div class="noChartText">No record yet.
+                        <br/>Go ahead to add your food records!
+                    </div>
+                    <div class="upIcon"><img src="/Images/up.png"><img src="/Images/up.png"><img src="/Images/up.png"></div>
+                </div>           
             </div>
         </div>
     </div>
     <%- include("footer") %>
-    <script src="/JS/chart.js"></script>
     <script src="/JS/index.js"></script>
+    <script src="/JS/mealPhoto.js"></script>
+    <script src="/JS/chart.js"></script>
+    <script src="/JS/ocr.js"></script>
 </body>
 </html>
