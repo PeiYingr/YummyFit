@@ -425,7 +425,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     text-align: center;
     color: #FFFFFF;
     cursor: pointer;
-    margin-left: 40px;
+    margin-left: 50px;
 }
 .addNewFoodButton:hover{
     background: #db776c;
