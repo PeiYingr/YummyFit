@@ -47,8 +47,8 @@ photoRouter.post("/avatar", upload.single("image"), async(req, res) => {
                     if(err){
                         res.status(500).json({ error: err });
                     }else{
-                        avatarCloudFrontUrl = data.Location.replace("https://peiprojectbucket.s3.amazonaws.com","http://dle57qor2pt0d.cloudfront.net");
-                        avatarCloudFrontUrl = avatarCloudFrontUrl.replace("https://peiprojectbucket.s3.us-west-2.amazonaws.com","http://dle57qor2pt0d.cloudfront.net");
+                        avatarCloudFrontUrl = data.Location.replace("https://peiprojectbucket.s3.amazonaws.com","https://dle57qor2pt0d.cloudfront.net");
+                        avatarCloudFrontUrl = avatarCloudFrontUrl.replace("https://peiprojectbucket.s3.us-west-2.amazonaws.com","https://dle57qor2pt0d.cloudfront.net");
                         await photoModel.addAvatar(userID, avatarCloudFrontUrl);
                         let response = {
                             "data": avatarCloudFrontUrl
@@ -157,11 +157,11 @@ photoRouter.post("/meal", upload.array("images", 3), async(req, res) => {
                                     const data = await s3.upload(params).promise();
                                     mealCloudFrontUrl = data.Location.replace(
                                         "https://peiprojectbucket.s3.amazonaws.com",
-                                        "http://dle57qor2pt0d.cloudfront.net"
+                                        "https://dle57qor2pt0d.cloudfront.net"
                                     );
                                     mealCloudFrontUrl = mealCloudFrontUrl.replace(
                                         "https://peiprojectbucket.s3.us-west-2.amazonaws.com",
-                                        "http://dle57qor2pt0d.cloudfront.net"
+                                        "https://dle57qor2pt0d.cloudfront.net"
                                     );
                                     await photoModel.addMealPhoto(userID, date, whichMeal, mealCloudFrontUrl);
                                     resolve(mealCloudFrontUrl);
