@@ -305,6 +305,7 @@ li{
 }
 .targetMacrosValue{
     width:100px;
+    flex:none;
 }
 .targetMacrosPercentage{
     font-size: 14px;
@@ -353,54 +354,4 @@ li{
     font-size: 16px;
     color: #7f5539;
     margin: auto;
-}
-@media (max-width:1200px){
-    .memberFrame{
-        width:95%;
-    }
-    .memberPhoto{
-        width:40%;
-    }
-    .memberInformationBlock{
-        width:40%;
-    }
-}
-
-@media (max-width:1000px){
-    .memberPhoto{
-        margin:0px 0px 0px 20px;
-        width:350px;
-        height:350px;
-    }
-}
-
-@media (max-width:730px){
-    .memberFrame {
-        height: auto;
-    }
-    .memberDetailFrame{
-        display:inline-block;
-    }
-    .memberPhoto{
-        margin:20px auto;
-        width:350px;
-        height:350px;
-    }
-    .avatarUpload{
-        margin-top:0px;
-        text-align: end;
-        font-size: 18px;
-    }
-    .memberInformationBlock{
-        width:95%;
-        margin:70px auto 30px;
-        height: auto;
-    }
-}
-
-@media (max-width:400px){
-    .memberPhoto{
-        width:300px;
-        height:300px;
-    }
 }
