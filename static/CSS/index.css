@@ -46,7 +46,7 @@ body{
 }
 .ownFoodList{
     width:100%;   
-    height:400px;
+    height:340px;
     overflow-y: scroll;
     border-radius: 0px 0px 15px 15px;
 }
@@ -61,8 +61,8 @@ body{
     height:auto;
 }
 /* ownFoodList scrollbar style */
-.ownFoodList:-webkit-scrollbar{
-    width: 7px;
+.ownFoodList::-webkit-scrollbar{
+    width: 6px;
 }
 .ownFoodList::-webkit-scrollbar-thumb {
     background-color: #f0d4bc;
@@ -201,7 +201,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .search{
     width: 40px;
     height: 100%; 
-    cursor: pointer;
     border-bottom:1px solid #922c21;
     box-sizing: border-box;
 }
@@ -267,7 +266,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 /* searchResultBox scrollbar style */
 .searchResultBox::-webkit-scrollbar{
-    width: 7px;
+    width: 6px;
 }
 .searchResultBox::-webkit-scrollbar-thumb {
     background-color: #f0d4bc;
@@ -291,24 +290,23 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     background: #bf7e78;
     border-radius: 5px;
     box-sizing: border-box;
-    padding: 5px;
+    padding: 8px 5px;
     line-height: 20px;
     text-align: center;
     color: #FFFFFF;
     cursor: pointer;
-    margin-top: 30px;
-    margin-left: 30px;
-    width:70%
+    margin-top: 25px;
+    width:88%
 }
 .searchOwnFoodButton:hover{
     background: #db776c;
     font-weight: bold;
-    transform: scale(1.05);
+    transform: scale(1.02);
 }
 .addNewFoodBar{
-    width: 85%;
+    width: 88%;
     height: auto;
-    margin-top:40px;
+    margin-top:20px;
     border:1px solid #bf7e78;
     border-radius: 15px;
     font-weight: 500;
@@ -324,14 +322,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     width:30px; 
     height:30px;
     padding:10px;
+    margin-right: 5px;
 }
 .newFoodInfoFrame{
     display: flex;
 }
 .newFoodInfo{
-    width:45%;
+    width:35%;
 }
 .newFoodInfoInput{
+    margin-left: 15px;
     width:55%;
 }
 .newFoodName,.newFoodProtein, .newFoodFat ,.newFoodCarbs{
@@ -342,7 +342,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     font-size: 15px;
 }
 .newFoodNameInput,.newFoodProteinInput,.newFoodFatInput,.newFoodCarbsInput{
-    width:80%;
+    width:95%;
     box-sizing: border-box;
     font-size: 15px;
     padding:11px 7px 5px;
@@ -356,16 +356,65 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     font-size: 12px;
     text-align: end;
 }
+.unit{
+    margin:7px 0px 7px 25px;
+    font-size: 12px;
+    line-height:20px;
+    color:#666666
+}
 .notice{
     display:flex;
-    margin:10px;
+    margin-left:25px;
+    margin-bottom: 7px;
     font-size: 12px;
     height: 30px;
 }
-.unit{
-    width: 50%;
-    margin-left:18px ;
+#foodForm{
+    width: 57%;
+    height: 40px;
+    align-items: center;
+}
+.foodForm{
+    width: 100%;
+    height:30px;
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
+    background: #af8162;
+    color: #FFFFFF;
+    text-align:center;  
+    /* -web-border-radius:10px;
+    -moz-border-radius:10px; */
+    border-radius:10px;
+    font-size:12px;
+    font-weight: 500;
     line-height:30px;
+    box-sizing: border-box;
+}
+.foodForm input{
+    position: absolute;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    top: 0;
+    right: 0;
+    width:100%;
+    height:100%;
+    cursor:pointer;
+}
+.foodForm:hover {
+    background: #9f6a47;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+::-webkit-file-upload-button{ 
+    cursor:pointer;
+}
+.foodForm img{
+    width:25px;
+    height:25px;
+    padding-bottom: 2.5px;
+    vertical-align:middle;
 }
 .addNewFoodButton{
     background: #bf7e78;
@@ -376,7 +425,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     text-align: center;
     color: #FFFFFF;
     cursor: pointer;
-    margin-left: 50px;
+    margin-left: 40px;
 }
 .addNewFoodButton:hover{
     background: #db776c;
@@ -441,7 +490,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 .records{
     width:100%;   
-    height:370px;
+    height:355px;
     overflow-y: scroll;
 }
 .noRecord{
@@ -484,7 +533,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 /* foodRecord scrollbar style */
 .records::-webkit-scrollbar{
-    width: 7px;
+    width: 6px;
 }
 .records::-webkit-scrollbar-thumb {
     background-color: #f0d4bc;
@@ -627,6 +676,43 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     /* justify-content: center;
 	align-items: center; */
 }
+.noChart{
+    width:100%;   
+    align-items: center;
+}
+.noChartPicture{
+    width: 300px;
+    height: 300px;
+    margin: 60px auto 40px;
+}
+.noChartPicture img{
+    width: 100%;
+    height: 100%;
+    object-fit:cover;
+    border-radius: 5px;
+}
+.noChartText{
+    width: 100%;
+    height: 50px;
+    line-height: 25px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+    color: #7f5539;
+    margin: auto;
+}
+.upIcon{
+    width: 40px;
+    height: 40px;
+    margin: 25px auto;
+    display: flex;
+    justify-content: center;
+}
+.upIcon img{
+    width: 100%;
+    height: 100%;
+    object-fit:cover;
+}
 /*imageRecordRegion*/
 .imageRecordRegion{
     width: 100%;
@@ -635,16 +721,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 .addFoodPhoto{
     width: 28%;
-    height: 180px;
+    height: 160px;
     margin-left:10px ;
     font-weight: 500;
 }
 .limitText{
-    height: 15px; 
+    height: 20px; 
     line-height: 15px;
-    font-size: 12px;
-    margin-left: 2px;
-    letter-spacing: 0.3px;
+    font-size: 14px;
+    margin-top: 5;
+    margin-left:50px;
+    letter-spacing: 0.5px;
+    color: #666666;
 }
 .imageFileText{
     height: 40px; 
@@ -660,10 +748,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .sendImageRegion{
     width: 100%;
     display: flex;
-    height:135px;
+    height:120px;
 }
 #form{
-    width: 40%;
+    width: 50%;
     height: 40px;
     align-items: center;
 }
@@ -681,7 +769,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     font-size:12px;
     line-height:30px;
     box-sizing: border-box;
-    margin-top: 25px;
+    margin-top: 15px;
+    margin-left:35px;
 }
 .form input{
     position: absolute;
@@ -711,20 +800,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     margin-right:10px;  
     vertical-align:middle;
 }
-.preview{
-    width: 180px;
-    height: 130px;
-    margin-left: 10px;
-    margin-top: 5px;
-    display:none;
-}
-#previewImage{
-    width: 100%;
-    height: 100%;
-    object-fit:fill;
-    border-radius: 5px;
-}
 .sendImageButton{
+    width:100%;
     height:30px;
     line-height: 20px;
     background: #bf7e78;
@@ -737,6 +814,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     border: none;
     font-size: 12px;
     margin-top: 10px;
+    margin-left:35px;
 }
 .sendImageButton:hover{
     background: #db776c;
@@ -745,4 +823,89 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 .sendImageButton:active{
     transform:translateZ(1px) rotate(2deg) ;
+}
+.foodPhotoRegion{
+    width: 100%;
+    display: flex;
+}
+.foodPhotoBlock{
+    width: 220px;
+    height: 190px;
+    margin-left: 65px;
+    position: relative;
+    display: flex;
+}
+.foodPhoto{
+    width: 190px;
+    height: 170px;
+    margin: auto;
+}
+.foodPhoto img{
+    width: 100%;
+    height: 100%;
+    object-fit:cover;
+    border-radius: 20%;
+}
+.foodPhotoPreviewText{
+    width:70px;
+    height:24px;
+    line-height: 24px;
+    text-align: center;
+    font-size: 12px;
+    font-weight:500; 
+    color: #ffffff;
+    position: absolute;
+    z-index: 2;
+    top :5px;
+    background-color: #bf9d7e;
+    border-radius:10px;
+    box-shadow: 5px 5px 20px #bf9d7e;
+}
+.photoDeleteIcon, .cancelIcon{
+    width: 20px;
+    height: 20px;
+    cursor:pointer;
+    margin-top: 155px;
+    margin-left: 15px;
+    /* position: absolute;
+    bottom:0;
+    right:0; */
+}
+.photoDeleteIcon img, .cancelIcon img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.photoDeleteIcon:hover, .cancelIcon:hover{
+    transform: scale(1.1);
+}
+.photoDeleteIcon:active, .cancelIcon:active{
+    transform:translateZ(2px) rotate(5deg) ;
+}
+.noPhotos{
+    width:100%;   
+    align-items: center;
+    display:none;
+}
+.noPhotosText{
+    width: 100%;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+    color: #7f5539;
+    margin: 30px auto 0px;
+}
+.photoIcon{
+    width: 100px;
+    height: 100px;
+    margin: 15px auto;
+    display: flex;
+    justify-content: center;
+}
+.photoIcon img{
+    width: 100%;
+    height: 100%;
+    object-fit:cover;
 }
