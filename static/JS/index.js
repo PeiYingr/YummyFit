@@ -104,8 +104,8 @@ function showMealIntake(userIntakeData){
 function deleteOneIntakeRecords(){
     const oneRecords = document.querySelectorAll(".oneRecord")
     oneRecords.forEach((deleteOneRecord) =>{
-        const deleteIcon = deleteOneRecord.querySelector(".deleteIcon");
-        deleteIcon.addEventListener("click",() => {
+        const recordDeleteIcon = deleteOneRecord.querySelector(".deleteIcon");
+        recordDeleteIcon.addEventListener("click",() => {
             const food = deleteOneRecord.querySelector(".food").textContent;
             const amount = deleteOneRecord.querySelector(".amount").textContent;
             const deleteFood = {
@@ -321,7 +321,8 @@ calendarInput.addEventListener("change", () => {
     if (chooseIntakeMeal == "dailyIntake"){
         getDailyIntakeData();
     }else{
-        getMealIntakeData();      
+        getMealIntakeData();
+        getMealPhotos();     
     }
 })
 
@@ -448,6 +449,7 @@ breakfast.addEventListener("click", () => {
     dailyIntake.style.borderBottom = "none";
     chooseIntakeMeal = "breakfast";
     getMealIntakeData();
+    getMealPhotos();
 })
 
 lunch.addEventListener("click", () => {
@@ -463,6 +465,7 @@ lunch.addEventListener("click", () => {
     dailyIntake.style.borderBottom = "none";
     chooseIntakeMeal = "lunch";
     getMealIntakeData();
+    getMealPhotos();
 })
 
 dinner.addEventListener("click", () => {
@@ -478,6 +481,7 @@ dinner.addEventListener("click", () => {
     dailyIntake.style.borderBottom = "none";
     chooseIntakeMeal = "dinner";
     getMealIntakeData();
+    getMealPhotos();
 })
 
 snacks.addEventListener("click", () => {
@@ -493,6 +497,7 @@ snacks.addEventListener("click", () => {
     dailyIntake.style.borderBottom = "none";
     chooseIntakeMeal = "snacks";
     getMealIntakeData();
+    getMealPhotos();
 })
 
 dailyIntake.addEventListener("click", () => {
