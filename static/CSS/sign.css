@@ -79,7 +79,7 @@ body{
     height:100%;
     object-fit: cover;
 }
-.signinEmail, .signinPassword, .signupName, .signupEmail, .signupPassword{
+.signinEmail, .signinPassword, .signupName, .signupEmail{
     width: 100%;
     height: 47px;
     box-sizing: border-box;
@@ -107,6 +107,23 @@ body{
     -moz-transition: all 2s;
     transition: all 0.2s; */
 }
+.signupPassword{
+    width: 100%;
+    height: 47px;
+    box-sizing: border-box;
+    border: 1px solid #CCCCCC;
+    border-radius: 15px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height:47px;
+    color: #7f5539;
+    outline: none;
+    padding-left:55px ;
+    padding-right:20px;
+    /*input icon*/
+    background-position: 20px center;
+    background-repeat: no-repeat;
+}
 ::placeholder{
     font-size: 14px; 
     letter-spacing:0.5px;
@@ -119,6 +136,16 @@ body{
 }
 .signupName{
     background-image: url("/Images/user.png");
+}
+.passwordNotice{
+    font-weight: 700;
+    font-size: 13px;
+    color:#ee3d37;
+    height:20px;
+    line-height: 20px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    margin-left: 10px;
 }
 .signinButton, .signupButton{
     border:0;
