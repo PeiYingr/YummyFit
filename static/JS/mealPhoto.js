@@ -58,7 +58,14 @@ fileUploader.addEventListener("change", async() => {
     })
     const imageFiles = fileUploader.files;
     const foodPhotoNumber = document.querySelectorAll(".foodPhotoBlock");
-    if(foodPhotoNumber.length + imageFiles.length >3){
+    if(imageFiles.length == 0){
+        noticeWindow.style.display="block";
+        noticeMain.textContent = "No file selected.";
+        if(foodPhotoNumber.length + imageFiles.length == 0){
+            noPhotos.style.display="block";
+            foodPhotoRegion.style.display="none";
+        }
+    }else if(foodPhotoNumber.length + imageFiles.length >3){
         noticeWindow.style.display="block";
         noticeMain.textContent = "Up to 3 photos/meal";
     }else{
