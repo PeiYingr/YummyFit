@@ -29,6 +29,7 @@ function showMealPhoto(mealphoto){
 
 // get user's meal photo
 async function getMealPhotos(){
+    foodPhotoRegion.innerHTML="";
     const response = await fetch(`/api/photo/meal?meal=${chooseIntakeMeal}&date=${timestamp}`);
     const data = await response.json();
     if(data.error == true){
@@ -50,7 +51,11 @@ async function getMealPhotos(){
 }
 
 // preview photo of meal
-fileUploader.addEventListener("change", () => {
+fileUploader.addEventListener("change", async() => {
+    const nowPreviewPhotos = document.querySelectorAll(".previewPhotoBlock");
+    nowPreviewPhotos.forEach((removePreviewPhoto) =>{
+        removePreviewPhoto.remove();
+    })
     const imageFiles = fileUploader.files;
     const foodPhotoNumber = document.querySelectorAll(".foodPhotoBlock");
     if(foodPhotoNumber.length + imageFiles.length >3){
@@ -67,27 +72,30 @@ fileUploader.addEventListener("change", () => {
             reader.onload =  async() => {
                 arrayBuffer = reader.result;
                 const blob = new Blob([arrayBuffer], {type:`image/${imageType}`});
-                const foodPhotoBlock = document.createElement("div");
-                foodPhotoBlock.setAttribute("class","foodPhotoBlock");
-                const foodPhoto = document.createElement("div");
-                foodPhoto.setAttribute("class","foodPhoto");
-                const foodPhotoImg = document.createElement("img");
-                foodPhotoImg.setAttribute("src",URL.createObjectURL(blob));
-                foodPhoto.appendChild(foodPhotoImg);
-                const cancelIcon = document.createElement("div");
-                cancelIcon.setAttribute("class","cancelIcon");
-                const deleteIconImg = document.createElement("img");
-                deleteIconImg.setAttribute("src","/Images/cancel.png");
-                cancelIcon.appendChild(deleteIconImg);                  
-                foodPhotoBlock.appendChild(foodPhoto);
-                foodPhotoBlock.appendChild(cancelIcon); 
-                const foodPhotoPreviewText = document.createElement("div");
-                foodPhotoPreviewText.setAttribute("class","foodPhotoPreviewText");
-                foodPhotoPreviewText.textContent = "preview";
-                foodPhotoBlock.appendChild(foodPhotoPreviewText);
-                foodPhotoRegion.appendChild(foodPhotoBlock); 
-            }; 
-        }      
+                const previewPhotoBlock = document.createElement("div");
+                previewPhotoBlock.setAttribute("class","previewPhotoBlock");
+                const previewPhoto = document.createElement("div");
+                previewPhoto.setAttribute("class","previewPhoto");
+                const previewPhotoImg = document.createElement("img");
+                previewPhotoImg.setAttribute("src",URL.createObjectURL(blob));
+                previewPhoto.appendChild(previewPhotoImg);
+                const previewCancelIcon = document.createElement("div");
+                previewCancelIcon.setAttribute("class","previewCancelIcon");
+                const cancelIconImg = document.createElement("img");
+                cancelIconImg.setAttribute("src","/Images/cancel.png");
+                previewCancelIcon.appendChild(cancelIconImg);                  
+                previewPhotoBlock.appendChild(previewPhoto);
+                previewPhotoBlock.appendChild(previewCancelIcon); 
+                const previewPhotoPreviewText = document.createElement("div");
+                previewPhotoPreviewText.setAttribute("class","previewPhotoPreviewText");
+                previewPhotoPreviewText.textContent = "preview";
+                previewPhotoBlock.appendChild(previewPhotoPreviewText);
+                foodPhotoRegion.appendChild(previewPhotoBlock); 
+                if (i == imageFiles.length-1){
+                    deletePreviewPhotos();
+                }
+            };
+        }     
     }
 });
 
@@ -170,5 +178,39 @@ function deleteOnePhotos(){
                 }
             })
         })
+    })
+}
+
+// delete preview photo
+function deletePreviewPhotos(){
+    let previewPhotos = document.querySelectorAll(".previewPhotoBlock")
+    previewPhotos.forEach((deletePreviewPhoto) =>{
+        const previewCancelIcon = deletePreviewPhoto.querySelector(".previewCancelIcon");
+        previewCancelIcon.addEventListener("click",() => {
+            // 畫面上移除使用者要刪掉的預覽照片
+            deletePreviewPhoto.remove();
+            // 找出被刪掉預覽照片在陣列中是第幾個
+            let index = Array.from(previewPhotos).indexOf(deletePreviewPhoto);
+
+            let imageFiles = fileUploader.files;
+            // 將FileList轉換為array
+            let imageFilesArray = Array.from(imageFiles);
+            imageFilesArray.splice(index, 1); // 刪除array中index為第幾個的元素
+            //將array轉換回FileList，使用JavaScript中的DataTransfer物件
+            const dataTransfer = new DataTransfer();
+            imageFilesArray.forEach((file) => {
+              dataTransfer.items.add(file);
+            });
+            // 將DataTransfer轉換為新的FileList
+            const newFileList = dataTransfer.files;
+            // 把input的files值改為newFileList
+            fileUploader.files = newFileList;
+            // 從抓一次所有的previewPhotos，這樣按下一個刪除時上面的index才會是對的
+            previewPhotos = document.querySelectorAll(".previewPhotoBlock");
+            const havePreviewPhoto = document.querySelector(".previewPhotoBlock");
+            if (havePreviewPhoto == null){
+                getMealPhotos();
+            }  
+        })  
     })
 }
