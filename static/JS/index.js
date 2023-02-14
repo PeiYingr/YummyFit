@@ -272,6 +272,8 @@ async function getOwnFoodData(){
         ownFoodList.style.display="none";
         noOwnFood.style.display="block";
     }else{
+        noOwnFood.style.display="none";
+        ownFoodList.style.display="block";
         const ownFoodData = data.data;
         ownFoodList.innerHTML="";
         for(let i=0;i<ownFoodData.length;i++){
