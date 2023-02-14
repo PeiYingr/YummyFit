@@ -33,7 +33,7 @@ const signupButton=document.querySelector(".signupButton");
 const signupResult=document.createElement("div");
 signupResult.setAttribute("class","signupResult");
 const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-.]+){1,}$/;
-const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{4,8}$/;
+const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,20}$/;
 signupButton.addEventListener("click", () => {
     const signupName = document.querySelector(".signupName").value;
     const signupEmail = document.querySelector(".signupEmail").value;
@@ -44,9 +44,12 @@ signupButton.addEventListener("click", () => {
     }else{
         const emailResult = signupEmail.match(emailRegex);
         const passwordResult = signupPassword.match(passwordRegex);
-        if(emailResult == null || passwordResult == null){
+        if(emailResult == null){
             signupResult.setAttribute("style","color:#FF0000");        
-            signupResult.textContent="⚠️ Invalid Email or password";
+            signupResult.textContent="⚠️ Invalid Email";
+        }else if(passwordResult == null){
+            signupResult.setAttribute("style","color:#FF0000");        
+            signupResult.textContent="⚠️ Password need to be 6-20 chars, at least one letter and one number!";
         }else{
             const addMember = { 
                 "name":signupName,

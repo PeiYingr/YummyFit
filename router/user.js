@@ -27,7 +27,7 @@ userRouter.post("/", async(req, res) => {
                 });               
             }else{
 				const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-.]+){1,}$/;
-                const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{4,8}$/;
+                const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,20}$/;
 				const emailResult= email.match(emailRegex);
 				const passwordResult = password.match(passwordRegex);
                 // 加強密碼安全性
@@ -48,12 +48,17 @@ userRouter.post("/", async(req, res) => {
                     }
                     res.cookie("token", token, { httpOnly: true, expires: new Date(Date.now() + 3600000 * 24 * 7) });
                     res.status(200).json(response);                   
+                }else if(emailResult == null){
+                    res.status(400).json({ 			
+                        "error": true,
+                        "message": "⚠️ Invalid Email"
+                    });                     
                 }else{
                     res.status(400).json({ 			
                         "error": true,
-                        "message": "⚠️ Invalid Email or password"
-                    });                     
-                }  
+                        "message": "⚠️ Password need to be 6-20 chars, at least one letter and one number!"
+                    }); 
+                } 
             }
         }		
     }catch{
