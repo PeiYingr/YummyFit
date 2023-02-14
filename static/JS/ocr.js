@@ -19,7 +19,6 @@ foodFile.addEventListener("change", () => {
             let protein = foodInfo.proValue;
             let fat = foodInfo.fatValue;
             let carbs = foodInfo.carbsValue;
-            const regexHaveGrams = /公克/;
             if (foodInfo.name){
                 newFoodNameInput.value = foodInfo.name;
             }else{
@@ -31,9 +30,6 @@ foodFile.addEventListener("change", () => {
                 },1000)
             };
             if (protein){
-                if(protein.match(regexHaveGrams)){
-                    protein = protein.replace("公克","");
-                }
                 newFoodProteinInput.value = protein;
             }else{
                 newFoodProteinInput.style.color = "#FF0000";
@@ -44,9 +40,6 @@ foodFile.addEventListener("change", () => {
                 },1000)
             };
             if (fat){
-                if(fat.match(regexHaveGrams)){
-                    fat = fat.replace("公克","");
-                }
                 newFoodFatInput.value = fat;
             }else{
                 newFoodFatInput.style.color = "#FF0000";
@@ -57,9 +50,6 @@ foodFile.addEventListener("change", () => {
                 },1000)
             };
             if (carbs){
-                if(carbs.match(regexHaveGrams)){
-                    carbs = carbs.replace("公克","");
-                }
                 newFoodCarbsInput.value = carbs;
             }else{
                 newFoodCarbsInput.style.color = "#FF0000";
