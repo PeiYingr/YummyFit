@@ -198,17 +198,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     display:flex;
     margin-top:20px;
 }
-.search{
-    width: 40px;
-    height: 100%; 
-    border-bottom:1px solid #922c21;
-    box-sizing: border-box;
-}
-.search img{
-    width:30px; 
-    height:30px;
-    padding:10px 5px;
-}
 .foodInput,.gramInput{ 
     box-sizing: border-box;
     height: 100%;
@@ -222,7 +211,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     letter-spacing: 0.5px;
 }
 .foodInput{
-    width:170px;
+    width:210px;
+    /*input icon*/
+    padding-left:50px ;
+    background-position: 10px center;
+    background-repeat: no-repeat;
+    background-image: url("/Images/search.png");
 }
 .inputGap{
     width:20px; 
@@ -276,7 +270,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .searchResults, .noResult{
     width: 90%;
     height: auto;
-    font-size: 14px;
+    font-size: 15px;
     line-height: 20px;
     margin: 10px auto;
 }
@@ -285,6 +279,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     cursor: pointer;
     border-radius:5px;
     color: #922c21;
+    font-weight: bold;
 }
 .searchOwnFoodButton{
     background: #bf7e78;
@@ -915,4 +910,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     width: 100%;
     height: 100%;
     object-fit:cover;
+}
+.foodInput:focus, .gramInput:focus, .newFoodNameInput:focus, .newFoodProteinInput:focus, .newFoodFatInput:focus, .newFoodCarbsInput:focus{
+    border-bottom:2px solid #a45046;
 }
