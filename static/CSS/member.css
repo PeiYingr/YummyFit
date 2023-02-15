@@ -250,8 +250,8 @@ li{
 .target{
     width:100%;
     border-bottom: 1px solid #e0bfa0;;
-    height:50px;
-    line-height: 50px;
+    height:55px;
+    line-height: 55px;
     font-size: 20px;
     color: #7f5539;
     display: flex;
@@ -293,7 +293,7 @@ li{
 }
 .targetMacros{
     width:80%;
-    margin: auto; 
+    margin: 10px auto; 
     display: flex;
     font-weight: 500;
     line-height: 50px;
@@ -354,4 +354,7 @@ li{
     font-size: 16px;
     color: #7f5539;
     margin: auto;
+}
+.targetKcalInput:focus, .targetProteinInput:focus,.targetFatInput:focus,.targetCarbsInput:focus{
+    border-bottom:2px  solid #886140;
 }
