@@ -551,6 +551,9 @@ addNewFoodButton.addEventListener("click", ()=> {
     }else if(newFoodCarbs == ""){
         noticeWindow.style.display="block";
         noticeMain.textContent = "Enter carbs of new food."; 
+    }else if(isNaN(newFoodProtein) || isNaN(newFoodFat) || isNaN(newFoodCarbs)){
+        noticeWindow.style.display="block";
+        noticeMain.textContent = "Please enter correct amount."; 
     }else if(Number(newFoodProtein)<0 || Number(newFoodFat)<0 || Number(newFoodCarbs)<0){
         noticeWindow.style.display="block";
         noticeMain.textContent = "Enter correct amount of nutrients."; 
