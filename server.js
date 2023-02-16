@@ -8,6 +8,7 @@ const intakeRouter = require("./router/intake");
 const photoRouter = require("./router/photo");
 const targetRouter = require("./router/target");
 const ocrRouter = require("./router/ocr");
+const authRouter = require('./router/auth');
 
 app.use(express.static("./static"));
 app.set("view engine", "ejs");
@@ -33,6 +34,7 @@ app.use("/api/intake", intakeRouter);
 app.use("/api/photo", photoRouter);
 app.use("/api/target", targetRouter);
 app.use("/api/ocr", ocrRouter);
+app.use("/auth", authRouter);
 
 app.listen(port, () => {
   console.log(`伺服器已經啟動在 http://localhost:${port}/`);
