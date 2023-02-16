@@ -2,6 +2,7 @@ const express = require("express");
 const foodRouter = express.Router();    //產生router物件，存入變數
 const foodModel = require("../model/food");
 const jwt = require("jsonwebtoken");
+require("dotenv").config({ path: ".env" });
 const JwtSecret = process.env.JWT_SECRET_KEY;
 
 // fuzzy match(search) of public & own food

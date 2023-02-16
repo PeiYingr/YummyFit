@@ -2,6 +2,7 @@ const express = require("express");
 const targetRouter = express.Router();
 const targetModel = require("../model/target");
 const jwt = require("jsonwebtoken");
+require("dotenv").config({ path: ".env" });
 const JwtSecret = process.env.JWT_SECRET_KEY;
 
 //add or edit target data

@@ -3,6 +3,7 @@ const intakeRouter = express.Router();
 const intakeModel = require("../model/intake");
 const foodModel = require("../model/food");
 const jwt = require("jsonwebtoken");
+require("dotenv").config({ path: ".env" });
 const JwtSecret = process.env.JWT_SECRET_KEY;
 
 function responseMealData(result, allData){

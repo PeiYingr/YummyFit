@@ -6,6 +6,7 @@ const AWS = require("aws-sdk");
 // Create a token generator with the default settings:
 const randtoken = require("rand-token");
 const jwt = require("jsonwebtoken");
+require("dotenv").config({ path: ".env" });
 const JwtSecret = process.env.JWT_SECRET_KEY;
 
 // 設定 AWS 的訪問金鑰與區域
