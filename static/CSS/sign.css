@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Open+Sans:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap');
 *{
-    font-family: "Poppins";
+    font-family: "Poppins", "Noto Sans TC", sans-serif;
     letter-spacing:1.3px;
 }
 body{
@@ -151,7 +151,6 @@ body{
     border:0;
     width: 100%;
     height: 47px;
-    background: #7f5539;
     border-radius: 5px;
     padding: 10px 20px;
     font-weight: 400;
@@ -161,18 +160,33 @@ body{
     color: #FFFFFF;
     margin-bottom: 15px;
 }
+.signinButton{
+    background: linear-gradient(45deg,#f8c799, #bb8654, #9f6a47);
+}
+.signupButton{
+    background: linear-gradient(45deg, #bf9d7e, #bf7e78, #922c21);
+}
 .googleSign{
     width: 100%;
     height: 47px;
-    background: #FFFFFF;
-    color: #9f6a47;
+    background:linear-gradient(45deg, #bf9d7e, #bf7e78, #922c21);
+    color: #FFFFFF;
     border-radius: 5px;
     margin-bottom: 15px;
     display:flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
     font-weight: 500;
+}
+.signinButton:hover{
+    font-weight: bold;
+    cursor: pointer;
+    background: linear-gradient(225deg, #f8c799, #bb8654, #9f6a47);
+}
+.signupButton:hover, .googleSign:hover{
+    font-weight: bold;
+    cursor: pointer;
+    background: linear-gradient(225deg, #bf9d7e, #bf7e78, #922c21);
 }
 .googleSignImg{
     width: 36px;
@@ -191,9 +205,6 @@ body{
 }
 a{
     text-decoration: none;
-}
-.googleSign:hover{
-    font-weight: bold;
 }
 .signinResult, .signupResult{
     width: 100%;
@@ -214,11 +225,6 @@ a{
     text-align: center;
     color: #7f5539; 
     padding-bottom: 10px;
-}
-.signinButton:hover, .signupButton:hover{
-    font-weight: bold;
-    cursor: pointer;
-    background:#9f6a47;
 }
 .changeToSignup:hover, .changeToSignin:hover{
     font-weight: bold;

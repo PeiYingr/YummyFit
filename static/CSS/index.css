@@ -282,7 +282,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     font-weight: bold;
 }
 .searchOwnFoodButton{
-    background: #bf7e78;
+    background: linear-gradient(45deg, #db776c, #bf7e78, #922c21);
     border-radius: 5px;
     box-sizing: border-box;
     padding: 8px 5px;
@@ -294,7 +294,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     width:88%
 }
 .searchOwnFoodButton:hover{
-    background: #db776c;
+    background: linear-gradient(225deg, #db776c, #bf7e78, #922c21);
     font-weight: bold;
     transform: scale(1.02);
 }
@@ -375,7 +375,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     overflow: hidden;
     position: relative;
     display: inline-block;
-    background: #af8162;
+    background:linear-gradient(45deg, #bf9d7e, #af8162, #9f6a47);
     color: #FFFFFF;
     text-align:center;  
     /* -web-border-radius:10px;
