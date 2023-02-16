@@ -36,6 +36,15 @@ memberCenter.addEventListener("click", () =>{
     }
 })
 
+document.addEventListener("mousedown", () => {
+    if (memberCenterFrameStatus == 1) {
+        setTimeout(() => {
+            memberCenterFrame.style.display = "none";
+            memberCenterFrameStatus = 0;
+        },150)
+    }
+  });
+  
 // get signin status/information API
 fetch("/api/user").then(function(response){
     return response.json();
@@ -55,6 +64,6 @@ fetch("/api/user").then(function(response){
     }).then(function(response){
         return response.json();
     }).then(function(data){
-        location.reload();
+        location.href="/";
     });
  })
