@@ -64,7 +64,7 @@ photoRouter.post("/avatar", upload.single("image"), async(req, res) => {
             });        
         } 
     }catch{
-        return res.status(500).json({ 			
+        res.status(500).json({ 			
             "error": true,
             "message": "Server error" 
         });
@@ -98,7 +98,7 @@ photoRouter.get("/avatar", async(req, res) => {
             });        
         } 
     }catch{
-        return res.status(500).json({ 			
+        res.status(500).json({ 			
             "error": true,
             "message": "Server error" 
         });
@@ -181,7 +181,7 @@ photoRouter.post("/meal", upload.array("images", 3), async(req, res) => {
             });        
         } 
     }catch{
-        return res.status(500).json({ 			
+        res.status(500).json({ 			
             "error": true,
             "message": "Server error" 
         });
@@ -217,7 +217,7 @@ photoRouter.get("/meal", async(req, res) => {
             });        
         } 
     }catch{
-        return res.status(500).json({ 			
+        res.status(500).json({ 			
             "error": true,
             "message": "Server error" 
         });
@@ -248,7 +248,7 @@ photoRouter.delete("/meal", async(req, res) => {
             });        
         } 
     }catch{
-        return res.status(500).json({ 			
+        res.status(500).json({ 			
             "error": true,
             "message": "Server error" 
         })

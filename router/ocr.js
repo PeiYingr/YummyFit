@@ -187,7 +187,7 @@ ocrRouter.post("/", upload.single("image"), async(req, res) => {
             });        
         } 
     }catch{
-        return res.status(500).json({ 			
+        res.status(500).json({ 			
             "error": true,
             "message": "Server error" 
         });

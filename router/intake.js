@@ -92,7 +92,7 @@ intakeRouter.post("/", async(req, res) => {
             });        
         } 
     }catch{
-        return res.status(500).json({ 			
+        res.status(500).json({ 			
             "error": true,
             "message": "Server error" 
         });
@@ -130,7 +130,7 @@ intakeRouter.get("/", async(req, res) => {
             });        
         } 
     }catch{
-        return res.status(500).json({ 			
+        res.status(500).json({ 			
             "error": true,
             "message": "Server error" 
         })
@@ -162,7 +162,7 @@ intakeRouter.delete("/", async(req, res) => {
             });        
         } 
     }catch{
-        return res.status(500).json({ 			
+        res.status(500).json({ 			
             "error": true,
             "message": "Server error" 
         })
@@ -237,7 +237,7 @@ intakeRouter.get("/daily", async(req, res) => {
             });        
         } 
     }catch{
-        return res.status(500).json({ 			
+        res.status(500).json({ 			
             "error": true,
             "message": "Server error" 
         })

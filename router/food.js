@@ -38,7 +38,7 @@ foodRouter.get("/", async(req, res) => {
             });        
         }
     }catch{
-        return res.status(500).json({ 			
+        res.status(500).json({ 			
             "error": true,
             "message": "Server error" 
         })
@@ -91,7 +91,7 @@ foodRouter.post("/userfood", async(req, res) => {
             });        
         }
     }catch{
-        return res.status(500).json({ 			
+        res.status(500).json({ 			
             "error": true,
             "message": "Server error" 
         })
@@ -125,7 +125,7 @@ foodRouter.get("/userfood", async(req, res) => {
             });        
         }
     }catch{
-        return res.status(500).json({ 			
+        res.status(500).json({ 			
             "error": true,
             "message": "Server error" 
         })
@@ -154,7 +154,7 @@ foodRouter.delete("/userfood", async(req, res) => {
             });        
         } 
     }catch{
-        return res.status(500).json({ 			
+        res.status(500).json({ 			
             "error": true,
             "message": "Server error" 
         })
