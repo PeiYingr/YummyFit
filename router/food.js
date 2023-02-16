@@ -64,6 +64,11 @@ foodRouter.post("/userfood", async(req, res) => {
                     "error": true,
                     "message": "Enter new food information incompletely."
                 });  
+            }else if(isNaN(protein) || isNaN(fat) || isNaN(carbs)){
+                res.status(400).json({ 			
+                    "error": true,
+                    "message": "Please enter correct amount."
+                }); 
             }else if(Number(protein)<0 || Number(fat)<0 || Number(carbs)<0){
                 res.status(400).json({ 			
                     "error": true,
