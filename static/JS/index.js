@@ -334,53 +334,59 @@ foodInput.addEventListener("blur",() => {
     },150)
 })
 
+foodInput.addEventListener("click", () => {
+  foodInput.select();
+});
+
+let timer;
 // fuzzy match(search) of public & own food
 foodInput.addEventListener("input", () => {
-    const foodsearch = foodInput.value;
-    let searchResults = document.querySelectorAll(".searchResults");
-    if(searchResults[0]){
-        searchResults.forEach(element => {
-            element.remove();
-        });          
-    };
-    fetch(`/api/food?keyword=${foodsearch}`).then(function(response){  //method:"GET"
-        return response.json();  
-    }).then(function(data){
-        searchResults = document.querySelectorAll(".searchResults");
-        if(searchResults[0]){
-            searchResults.forEach(element => {
-                element.remove();
-            });          
-        };
-        if(data.error == true){
-            const searchResult = document.createElement("div");
-            searchResult.setAttribute("class","searchResults");
-            const searchResultText = document.createTextNode(data.message);
-            searchResult.appendChild(searchResultText);
-            searchResultBox.appendChild(searchResult);
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+        const foodsearch = foodInput.value;
+        if(foodsearch.length === 0){
+            searchResultBox.style.display="none";
         }else{
-            for(let i=0;i<data.length;i++){
+            fetch(`/api/food?keyword=${foodsearch}`).then(function(response){  //method:"GET"
+                return response.json();  
+            }).then(function(data){
+                const searchResults = document.querySelectorAll(".searchResults");
+                if(searchResults[0]){
+                    searchResults.forEach(element => {
+                        element.remove();
+                    });          
+                };
                 searchResultBox.style.display="block";
-                const searchFoodData = data[i];
-                const searchResult = document.createElement("div");
-                searchResult.setAttribute("class","searchResults");
-                const searchResultText = document.createTextNode(searchFoodData.name);
-                searchResult.appendChild(searchResultText);
-                searchResultBox.appendChild(searchResult); 
-            };         
-        };
-        const searchResultsLast = document.getElementsByClassName("searchResults");
-        for(let i=0;i<searchResultsLast.length;i++){
-            if(searchResultsLast[i].textContent == "No Data"){
-                searchResultsLast[i].style.cursor="not-allowed";
-            }else{
-                searchResultsLast[i].addEventListener("click", () => {
-                    foodInput.value = searchResultsLast[i].textContent;
-                    searchResultBox.style.display="none";
-                });                
-            }
-        };
-    });
+                if(data.error == true){
+                    const searchResult = document.createElement("div");
+                    searchResult.setAttribute("class","searchResults");
+                    const searchResultText = document.createTextNode(data.message);
+                    searchResult.appendChild(searchResultText);
+                    searchResultBox.appendChild(searchResult);
+                }else{
+                    for(let i=0;i<data.length;i++){
+                        const searchFoodData = data[i];
+                        const searchResult = document.createElement("div");
+                        searchResult.setAttribute("class","searchResults");
+                        const searchResultText = document.createTextNode(searchFoodData.name);
+                        searchResult.appendChild(searchResultText);
+                        searchResultBox.appendChild(searchResult); 
+                    };         
+                };
+                const searchResultsLast = document.getElementsByClassName("searchResults");
+                for(let i=0;i<searchResultsLast.length;i++){
+                    if(searchResultsLast[i].textContent == "No Data"){
+                        searchResultsLast[i].style.cursor="not-allowed";
+                    }else{
+                        searchResultsLast[i].addEventListener("click", () => {
+                            foodInput.value = searchResultsLast[i].textContent;
+                            searchResultBox.style.display="none";
+                        });                
+                    }
+                };
+            });  
+        }
+    }, 400);
 });
 
 // add meal intake
