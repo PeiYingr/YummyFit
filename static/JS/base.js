@@ -58,9 +58,6 @@ fetch("/api/user").then(function(response){
     }else{
         mainLoading.style.display = "none";
         main.style.display = "block";
-        const userData = data.data;
-        memberName.textContent = userData.name;
-        memberMail.textContent = userData.email;
     }
 });
 
