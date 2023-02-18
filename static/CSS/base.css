@@ -6,7 +6,6 @@
 body{
     margin:0;
     padding:0;
-    background:#bf9d7e;
 }
 .frameColor{
     background:#e9dacb;
@@ -170,7 +169,31 @@ body{
     padding-bottom:32px;
     color: #FFFFFF;
 }
-
+.mainLoading{
+    width:100vw;
+    height:100vh;
+    text-align: center;
+    font-weight: 500;
+    background: #ede0d4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.mainLoadingText{
+    color: #db776c;
+    font-size: 50px;
+    margin-right: 50px;
+}
+.mainLoading img{
+    width:100px;
+    height:100px;
+    object-fit: fill;
+}
+.main{
+    height:auto;
+    background:#bf9d7e;
+    display:none
+}
 @media (max-width:1230px){
     .frame{
         width:98%;

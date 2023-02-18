@@ -18,13 +18,16 @@ app.use(express.urlencoded({ extended: false })); // 通常是接收前端提交
 
 // pages
 app.get("/", (req, res) => {
-  res.render("sign");
-});
-app.get("/index", (req, res) => {
   res.render("index");
+});
+app.get("/login", (req, res) => {
+  res.render("sign");
 });
 app.get("/member", (req, res) => {
   res.render("member");
+});
+app.get("/community", (req, res) => {
+  res.render("community");
 });
 
 // 將users的requests，導入到對應的Router處理

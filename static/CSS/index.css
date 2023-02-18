@@ -329,6 +329,22 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     margin-left: 15px;
     width:55%;
 }
+.newFoodInfoInputLoading{
+    margin: auto;
+    width:100px;
+    text-align: center;
+    font-weight: 500;
+    display: none;
+}
+.newFoodLoadingText{
+    color: #db776c;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+.newFoodInfoInputLoading img{
+    width:60px;
+    height:60px;
+}
 .newFoodName,.newFoodProtein, .newFoodFat ,.newFoodCarbs{
     display: flex;
     margin:5px 0px 0px 30px;
@@ -913,4 +929,20 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 .foodInput:focus, .gramInput:focus, .newFoodNameInput:focus, .newFoodProteinInput:focus, .newFoodFatInput:focus, .newFoodCarbsInput:focus{
     border-bottom:2px solid #a45046;
+}
+.foodPhotosUploadLoading{  
+    margin: auto;
+    width:100px;
+    text-align: center;
+    font-weight: 500;
+    display: none;
+}
+.foodPhotosUploadLoadingText{
+    color: #db776c;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+.foodPhotosUploadLoading img{
+    width:70px;
+    height:70px;
 }

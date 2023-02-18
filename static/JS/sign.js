@@ -74,7 +74,7 @@ signupButton.addEventListener("click", () => {
                     signupResult.setAttribute("style","color:#008000");           
                     signupResult.textContent = "Welcome ...";  
                     setTimeout(() => {
-                        location.href="/index";
+                        location.href="/";
                     },2000)
                 }                     
             })
@@ -116,7 +116,7 @@ signinButton.addEventListener("click", () => {
                 signinSection.insertBefore(signinResult,changeToSignup);  
             }
             if(data.ok == true){
-                location.href="/index";
+                location.href="/";
             }
         })
     }
@@ -131,6 +131,6 @@ fetch("/api/user").then(function(response){
         return;
     }
     else{
-        location.href="/index"
+        location.href="/"
     }
 });

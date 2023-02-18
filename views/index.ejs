@@ -7,217 +7,231 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <%- include("navbar") %>
-    <div class="ownFoodFrame">
-        <div class="nutrientType">
-            <div class="ownFoodName">Food</div>
-            <div class="ownFoodProtein">Protein<span class="gram">(g)</span></div>
-            <div class="ownFoodFat">Fat<span class="gram">(g)</span></div>
-            <div class="ownFoodCarbs">Carbs<span class="gram">(g)</span></div>
-            <div class="deleteSpace"></div>
-            <div class="closeOwnFoodFrame"><img src="/Images/close.png"/></div>
-        </div>
-        <div class="ownFoodList">
-            <!-- <div class="ownFood">
-                <div class="ownFoodName">RiceBall</div>
-                <div class="ownFoodProtein">8</div>
-                <div class="ownFoodFat">8</div>
-                <div class="ownFoodCarbs">42.5</div>
-                <div class="deleteOwnFoodIcon"><img src="/Images/delete.png"></div>                               
-            </div> -->
-        </div>
-        <div class="noOwnFood">
-            <div class="noRecordPicture"><img src="https://dle57qor2pt0d.cloudfront.net/norecord.jpg"></div>
-            <div class="noRecordText">No food yet.
-                <br/>Go ahead to add your own food!
-            </div>
-            <div class="leftIcon"><img src="/Images/left.png"><img src="/Images/left.png"><img src="/Images/left.png"></div>
-        </div>
+    <div class="mainLoading">
+        <div class="mainLoadingText">Loading</div>
+        <img src="/Images/loading.gif"/>
     </div>
-    <div class="mealFrame">
-        <div class="mealType">
-            <div class="calendar"><input type="date" id="calendar"></div>
-            <div class="date"></div>
-            <div class="breakfast">Breakfast</div>
-            <div class="lunch">Lunch</div>
-            <div class="dinner">Dinner</div>
-            <div class="snacks">Snacks</div>
-            <div class="dailyIntake">Daily Intake</div>
+    <div class="main">
+        <%- include("navbar") %>
+        <div class="ownFoodFrame">
+            <div class="nutrientType">
+                <div class="ownFoodName">Food</div>
+                <div class="ownFoodProtein">Protein<span class="gram">(g)</span></div>
+                <div class="ownFoodFat">Fat<span class="gram">(g)</span></div>
+                <div class="ownFoodCarbs">Carbs<span class="gram">(g)</span></div>
+                <div class="deleteSpace"></div>
+                <div class="closeOwnFoodFrame"><img src="/Images/close.png"/></div>
+            </div>
+            <div class="ownFoodList">
+                <!-- <div class="ownFood">
+                    <div class="ownFoodName">RiceBall</div>
+                    <div class="ownFoodProtein">8</div>
+                    <div class="ownFoodFat">8</div>
+                    <div class="ownFoodCarbs">42.5</div>
+                    <div class="deleteOwnFoodIcon"><img src="/Images/delete.png"></div>                               
+                </div> -->
+            </div>
+            <div class="noOwnFood">
+                <div class="noRecordPicture"><img src="https://dle57qor2pt0d.cloudfront.net/norecord.jpg"></div>
+                <div class="noRecordText">No food yet.
+                    <br/>Go ahead to add your own food!
+                </div>
+                <div class="leftIcon"><img src="/Images/left.png"><img src="/Images/left.png"><img src="/Images/left.png"></div>
+            </div>
         </div>
-        <div  class="mealRecordFrame">
-            <div class="mealRecordBlock">
-                <div class="foodRecordRegion">
-                    <div class="addFoodRecord">
-                        <div class="searchbar">
-                            <input type="text" class="foodInput" placeholder="Search food" autocomplete="off"/>
-                            <div class="inputGap"></div>
-                            <input type="text" class="gramInput" placeholder="(g)" autocomplete="off"/>
-                            <div class="add"><img src="/Images/add.png"/></div>
-                        </div>
-                        <div class="searchResultBox"></div>
-                        <div class="noResultBox"></div>
-                        <div class="searchOwnFoodButton">Your food list</div>
-                        <div class="addNewFoodBar">
-                            <div class="addNewFood"><img src="/Images/create.png"/>Add Your Own Food</div>
-                            <div class="newFoodInfoFrame">
-                                <div class="newFoodInfo">
-                                    <div class="newFoodName">Name:</div>
-                                    <div class="newFoodProtein">Protein:</div>
-                                    <div class="newFoodFat">Fat:</div>
-                                    <div class="newFoodCarbs">Carbs:</div>                               
-                                </div>
-                                <div class="newFoodInfoInput">
-                                    <input type="text"  class="newFoodNameInput" autocomplete="off"/>
-                                    <input type="text"  class="newFoodProteinInput" placeholder="(g)" autocomplete="off"/>
-                                    <input type="text"  class="newFoodFatInput" placeholder="(g)" autocomplete="off"/>
-                                    <input type="text"  class="newFoodCarbsInput" placeholder="(g)" autocomplete="off"/>
-                                </div>                                
+        <div class="mealFrame">
+            <div class="mealType">
+                <div class="calendar"><input type="date" id="calendar"></div>
+                <div class="date"></div>
+                <div class="breakfast">Breakfast</div>
+                <div class="lunch">Lunch</div>
+                <div class="dinner">Dinner</div>
+                <div class="snacks">Snacks</div>
+                <div class="dailyIntake">Daily Intake</div>
+            </div>
+            <div  class="mealRecordFrame">
+                <div class="mealRecordBlock">
+                    <div class="foodRecordRegion">
+                        <div class="addFoodRecord">
+                            <div class="searchbar">
+                                <input type="text" class="foodInput" placeholder="Search food" autocomplete="off"/>
+                                <div class="inputGap"></div>
+                                <input type="text" class="gramInput" placeholder="(g)" autocomplete="off"/>
+                                <div class="add"><img src="/Images/add.png"/></div>
                             </div>
-                            <div class="unit">(per 100g food)</div>
-                            <div class="notice">
-                                <form id="foodForm" enctype="multipart/form-data">
-                                    <div class="foodForm">
-                                        <img src="/Images/camera.png"/>
-                                        <span>Nutrition Facts</span>
-                                        <input type="file" class="foodFile" accept="image/*"/>                                
+                            <div class="searchResultBox"></div>
+                            <div class="noResultBox"></div>
+                            <div class="searchOwnFoodButton">Your food list</div>
+                            <div class="addNewFoodBar">
+                                <div class="addNewFood"><img src="/Images/create.png"/>Add Your Own Food</div>
+                                <div class="newFoodInfoFrame">
+                                    <div class="newFoodInfo">
+                                        <div class="newFoodName">Name:</div>
+                                        <div class="newFoodProtein">Protein:</div>
+                                        <div class="newFoodFat">Fat:</div>
+                                        <div class="newFoodCarbs">Carbs:</div>                               
                                     </div>
+                                    <div class="newFoodInfoInput">
+                                        <input type="text"  class="newFoodNameInput" autocomplete="off"/>
+                                        <input type="text"  class="newFoodProteinInput" placeholder="(g)" autocomplete="off"/>
+                                        <input type="text"  class="newFoodFatInput" placeholder="(g)" autocomplete="off"/>
+                                        <input type="text"  class="newFoodCarbsInput" placeholder="(g)" autocomplete="off"/>
+                                    </div>   
+                                    <div class="newFoodInfoInputLoading">
+                                        <div class="newFoodLoadingText">Loading</div>
+                                        <img src="/Images/loading.gif"/>
+                                    </div>                             
+                                </div>
+                                <div class="unit">(per 100g food)</div>
+                                <div class="notice">
+                                    <form id="foodForm" enctype="multipart/form-data">
+                                        <div class="foodForm">
+                                            <img src="/Images/camera.png"/>
+                                            <span>Nutrition Facts</span>
+                                            <input type="file" class="foodFile" accept="image/*"/>                                
+                                        </div>
+                                    </form>
+                                    <div class="addNewFoodButton">save</div>
+                                    <div class="addNewFoodResult">success!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="foodRecordFrame">
+                            <div class="foodRecord">
+                                <div class="nutrientType">
+                                    <div class="food">Food</div>
+                                    <div class="amount">Amount<span class="gram">(g)</span></div>
+                                    <div class="protein">Protein<span class="gram">(g)</span></div>
+                                    <div class="fat">Fat<span class="gram">(g)</span></div>
+                                    <div class="carbs">Carbs<span class="gram">(g)</span></div>
+                                    <div class="kcal">Calories</div>
+                                    <div class="deleteIconSpace"></div>
+                                </div>
+                                <div class="records">
+                                    <!-- <div class="oneRecord">
+                                        <div class="food">RiceBall</div>
+                                        <div class="amount">159</div>
+                                        <div class="protein">8</div>
+                                        <div class="fat">8</div>
+                                        <div class="carbs">42.5</div>
+                                        <div class="Calorie">274</div>
+                                        <div class="deleteIcon"><img src="/Images/delete.png"></div>                               
+                                    </div> -->
+                                </div>
+                                <div class="noRecord">
+                                    <div class="noRecordPicture"><img src="https://dle57qor2pt0d.cloudfront.net/norecord.jpg"></div>
+                                    <div class="noRecordText">No record yet.
+                                        <br/>Go ahead to add your food records!
+                                    </div>
+                                    <div class="leftIcon"><img src="/Images/left.png"><img src="/Images/left.png"><img src="/Images/left.png"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="imageRecordRegion">
+                        <div class="addFoodPhoto">
+                            <div class="imageFileText"><img src="/Images/foodbar.png"/>Add Food Photo</div>
+                            <div class="limitText">(Up to 3 photos/m)</div>
+                            <div class="sendImageRegion">
+                                <form id="form" enctype="multipart/form-data">
+                                    <div class="form">
+                                        <img src="/Images/addImage.png"/>
+                                        <span>Select File</span>
+                                        <input type="file" class="fileUploader" accept="image/*" multiple="multiple"/>                                
+                                    </div>
+                                    <div class="sendImageButton" type="button">Upload</div>
                                 </form>
-                                <div class="addNewFoodButton">save</div>
-                                <div class="addNewFoodResult">success!</div>
                             </div>
+                        </div>
+                        <div class="foodPhotoRegion">
+                            <!-- <div class="foodPhotoBlock">
+                                <div class="foodPhoto"><img/></div>
+                                <div class="photoDeleteIcon"><img src="/Images/delete.png"/></div>
+                            </div> -->
+                            <!-- <div class="previewPhotoBlock">
+                                <div class="previewPhoto"><img/></div>
+                                <div class="previewCancelIcon"><img src="/Images/cancel.png"/></div>
+                                <div class="previewPhotoPreviewText">preview</div>
+                            </div> -->
+                        </div>
+                        <div class="noPhotos">
+                            <div class="noPhotosText">No photos yet.</div>
+                            <div class="photoIcon"><img src="/Images/photo.png"></div>
+                        </div>
+                        <div class="foodPhotosUploadLoading">
+                            <div class="foodPhotosUploadLoadingText">Loading</div>
+                            <img src="/Images/loading.gif"/>
                         </div>
                     </div>
-                    <div class="foodRecordFrame">
-                        <div class="foodRecord">
-                            <div class="nutrientType">
-                                <div class="food">Food</div>
-                                <div class="amount">Amount<span class="gram">(g)</span></div>
-                                <div class="protein">Protein<span class="gram">(g)</span></div>
-                                <div class="fat">Fat<span class="gram">(g)</span></div>
-                                <div class="carbs">Carbs<span class="gram">(g)</span></div>
-                                <div class="kcal">Calories</div>
-                                <div class="deleteIconSpace"></div>
-                            </div>
-                            <div class="records">
-                                <!-- <div class="oneRecord">
-                                    <div class="food">RiceBall</div>
-                                    <div class="amount">159</div>
-                                    <div class="protein">8</div>
-                                    <div class="fat">8</div>
-                                    <div class="carbs">42.5</div>
-                                    <div class="Calorie">274</div>
-                                    <div class="deleteIcon"><img src="/Images/delete.png"></div>                               
-                                </div> -->
-                            </div>
-                            <div class="noRecord">
-                                <div class="noRecordPicture"><img src="https://dle57qor2pt0d.cloudfront.net/norecord.jpg"></div>
-                                <div class="noRecordText">No record yet.
-                                    <br/>Go ahead to add your food records!
-                                </div>
-                                <div class="leftIcon"><img src="/Images/left.png"><img src="/Images/left.png"><img src="/Images/left.png"></div>
-                            </div>
+                </div>         
+            </div>
+            <div class="dailyRecordFrame">
+                <div class="dailyRecordBlock">
+                    <div class="macroCompareList">
+                        <div class="compareText">
+                            <div class="macrosText"></div>
+                            <div class="targetText">Target</div>
+                            <div class="dailyText">Daily</div>
                         </div>
+                        <div class="compare">
+                            <div class="macros">
+                                <div class="textKcal">Calories</div>
+                                <div class="textProtein">Protein<span class="gram">(g)</span></div>
+                                <div class="textFat">Fat<span class="gram">(g)</span></div>
+                                <div class="textCarbs">Carbos<span class="gram">(g)</span></div>                            
+                            </div>
+                            <div class="targetMacros">
+                                <div class="targetMacrosValue">
+                                    <div class="targetKcalValue"></div>
+                                    <div class="targetProteinValue"></div>
+                                    <div class="targetFatValue"></div>
+                                    <div class="targetCarbsValue"></div>                            
+                                </div>
+                                <div class="targetMacrosPercentage">
+                                    <div class="targetKcalPercentage"></div>
+                                    <div class="targetProteinPercentage"></div>
+                                    <div class="targetFatPercentage"></div>
+                                    <div class="targetCarbsPercentage"></div>                            
+                                </div>
+                                <div class="noTargetData">
+                                    <div>No data.</div>
+                                    <div class="goAddTarget">Go Add it!</div>
+                                </div>
+                            </div>
+                            <div class="dailyMacros">
+                                <div class="dailyMacrosValue">
+                                    <div class="dailyKcal"></div>
+                                    <div class="dailyProtein"></div>
+                                    <div class="dailyFat"></div>
+                                    <div class="dailyCarbs"></div>                            
+                                </div>
+                                <div class="dailyMacrosPercentage">
+                                    <div class="dailyKcalPercentage"></div>
+                                    <div class="dailyProteinPercentage"></div>
+                                    <div class="dailyFatPercentage"></div>
+                                    <div class="dailyCarbsPercentage"></div>                               
+                                </div>
+                            </div>                    
+                        </div>                        
                     </div>
                 </div>
-                <div class="imageRecordRegion">
-                    <div class="addFoodPhoto">
-                        <div class="imageFileText"><img src="/Images/foodbar.png"/>Add Food Photo</div>
-                        <div class="limitText">(Up to 3 photos/m)</div>
-                        <div class="sendImageRegion">
-                            <form id="form" enctype="multipart/form-data">
-                                <div class="form">
-                                    <img src="/Images/addImage.png"/>
-                                    <span>Select File</span>
-                                    <input type="file" class="fileUploader" accept="image/*" multiple="multiple"/>                                
-                                </div>
-                                <div class="sendImageButton" type="button">Upload</div>
-                            </form>
+                <div class="recordChart">
+                    <canvas id="myChart"></canvas>
+                    <div class="noChart">
+                        <div class="noChartPicture"><img src="https://dle57qor2pt0d.cloudfront.net/norecord.jpg"></div>
+                        <div class="noChartText">No record yet.
+                            <br/>Go ahead to add your food records!
                         </div>
-                    </div>
-                    <div class="foodPhotoRegion">
-                        <!-- <div class="foodPhotoBlock">
-                            <div class="foodPhoto"><img/></div>
-                            <div class="photoDeleteIcon"><img src="/Images/delete.png"/></div>
-                        </div> -->
-                        <!-- <div class="previewPhotoBlock">
-                            <div class="previewPhoto"><img/></div>
-                            <div class="previewCancelIcon"><img src="/Images/cancel.png"/></div>
-                            <div class="previewPhotoPreviewText">preview</div>
-                        </div> -->
-                    </div>
-                    <div class="noPhotos">
-                        <div class="noPhotosText">No photos yet.</div>
-                        <div class="photoIcon"><img src="/Images/photo.png"></div>
-                    </div>
-                </div>
-            </div>         
-        </div>
-        <div class="dailyRecordFrame">
-            <div class="dailyRecordBlock">
-                <div class="macroCompareList">
-                    <div class="compareText">
-                        <div class="macrosText"></div>
-                        <div class="targetText">Target</div>
-                        <div class="dailyText">Daily</div>
-                    </div>
-                    <div class="compare">
-                        <div class="macros">
-                            <div class="textKcal">Calories</div>
-                            <div class="textProtein">Protein<span class="gram">(g)</span></div>
-                            <div class="textFat">Fat<span class="gram">(g)</span></div>
-                            <div class="textCarbs">Carbos<span class="gram">(g)</span></div>                            
-                        </div>
-                        <div class="targetMacros">
-                            <div class="targetMacrosValue">
-                                <div class="targetKcalValue"></div>
-                                <div class="targetProteinValue"></div>
-                                <div class="targetFatValue"></div>
-                                <div class="targetCarbsValue"></div>                            
-                            </div>
-                            <div class="targetMacrosPercentage">
-                                <div class="targetKcalPercentage"></div>
-                                <div class="targetProteinPercentage"></div>
-                                <div class="targetFatPercentage"></div>
-                                <div class="targetCarbsPercentage"></div>                            
-                            </div>
-                            <div class="noTargetData">
-                                <div>No data.</div>
-                                <div class="goAddTarget">Go Add it!</div>
-                            </div>
-                        </div>
-                        <div class="dailyMacros">
-                            <div class="dailyMacrosValue">
-                                <div class="dailyKcal"></div>
-                                <div class="dailyProtein"></div>
-                                <div class="dailyFat"></div>
-                                <div class="dailyCarbs"></div>                            
-                            </div>
-                            <div class="dailyMacrosPercentage">
-                                <div class="dailyKcalPercentage"></div>
-                                <div class="dailyProteinPercentage"></div>
-                                <div class="dailyFatPercentage"></div>
-                                <div class="dailyCarbsPercentage"></div>                               
-                            </div>
-                        </div>                    
-                    </div>                        
+                        <div class="upIcon"><img src="/Images/up.png"><img src="/Images/up.png"><img src="/Images/up.png"></div>
+                    </div>           
                 </div>
             </div>
-            <div class="recordChart">
-                <canvas id="myChart"></canvas>
-                <div class="noChart">
-                    <div class="noChartPicture"><img src="https://dle57qor2pt0d.cloudfront.net/norecord.jpg"></div>
-                    <div class="noChartText">No record yet.
-                        <br/>Go ahead to add your food records!
-                    </div>
-                    <div class="upIcon"><img src="/Images/up.png"><img src="/Images/up.png"><img src="/Images/up.png"></div>
-                </div>           
-            </div>
         </div>
+        <%- include("footer") %>       
     </div>
-    <%- include("footer") %>
     <script src="/JS/index.js"></script>
     <script src="/JS/mealPhoto.js"></script>
     <script src="/JS/chart.js"></script>
-    <script src="/JS/ocr.js"></script>
+    <script src="/JS/ocr.js"></script> 
 </body>
 </html>

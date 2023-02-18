@@ -1,6 +1,7 @@
 const title = document.querySelector(".title");
 const signoutText = document.querySelector(".signoutText");
 const foodDiary = document.querySelector(".diary");
+const community = document.querySelector(".community");
 const memberCenter = document.querySelector(".memberCenter");
 const memberCenterFrame = document.querySelector(".memberCenterFrame");
 const memberInfo = document.querySelector(".memberInfo");
@@ -8,20 +9,23 @@ const noticeWindow = document.querySelector(".noticeWindow");
 const noticeSection = document.querySelector(".noticeSection");
 const noticeMain = document.querySelector(".noticeMain");
 const closeIcon = document.querySelector(".closeIcon");
+const mainLoading = document.querySelector(".mainLoading");
+const main = document.querySelector(".main");
 let memberCenterFrameStatus = 0 // status = close
 // click memberCenter(text) : show/hide memberCenterFrame
 
 title.addEventListener("click", () =>{
-    location.href="/index";
+    location.href="/";
 })
-
 memberInfo.addEventListener("click", () =>{
     location.href="/member";
 })
 foodDiary.addEventListener("click", () =>{
-    location.href="/index";
+    location.href="/";
 })
-
+community.addEventListener("click", () =>{
+    location.href="/community";
+})
 closeIcon.addEventListener("click", () =>{
     noticeWindow.style.display="none";
 })
@@ -50,10 +54,13 @@ fetch("/api/user").then(function(response){
     return response.json();
 }).then(function(data){
     if(data.error == true){
-        location.href="/";
+        location.href="/login";
     }else{
+        mainLoading.style.display = "none";
+        main.style.display = "block";
         const userData = data.data;
-        return;
+        memberName.textContent = userData.name;
+        memberMail.textContent = userData.email;
     }
 });
 
@@ -64,6 +71,6 @@ fetch("/api/user").then(function(response){
     }).then(function(response){
         return response.json();
     }).then(function(data){
-        location.href="/";
+        location.href="/login";
     });
  })

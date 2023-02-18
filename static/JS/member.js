@@ -26,18 +26,6 @@ const targetCarbsPercentage = document.querySelector(".targetCarbsPercentage");
 let imageType;
 let arrayBuffer;
 
-fetch("/api/user").then(function(response){
-    return response.json();
-}).then(function(data){
-    if(data.error == true){
-        location.href="/"
-    }else{
-        const userData = data.data;
-        memberName.textContent = userData.name;
-        memberMail.textContent = userData.email;
-    }
-});
-
 // get user avatar
 fetch("/api/photo/avatar").then((response) => {
     return response.json();

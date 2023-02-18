@@ -4,6 +4,7 @@ const foodPhotoImg = document.querySelector(".foodPhoto img");
 const foodPhotoPreviewText = document.querySelector(".foodPhotoPreviewText");
 const sendImageButton = document.querySelector(".sendImageButton");
 const noPhotos = document.querySelector(".noPhotos");
+const foodPhotosUploadLoading = document.querySelector(".foodPhotosUploadLoading");
 
 // get meal photo
 getMealPhotos();
@@ -117,6 +118,9 @@ sendImageButton.addEventListener("click",() => {
             noticeWindow.style.display="block";
             noticeMain.textContent = "Up to 3 photos/meal";
         }else{
+            noPhotos.style.display="none";
+            foodPhotoRegion.style.display="none";
+            foodPhotosUploadLoading.style.display="block";
             let formData = new FormData();
             for(let i=0 ; i < imageFiles.length ; i++){
                 formData.append("images", imageFiles[i])
@@ -129,6 +133,7 @@ sendImageButton.addEventListener("click",() => {
             }).then((response) => {
                 return response.json();
             }).then((data) => {
+                foodPhotosUploadLoading.style.display="none";
                 if (data.error == true){
                     noticeWindow.style.display="block";
                     noticeMain.textContent = data.message;

@@ -1,8 +1,12 @@
 const foodFile = document.querySelector(".foodFile");
+const newFoodInfoInput = document.querySelector(".newFoodInfoInput");
+const newFoodInfoInputLoading = document.querySelector(".newFoodInfoInputLoading");
 
 // OCR for food name or macros detection
 foodFile.addEventListener("change", () => {
     const foodInfoFile = foodFile.files[0];
+    newFoodInfoInput.style.display="none";
+    newFoodInfoInputLoading.style.display="block";
     let formData = new FormData();
     formData.append("image", foodInfoFile)
     fetch("/api/ocr",{
@@ -11,6 +15,8 @@ foodFile.addEventListener("change", () => {
     }).then((response) => {
         return response.json();
     }).then((data) => {
+        newFoodInfoInputLoading.style.display="none";
+        newFoodInfoInput.style.display="block";
         if (data.error == true){
             noticeWindow.style.display="block";
             noticeMain.textContent = data.message;
