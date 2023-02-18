@@ -71,38 +71,41 @@ fileUploader.addEventListener("change", async() => {
     }else{
         noPhotos.style.display="none";
         foodPhotoRegion.style.display="flex";
+        let imageFilesArray=[];
         for(let i=0 ; i < imageFiles.length ; i++){
             const imageType = imageFiles[i]["type"].slice(6)
             const reader = new FileReader();
             reader.readAsArrayBuffer(imageFiles[i])
             // 這會在readAS後才執行
-            reader.onload =  async() => {
-                arrayBuffer = reader.result;
-                const blob = new Blob([arrayBuffer], {type:`image/${imageType}`});
-                const previewPhotoBlock = document.createElement("div");
-                previewPhotoBlock.setAttribute("class","previewPhotoBlock");
-                const previewPhoto = document.createElement("div");
-                previewPhoto.setAttribute("class","previewPhoto");
-                const previewPhotoImg = document.createElement("img");
-                previewPhotoImg.setAttribute("src",URL.createObjectURL(blob));
-                previewPhoto.appendChild(previewPhotoImg);
-                const previewCancelIcon = document.createElement("div");
-                previewCancelIcon.setAttribute("class","previewCancelIcon");
-                const cancelIconImg = document.createElement("img");
-                cancelIconImg.setAttribute("src","/Images/cancel.png");
-                previewCancelIcon.appendChild(cancelIconImg);                  
-                previewPhotoBlock.appendChild(previewPhoto);
-                previewPhotoBlock.appendChild(previewCancelIcon); 
-                const previewPhotoPreviewText = document.createElement("div");
-                previewPhotoPreviewText.setAttribute("class","previewPhotoPreviewText");
-                previewPhotoPreviewText.textContent = "preview";
-                previewPhotoBlock.appendChild(previewPhotoPreviewText);
-                foodPhotoRegion.appendChild(previewPhotoBlock); 
-                if (i == imageFiles.length-1){
-                    deletePreviewPhotos();
-                }
-            };
-        }     
+            await new Promise((resolve) => {
+                reader.onload =  async() => {
+                    arrayBuffer = reader.result;
+                    const blob = new Blob([arrayBuffer], {type:`image/${imageType}`});
+                    const previewPhotoBlock = document.createElement("div");
+                    previewPhotoBlock.setAttribute("class","previewPhotoBlock");
+                    const previewPhoto = document.createElement("div");
+                    previewPhoto.setAttribute("class","previewPhoto");
+                    const previewPhotoImg = document.createElement("img");
+                    previewPhotoImg.setAttribute("src",URL.createObjectURL(blob));
+                    previewPhoto.appendChild(previewPhotoImg);
+                    const previewCancelIcon = document.createElement("div");
+                    previewCancelIcon.setAttribute("class","previewCancelIcon");
+                    const cancelIconImg = document.createElement("img");
+                    cancelIconImg.setAttribute("src","/Images/cancel.png");
+                    previewCancelIcon.appendChild(cancelIconImg);                  
+                    previewPhotoBlock.appendChild(previewPhoto);
+                    previewPhotoBlock.appendChild(previewCancelIcon); 
+                    const previewPhotoPreviewText = document.createElement("div");
+                    previewPhotoPreviewText.setAttribute("class","previewPhotoPreviewText");
+                    previewPhotoPreviewText.textContent = "preview";
+                    previewPhotoBlock.appendChild(previewPhotoPreviewText);
+                    foodPhotoRegion.appendChild(previewPhotoBlock);
+                    imageFilesArray.push(imageFiles[i])
+                    resolve(); 
+                };
+            });
+        }
+        deletePreviewPhotos(imageFilesArray); 
     }
 });
 
@@ -206,7 +209,7 @@ function deletePreviewPhotos(){
             //將array轉換回FileList，使用JavaScript中的DataTransfer物件
             const dataTransfer = new DataTransfer();
             imageFilesArray.forEach((file) => {
-              dataTransfer.items.add(file);
+                dataTransfer.items.add(file);
             });
             // 將DataTransfer轉換為新的FileList
             const newFileList = dataTransfer.files;

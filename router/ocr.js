@@ -1,11 +1,11 @@
 const express = require("express");
 const ocrRouter = express.Router();
 const multer = require("multer");
-const sharp = require('sharp');
-const vision = require('@google-cloud/vision');
+const sharp = require("sharp");
+const vision = require("@google-cloud/vision");
 // Creates a google cloud vision client
 const client = new vision.ImageAnnotatorClient({
-    keyFilename:'googleCloudVision.json'
+    keyFilename:"googleCloudVision.json"
 });
 
 // 設定 Multer
