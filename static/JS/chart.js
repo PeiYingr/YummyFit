@@ -24,8 +24,8 @@ const config = {
     maintainAspectRatio: false,// 保持圖表原有比例
     layout: {
       padding: {
-        left: 100,
-        right: 100,
+        left: 90,
+        right: 90,
         top: 10,
         bottom: 60
       }

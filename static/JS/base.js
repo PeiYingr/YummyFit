@@ -1,7 +1,7 @@
 const title = document.querySelector(".title");
 const signoutText = document.querySelector(".signoutText");
 const foodDiary = document.querySelector(".diary");
-const community = document.querySelector(".community");
+const socialMedia = document.querySelector(".socialMedia");
 const memberCenter = document.querySelector(".memberCenter");
 const memberCenterFrame = document.querySelector(".memberCenterFrame");
 const memberInfo = document.querySelector(".memberInfo");
@@ -23,8 +23,8 @@ memberInfo.addEventListener("click", () =>{
 foodDiary.addEventListener("click", () =>{
     location.href="/";
 })
-community.addEventListener("click", () =>{
-    location.href="/community";
+socialMedia.addEventListener("click", () =>{
+    location.href="/socialMedia";
 })
 closeIcon.addEventListener("click", () =>{
     noticeWindow.style.display="none";
@@ -47,7 +47,7 @@ document.addEventListener("mousedown", () => {
             memberCenterFrameStatus = 0;
         },150)
     }
-  });
+});
   
 // get signin status/information API
 fetch("/api/user").then(function(response){

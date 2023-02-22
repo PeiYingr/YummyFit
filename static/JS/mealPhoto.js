@@ -1,7 +1,5 @@
 const foodPhotoRegion = document.querySelector(".foodPhotoRegion");
 const fileUploader = document.querySelector(".fileUploader");
-const foodPhotoImg = document.querySelector(".foodPhoto img");
-const foodPhotoPreviewText = document.querySelector(".foodPhotoPreviewText");
 const sendImageButton = document.querySelector(".sendImageButton");
 const noPhotos = document.querySelector(".noPhotos");
 const foodPhotosUploadLoading = document.querySelector(".foodPhotosUploadLoading");
@@ -72,7 +70,6 @@ fileUploader.addEventListener("change", async() => {
     }else{
         noPhotos.style.display="none";
         foodPhotoRegion.style.display="flex";
-        let imageFilesArray=[];
         for(let i=0 ; i < imageFiles.length ; i++){
             const imageType = imageFiles[i]["type"].slice(6)
             const reader = new FileReader();
@@ -101,12 +98,11 @@ fileUploader.addEventListener("change", async() => {
                     previewPhotoPreviewText.textContent = "preview";
                     previewPhotoBlock.appendChild(previewPhotoPreviewText);
                     foodPhotoRegion.appendChild(previewPhotoBlock);
-                    imageFilesArray.push(imageFiles[i])
                     resolve(); 
                 };
             });
         }
-        deletePreviewPhotos(imageFilesArray); 
+        deletePreviewPhotos(); 
     }
 });
 
