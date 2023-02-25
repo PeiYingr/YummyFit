@@ -9,7 +9,6 @@ body{
     background: #ede0d4;
     border-radius: 15px;
     border: 1px solid #bf7e78;
-    box-sizing: border-box;
     position: absolute;
     margin: auto;
     top: 0;
@@ -54,7 +53,6 @@ body{
     width:100%;
     display:flex;
     justify-content: center;
-    box-sizing: border-box;
     align-items: center;
     margin: auto;
     border-bottom: 1px solid #bf7e78;
@@ -114,7 +112,6 @@ body{
 }
 .calendar input{
     border: none;
-    box-sizing: border-box;
     outline: 0;
     padding: .75rem;
     position: relative;
@@ -156,11 +153,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .breakfast{
     color: #922c21;
     border-bottom: 2px solid #7f5539;
-    box-sizing: border-box;
 }
 .lunch, .dinner,.snacks,.dailyIntake{
-    color: #bf9d7e;
-    box-sizing: border-box;       
+    color: #bf9d7e;       
 }
 .breakfast:hover, .lunch:hover, .dinner:hover,.snacks:hover,.dailyIntake:hover{
     background-color: antiquewhite;;
@@ -199,7 +194,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     margin-top:20px;
 }
 .foodInput,.gramInput{ 
-    box-sizing: border-box;
     height: 100%;
     font-size: 16px;
     padding:5px 8px;
@@ -284,7 +278,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .searchOwnFoodButton{
     background: linear-gradient(45deg, #db776c, #bf7e78, #922c21);
     border-radius: 5px;
-    box-sizing: border-box;
     padding: 8px 5px;
     line-height: 20px;
     text-align: center;
@@ -354,7 +347,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 .newFoodNameInput,.newFoodProteinInput,.newFoodFatInput,.newFoodCarbsInput{
     width:95%;
-    box-sizing: border-box;
     font-size: 15px;
     padding:11px 7px 5px;
     outline:none;
@@ -400,7 +392,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     font-size:12px;
     font-weight: 500;
     line-height:30px;
-    box-sizing: border-box;
 }
 .foodForm input{
     position: absolute;
@@ -430,7 +421,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .addNewFoodButton{
     background: #bf7e78;
     border-radius: 5px;
-    box-sizing: border-box;
     padding: 5px;
     line-height: 20px;
     text-align: center;
@@ -466,13 +456,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     height:90%;
     border-radius:15px;
     border:1px solid #bf7e78;
-    box-sizing: border-box;
 }
 .nutrientType, .oneRecord{
     width:100%;
     display:flex;
     justify-content: center;
-    box-sizing: border-box;
     align-items: center;
     margin: auto;
 }
@@ -664,7 +652,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     line-height: 20px;
     background: #bf9d7e;
     border-radius: 5px;
-    box-sizing: border-box;
     padding: 5px;
     text-align: center;
     color: #FFFFFF;
@@ -779,7 +766,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     border-radius:10px;
     font-size:12px;
     line-height:30px;
-    box-sizing: border-box;
     margin-top: 15px;
     margin-left:35px;
 }
@@ -817,7 +803,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     line-height: 20px;
     background: #bf7e78;
     border-radius: 5px;
-    box-sizing: border-box;
     padding: 5px;
     text-align: center;
     color: #FFFFFF;
