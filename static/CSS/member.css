@@ -85,6 +85,7 @@ body{
     border-radius:5px;
     font-size:14px;
     line-height:30px;
+    box-sizing: border-box;
 }
 .form input{
     position: absolute;
@@ -120,6 +121,7 @@ body{
     line-height: 20px;
     background: #bf7e78;
     border-radius: 5px;
+    box-sizing: border-box;
     padding: 5px;
     text-align: center;
     color: #FFFFFF;
@@ -217,6 +219,7 @@ li{
 .changePassword{
     width: 100%;
     height: 30px;
+    box-sizing: border-box;
     border: 1px solid #CCCCCC;
     border-radius: 5px;
     font-weight: 500;
@@ -266,6 +269,7 @@ li{
     line-height: 20px;
     background: #bf9d7e;
     border-radius: 5px;
+    box-sizing: border-box;
     padding: 5px;
     text-align: center;
     color: #FFFFFF;
@@ -327,6 +331,7 @@ li{
 }
 .targetKcalInput,.targetProteinInput,.targetFatInput,.targetCarbsInput{
     width:95%;
+    box-sizing: border-box;
     font-size: 16px;
     padding:5px 8px;
     outline:none;
