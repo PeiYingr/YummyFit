@@ -8,7 +8,9 @@ const intakeRouter = require("./router/intake");
 const photoRouter = require("./router/photo");
 const targetRouter = require("./router/target");
 const ocrRouter = require("./router/ocr");
-const authRouter = require('./router/auth');
+const authRouter = require("./router/auth");
+const locationRouter = require("./router/location");
+const postRouter = require("./router/post");
 
 app.use(express.static("./static"));
 app.set("view engine", "ejs");
@@ -26,8 +28,8 @@ app.get("/login", (req, res) => {
 app.get("/member", (req, res) => {
   res.render("member");
 });
-app.get("/community", (req, res) => {
-  res.render("community");
+app.get("/socialMedia", (req, res) => {
+  res.render("socialMedia");
 });
 
 // 將users的requests，導入到對應的Router處理
@@ -38,6 +40,8 @@ app.use("/api/photo", photoRouter);
 app.use("/api/target", targetRouter);
 app.use("/api/ocr", ocrRouter);
 app.use("/auth", authRouter);
+app.use("/api/location", locationRouter);
+app.use("/api/post", postRouter);
 
 app.listen(port, () => {
   console.log(`伺服器已經啟動在 http://localhost:${port}/`);

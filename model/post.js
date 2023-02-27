@@ -136,4 +136,4 @@ const postModel = {
     }
 }
 
-module.exports = postModel;
+module.exports = postModel

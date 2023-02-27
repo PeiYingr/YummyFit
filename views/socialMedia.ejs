@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YummyFit</title>
+    <link rel="shortcut icon" href="/Images/candy.png">
+    <link rel="stylesheet" type="text/css" href="/CSS/socialMedia.css">
+</head>
+<body>
+    <div class="mainLoading">
+        <div class="mainLoadingText">Loading</div>
+        <img src="/Images/loading.gif"/>
+    </div>
+    <div class="main">
+        <%- include("navbar") %>
+        <div class="locationFrame">
+            <div class="searchLocation">
+                <div class="closeLocationFrame"><img src="/Images/close.png"/></div>
+                <div class="searchLocationTitle">Search For Location</div>
+            </div>
+            <div class="searchLocationBar">
+                <input type="text" class="locationInput" placeholder="Search Location" autocomplete="off"/>
+            </div>
+            <div class="searchLocationResultList">
+                <div class="oneSearchLocationResult">
+                    <div class="oneSearchLocationResultName"></div>
+                    <div class="oneSearchLocationResultAddress"></div>                               
+                </div>
+            </div>
+            <div class="goSearchLocation">
+                <div class="goSearchPicture"><img src="/Images/earth.png"></div>
+                <div class="goSearchText">Go search!</div>
+            </div>
+            <div class="noSearchLocationResult">
+                <div class="noResultText">No locations to show</div>
+                <div class="noResultPicture"><img src="/Images/map.png"></div>
+            </div>
+        </div>
+        <div class="deletePostCheckFrame">
+            <div class="deletePostCheckText">Delete your post ?</div>
+            <div class="deletePostCheckBlock">
+                <div class="deletePostCancelButton">Cancel</div>
+                <div class="deletePostConfirmButton">Delete</div>
+            </div>
+        </div>
+        <div class="deleteCommentCheckFrame">
+            <div class="deleteCommentCheckText">Delete your comment ?</div>
+            <div class="deleteCommentCheckBlock">
+                <div class="deleteCommentCancelButton">Cancel</div>
+                <div class="deleteCommentConfirmButton">Delete</div>
+            </div>
+        </div>
+        <div class="contentPhotoEnlargeFrame">
+            <img class="contentPhotoEnlarge"/>
+            <div class="closePhotoEnlargeFrame"><img src="/Images/close2.png"/></div>
+        </div>
+        <div class="socialMediaFrame">
+            <div class="list">
+                <div class="forum">
+                    <img src= "/Images/list.png"/>
+                    <span>Forum</span>
+                </div>
+                <div class="all">
+                    <img src= "/Images/all.png"/>
+                    <span>All</span>
+                </div>
+                <div class="yummyFood">
+                    <img src= "/Images/tableware.png"/>
+                    <span>Yummy Food</span>
+                </div>
+                <div class="weightLoss">
+                    <img src= "/Images/fitness.png"/>
+                    <span>Weight Loss</span>
+                </div>
+                <div class="cooking">
+                    <img src= "/Images/cooking.png"/>
+                    <span>Cooking</span>
+                </div>
+                <div class="chat">
+                    <img src= "/Images/chat.png"/>
+                    <span>Chat</span>
+                </div>
+            </div>
+            <div class="postFrame">
+                <div class="postBlock">
+                    <div class="postTextArea">
+                        <div class="postUserAvatar">
+                            <img/>
+                            <div class="memberName"></div>
+                        </div>
+                        <div class="postingArea">
+                            <div class="postForum">
+                                <div class="postForumIcon"><img src="/Images/down.png"></div>
+                                Posting Forum
+                            </div>
+                            <div class="postForumBlock">
+                                <div class="postForumYummyFood">Yummy Food</div>
+                                <div class="postForumWeightLoss">Weight Loss</div>
+                                <div class="postForumCooking">Cooking</div>
+                                <div class="postForumChat">Chat</div>
+                            </div>                    
+                            <textarea class="postTextInput" placeholder="share your food & thoughts !"></textarea>                            
+                        </div>
+                    </div>
+                    <!-- <div class="postPhotoRegion">
+                        <div class="postPhotoBlock">
+                            <div class="postPhoto"><img/></div>
+                            <div class="postPhotoCancelIcon"><img src="/Images/cancel.png"/></div>
+                        </div>
+                    </div> -->
+                    <!-- <div class="locationLinkBlock">
+                        <a href="https://www.google.com/maps/search/?api=1&query=123髮廊" class=locationLink>
+                            <div class="locationChooseIcon"><img src="/Images/region.png"/></div> 
+                            <div class="locationChoose">123</div>                  
+                        </a>    
+                        <div class="removeLocationIcon"><img src="/Images/removetag.png"></div>  
+                    </div> -->
+                    <div class="postBlockHr"></div>
+                    <div class="postBlockItems">
+                        <div class="addPostPhoto">
+                            <form id="addPostPhotoform" enctype="multipart/form-data">
+                                <div class="addPostPhotoform">
+                                    <img src="/Images/photos.png"/>
+                                    <span>Photo</span>
+                                    <input type="file" class="photoUploader" accept="image/*" multiple="multiple"/>                                
+                                </div>
+                            </form>
+                        </div>
+                        <div class="addPostLocation">
+                            <img src="/Images/location.png"/>
+                            <span>Location</span>                              
+                        </div>
+                        <div class="postButton" type="button">Post</div>
+                    </div>
+                </div>
+                <div class="postLoading">
+                    <div class="postLoadingText">Loading</div>
+                    <img src="/Images/loading.gif"/>
+                </div>
+                <div class="showPostsFrame"></div>
+                <div class="showPostsLoading">
+                    <div class="showPostsLoadingText">Loading</div>
+                    <img src="/Images/loading.gif"/>
+                </div>
+                <!-- (post put in showPostsFrame)
+                <div class="postArticle">
+                    <div class="poster">
+                        <div class="posterForum">Yummy Food</div>
+                        <div class="posterSection">
+                            <div class="posterAvatar"><img src="/Images/avatar.png"/></div>
+                            <div class="posterInfo">
+                                <div class="posterUserName">haha(posterUserName)</div>
+                                <div class="posterLocation">
+                                    <a href="https://www.google.com/maps/search/?api=1&query=123髮廊" class=posterLocationLink> 
+                                        <div class="posterLocationName">123髮廊</div>                  
+                                    </a>    
+                                </div>
+                                <div class="posterTime">52m</div>
+                            </div>
+                        </div>
+                        <div class="deletePost"><img src="/Images/delete.png"/></div>
+                    </div>
+                    <div class="contentText">1222333333333333</div>
+                    <div class="contentRegion">
+                        <div class="contentPhoto">
+                            <img src="https://dle57qor2pt0d.cloudfront.net/norecord.jpg"/>
+                        </div>
+                    </div>
+                    <div class="otherPostFunction">
+                        <div class="totalLikesComments">
+                            <span class="totalLikesAmount">
+                                <img src="/Images/allLikes.png"/>
+                                <span>4 Likes</span> 
+                             </span>
+                            <span class="totalCommentsAmount">4 Comments</span>
+                        </div>
+                        <div class="interact">
+                            <div class="like">
+                                <img src="/Images/like.png"/>
+                                <span>Like</span>
+                            </div>
+                            <div class="comment">
+                                <img src="/Images/comment.png"/>
+                                <span>Comment</span>
+                            </div>
+                        </div>
+                        <div class="commentFrame">
+                            <div class="viewAllComment">View All comments</div>
+                            <div class="allComments">
+                                <div class="oneComment">
+                                    <img src="/Images/avatar.png"/>
+                                    <div class="userCommentBlock">
+                                        <div class="commentInfo">haha<span class="commentTime">6d</span></div>
+                                        <div class="userComment">1231233</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="leaveCommentBlock">
+                                <img src="/Images/avatar.png"/>
+                                <input type="text"  class="leaveComment" placeholder="Write a comment" autocomplete="off"/>
+                            </div>
+                        </div>                        
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        <%- include("footer") %>
+    </div>
+    <script src="/JS/socialMedia.js"></script>
+    <script src="/JS/showPosts.js"></script>
+</body>
+</html>
