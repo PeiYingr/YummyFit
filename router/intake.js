@@ -1,41 +1,11 @@
 const express = require("express");
 const intakeRouter = express.Router();  
+const mealRecordModel = require("../model/mealRecord");
 const intakeModel = require("../model/intake");
 const foodModel = require("../model/food");
 const jwt = require("jsonwebtoken");
 require("dotenv").config({ path: ".env" });
 const JwtSecret = process.env.JWT_SECRET_KEY;
-
-function responseMealData(result, allData){
-    for(let i=0; i<result.length ;i++){
-        let protein;
-        let fat;
-        let carbs;
-        let kcal;
-        if(result[i].kcal){
-            protein = Math.round(((result[i].amount/100)*result[i].protein + Number.EPSILON) * 100) / 100,
-            fat = Math.round(((result[i].amount/100)*result[i].fat + Number.EPSILON) * 100) / 100,
-            carbs = Math.round(((result[i].amount/100)*result[i].carbs + Number.EPSILON) * 100) / 100,
-            kcal = Math.round(((result[i].amount/100)*result[i].kcal + Number.EPSILON) * 10) / 10
-        }else{
-            protein = Math.round(((result[i].amount/100)*result[i].userFoodProtein + Number.EPSILON) * 100) / 100,
-            fat = Math.round(((result[i].amount/100)*result[i].userFoodFat + Number.EPSILON) * 100) / 100,
-            carbs = Math.round(((result[i].amount/100)*result[i].userFoodCarbs + Number.EPSILON) * 100) / 100,
-            kcal = Math.round(((result[i].amount/100)*result[i].userFoodKcal + Number.EPSILON) * 10) / 10
-        }
-        const oneData = {
-            "userID": result[i].userID,
-            "date": result[i].date,
-            "foodName": result[i].foodName,
-            "amount": result[i].amount,
-            "protein": protein,
-            "fat": fat,
-            "carbs": carbs,
-            "kcal": kcal
-        }
-        allData.push(oneData);
-    };
-}
 
 // add food intake data
 intakeRouter.post("/", async(req, res) => {
@@ -60,16 +30,28 @@ intakeRouter.post("/", async(req, res) => {
                     "error": true,
                     "message": "Enter correct amount of food."
                 }); 
+            }else if(isNaN(amount)){
+                res.status(400).json({ 			
+                    "error": true,
+                    "message": "Please enter correct amount of food."
+                }); 
             }else{
                 const publicResult = await foodModel.searchIfPublicFoodExist(foodName);
                 const ownResult = await foodModel.searchIfOwnFoodExist(foodName);
                 if(publicResult || ownResult){
-                    await intakeModel.addFoodIntake(userID, date, meal, foodName, amount);
-                    const result = await intakeModel.searchMealIntake(userID, date, meal);
+                    let mealRecordID;
+                    let mealRecordIDSearch = await mealRecordModel.searchMealRecord(userID, date, meal);
+                    if (mealRecordIDSearch == undefined){
+                        await mealRecordModel.addMealRecord(userID, date, meal);
+                        mealRecordIDSearch = await mealRecordModel.searchMealRecord(userID, date, meal);
+                    }
+                    mealRecordID = mealRecordIDSearch.mealRecordID;
+                    await intakeModel.addFoodIntake(mealRecordID, foodName, amount);
+                    const result = await intakeModel.searchMealIntake(mealRecordID);
                     let allData=[];
                     let response;
                     if(result[0]){
-                        responseMealData(result, allData);
+                        await responseMealData(result, allData);
                         response = {
                             "data": allData
                         }
@@ -110,20 +92,29 @@ intakeRouter.get("/", async(req, res) => {
             const userID = userCookie.userID;
             const meal = req.query.meal || "";
             const date = req.query.date || "";
-            const result = await intakeModel.searchMealIntake(userID, date, meal);
+            let mealRecordID;
             let allData=[];
             let response;
-            if(result[0]){
-                responseMealData(result, allData);
-                response = {
-                    "data": allData
+            let mealRecordIDSearch = await mealRecordModel.searchMealRecord(userID, date, meal);
+            if (mealRecordIDSearch){
+                mealRecordID = mealRecordIDSearch.mealRecordID;
+                const result = await intakeModel.searchMealIntake(mealRecordID);
+                if(result[0]){
+                    await responseMealData(result, allData);
+                    response = {
+                        "data": allData
+                    }
+                }else{
+                    response= {
+                        "data": null
+                    }
                 }
             }else{
                 response= {
                     "data": null
                 }
             }
-            res.status(200).json(response);          
+            res.status(200).json(response);    
         }else{
             res.status(403).json({
                 "error": true,
@@ -146,12 +137,8 @@ intakeRouter.delete("/", async(req, res) => {
             const token = cookie.replace("token=","");
             const userCookie = jwt.verify(token, JwtSecret);
             const userID = userCookie.userID;
-            const deleteIntakeInfo = req.body;
-            const date = deleteIntakeInfo.date;
-            const meal = deleteIntakeInfo.meal;
-            const foodName = deleteIntakeInfo.foodName;
-            const amount = deleteIntakeInfo.amount;
-            await intakeModel.deleteIntakeFood(userID, date, meal, foodName, amount);
+            const deleteIntakeID = req.body.intakeID;
+            await intakeModel.deleteIntakeFood(deleteIntakeID);
             let response= {
                 "ok": true
             }
@@ -179,7 +166,14 @@ intakeRouter.get("/daily", async(req, res) => {
             const userCookie = jwt.verify(token, JwtSecret);
             const userID = userCookie.userID;
             const date = req.query.date || "";
-            const result = await intakeModel.searchDailyIntake(userID, date);
+            const dailyMealRecordID = await mealRecordModel.searchDailyRecord(userID, date);
+            let dailyMealRecordIDList = [];
+            if(dailyMealRecordID[0]){
+                for(let x=0 ; x < dailyMealRecordID.length ; x++){
+                    dailyMealRecordIDList.push(dailyMealRecordID[x].mealRecordID);
+                }
+            }
+            const result = await intakeModel.searchDailyIntake(dailyMealRecordIDList);
             let response;
             if(result[0]){
                 let totalKcal = 0;
@@ -190,7 +184,7 @@ intakeRouter.get("/daily", async(req, res) => {
                 let fat;
                 let carbs;
                 let kcal;
-                for(let i=0; i<result.length ;i++){
+                for(let i=0 ; i < result.length ; i++){
                     if(result[i].kcal){
                         protein = (result[i].amount/100)*result[i].protein;
                         fat = (result[i].amount/100)*result[i].fat;
@@ -244,5 +238,37 @@ intakeRouter.get("/daily", async(req, res) => {
         })
     }
 })
+
+async function responseMealData(result, allData){
+    for(let i=0; i<result.length ;i++){
+        let protein;
+        let fat;
+        let carbs;
+        let kcal;
+        if(result[i].kcal){
+            protein = Math.round(((result[i].amount/100)*result[i].protein + Number.EPSILON) * 100) / 100,
+            fat = Math.round(((result[i].amount/100)*result[i].fat + Number.EPSILON) * 100) / 100,
+            carbs = Math.round(((result[i].amount/100)*result[i].carbs + Number.EPSILON) * 100) / 100,
+            kcal = Math.round(((result[i].amount/100)*result[i].kcal + Number.EPSILON) * 10) / 10
+        }else{
+            protein = Math.round(((result[i].amount/100)*result[i].userFoodProtein + Number.EPSILON) * 100) / 100,
+            fat = Math.round(((result[i].amount/100)*result[i].userFoodFat + Number.EPSILON) * 100) / 100,
+            carbs = Math.round(((result[i].amount/100)*result[i].userFoodCarbs + Number.EPSILON) * 100) / 100,
+            kcal = Math.round(((result[i].amount/100)*result[i].userFoodKcal + Number.EPSILON) * 10) / 10
+        }
+        const oneData = {
+            "userID": result[i].userID,
+            "date": result[i].date,
+            "intakeID": result[i].intakeID,
+            "foodName": result[i].foodName,
+            "amount": result[i].amount,
+            "protein": protein,
+            "fat": fat,
+            "carbs": carbs,
+            "kcal": kcal
+        }
+        allData.push(oneData);
+    };
+}
 
 module.exports = intakeRouter

@@ -19,31 +19,29 @@ const photoModel = {
             conn.release();
         }
     },
-    addMealPhoto: async(userID, date, whichMeal, mealCloudFrontUrl) => {
+    addMealPhoto: async(mealRecordID, mealCloudFrontUrl) => {
         const conn = await pool.getConnection();
         try{
-            const data = [userID, date, whichMeal, mealCloudFrontUrl];
-            await conn.query("INSERT INTO mealPhoto(userID, date, meal, photo) VALUES (?, ?, ?, ?)", data);
+            const data = [mealRecordID, mealCloudFrontUrl];
+            await conn.query("INSERT INTO mealPhoto(mealRecordID, photo) VALUES (?, ?)", data);
         }finally{
             conn.release();
         }
     },
-    getMealPhoto: async(userID, date, meal) => {
+    getMealPhoto: async(mealRecordID) => {
         const conn = await pool.getConnection();
         try{
-            const data = [userID, date, meal];
-            const [result] = await conn.query("SELECT photo FROM mealPhoto WHERE userID = ? AND date = ? AND meal = ?", data);
+            const [result] = await conn.query("SELECT mealPhotoID, photo FROM mealPhoto WHERE mealRecordID = ?", [mealRecordID]);
             return result
         }finally{
             conn.release();
         }
     },
-    deleteMealPhoto: async(userID, date, meal, photoUrl) => {
+    deleteMealPhoto: async(deleteMealPhotoID) => {
         const conn = await pool.getConnection();
         try{
-            const deletePhotoData = [userID, date, meal, photoUrl];
-            const sql = "DELETE FROM mealPhoto WHERE userID = ? AND date = ? AND meal = ? AND photo = ?";
-            await conn.query(sql, deletePhotoData);
+            const sql = "DELETE FROM mealPhoto WHERE mealPhotoID = ?";
+            await conn.query(sql, [deleteMealPhotoID]);
         }finally{
             conn.release();
         }

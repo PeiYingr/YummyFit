@@ -1,29 +1,30 @@
 const pool = require("../database")
 
-const intakeModel = {    
-    addFoodIntake:async(userID, date, meal, foodName, amount) => {
+const intakeModel = {
+    addFoodIntake:async(mealRecordID, foodName, amount) => {
         const conn = await pool.getConnection();
         try{
-            const newData = [userID, date, meal, foodName, amount]
-            await conn.query("INSERT INTO intake(userID, date, meal, foodName, amount) VALUES (?, ?, ?, ?, ?)",newData);
+            const newData = [mealRecordID, foodName, amount]
+            await conn.query("INSERT INTO intake(mealRecordID, foodName, amount) VALUES (?, ?, ?)",newData);
         }finally{
             conn.release();
         }
     },
-    searchMealIntake:async(userID, date, meal) => {
+    searchMealIntake:async(mealRecordID) => {
         const conn = await pool.getConnection();
         try{
-            const data = [userID, date, meal];
+            const data = [mealRecordID];
             const sql = `
             SELECT
-                intake.userID, intake.date, intake.foodName, intake.amount,
-                food.kcal, food.protein, food.fat, food.carbs,
+                mealRecord.userID, mealRecord.date, intake.intakeID, intake.foodName,
+                intake.amount, food.kcal, food.protein, food.fat, food.carbs,
                 userFood.kcal AS userFoodKcal, userFood.protein AS userFoodProtein, 
                 userFood.fat AS userFoodFat, userFood.carbs AS userFoodCarbs
             FROM intake
+            INNER JOIN mealRecord ON mealRecord.mealRecordID = intake.mealRecordID
             LEFT JOIN food ON food.name = intake.foodName
             LEFT JOIN userFood ON userFood.name = intake.foodName
-            WHERE intake.userID = ? AND date = ? AND meal = ?
+            WHERE intake.mealRecordID = ?
             `;
             const [result] = await conn.query(sql, data);
             return result
@@ -31,32 +32,31 @@ const intakeModel = {
             conn.release();
         }
     },
-    deleteIntakeFood:async(userID, date, meal, food, amount) => {
+    deleteIntakeFood:async(deleteIntakeID) => {
         const conn = await pool.getConnection();
         try{
-            const deleteIntakeData = [userID, date, meal, food, amount];
-            const sql = "DELETE FROM intake WHERE userID = ? AND date = ? AND meal = ? AND foodName = ? AND amount = ?";
-            await conn.query(sql, deleteIntakeData);
+            const sql = "DELETE FROM intake WHERE intakeID = ?";
+            await conn.query(sql, [deleteIntakeID]);
         }finally{
             conn.release();
         }
     },
-    searchDailyIntake:async(userID, date) => {
+    searchDailyIntake:async(dailyMealRecordIDList) => {
         const conn = await pool.getConnection();
         try{
-            const dailyIntakeInfo = [userID, date];
             const sql = `
             SELECT
-                intake.userID, intake.date, intake.foodName, intake.amount,
-                food.kcal, food.protein, food.fat, food.carbs,
+                mealRecord.userID, mealRecord.date, intake.intakeID, intake.foodName,
+                intake.amount,food.kcal, food.protein, food.fat, food.carbs,
                 userFood.kcal AS userFoodKcal, userFood.protein AS userFoodProtein, 
                 userFood.fat AS userFoodFat, userFood.carbs AS userFoodCarbs
             FROM intake
+            INNER JOIN mealRecord ON mealRecord.mealRecordID = intake.mealRecordID
             LEFT JOIN food ON food.name = intake.foodName
             LEFT JOIN userFood ON userFood.name = intake.foodName
-            WHERE intake.userID = ? AND date = ?
+            WHERE intake.mealRecordID IN (?)
             `;
-            const [result] = await conn.query(sql, dailyIntakeInfo);
+            const [result] = await conn.query(sql, [dailyMealRecordIDList]);
             return result
         }finally{
             conn.release();

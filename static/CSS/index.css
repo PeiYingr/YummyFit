@@ -236,10 +236,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .add:active{
     transform:translateZ(1px) rotate(2deg) ;
 }
-.add img{
+.add img, .addLoading img{
     width:30px; 
     height:30px;
     padding:15px 10px;
+}
+.addLoading{
+    width: 60px;
+    height: 100%;
+    display: none;
 }
 .searchResultBox, .noResultBox{
     display:none;

@@ -3,7 +3,7 @@ const fileUploader = document.querySelector(".fileUploader");
 const sendImageButton = document.querySelector(".sendImageButton");
 const noPhotos = document.querySelector(".noPhotos");
 const foodPhotosUploadLoading = document.querySelector(".foodPhotosUploadLoading");
-
+const sendImageRegion = document.querySelector(".sendImageRegion");
 // get meal photo
 getMealPhotos();
 
@@ -23,13 +23,15 @@ function showMealPhoto(mealphoto){
     photoDeleteIcon.appendChild(deleteIconImg);
     foodPhotoBlock.appendChild(foodPhoto);
     foodPhotoBlock.appendChild(photoDeleteIcon);
-    foodPhotoRegion.appendChild(foodPhotoBlock);   
+    foodPhotoRegion.appendChild(foodPhotoBlock);
+    const mealPhotoID = mealphoto.mealPhotoID;
+    deleteOnePhotos(foodPhotoBlock, photoDeleteIcon, mealPhotoID); 
 };
 
 // get user's meal photo
 async function getMealPhotos(){
     foodPhotoRegion.innerHTML="";
-    const response = await fetch(`/api/photo/meal?meal=${chooseIntakeMeal}&date=${timestamp}`);
+    const response = await fetch(`/api/photo/meal?meal=${chooseIntakeMeal}&date=${chooseIntakeDate}`);
     const data = await response.json();
     if(data.error == true){
         noticeWindow.style.display="block";
@@ -45,7 +47,6 @@ async function getMealPhotos(){
         mealPhotos.forEach((mealphoto) => {
             showMealPhoto(mealphoto)
         })
-        deleteOnePhotos();
     }
 }
 
@@ -114,6 +115,7 @@ sendImageButton.addEventListener("click",() => {
             noticeWindow.style.display="block";
             noticeMain.textContent = "Up to 3 photos/meal";
         }else{
+            sendImageRegion.style.display="none";
             noPhotos.style.display="none";
             foodPhotoRegion.style.display="none";
             foodPhotosUploadLoading.style.display="block";
@@ -121,7 +123,7 @@ sendImageButton.addEventListener("click",() => {
             for(let i=0 ; i < imageFiles.length ; i++){
                 formData.append("images", imageFiles[i])
             };
-            formData.append("date", timestamp);
+            formData.append("date", chooseIntakeDate);
             formData.append("whichMeal", chooseIntakeMeal);
             fetch("/api/photo/meal",{
                 method:"POST",
@@ -138,6 +140,7 @@ sendImageButton.addEventListener("click",() => {
                     noPhotos.style.display="block";
                 }else{
                     noPhotos.style.display="none";
+                    sendImageRegion.style.display="flex";
                     foodPhotoRegion.style.display="flex";
                     foodPhotoRegion.innerHTML="";
                     fileUploader.value = "";
@@ -145,7 +148,6 @@ sendImageButton.addEventListener("click",() => {
                     mealPhotos.forEach((mealphoto) => {
                         showMealPhoto(mealphoto)
                     })
-                    deleteOnePhotos();
                 }
             })
         }        
@@ -156,38 +158,31 @@ sendImageButton.addEventListener("click",() => {
 })
 
 // delete meal photo
-function deleteOnePhotos(){
-    const foodPhotos = document.querySelectorAll(".foodPhotoBlock")
-    foodPhotos.forEach((deleteOnePhoto) =>{
-        const photoDeleteIcon = deleteOnePhoto.querySelector(".photoDeleteIcon");
-        photoDeleteIcon.addEventListener("click",() => {
-            const photoImg = deleteOnePhoto.querySelector(".foodPhoto img").src;
-            const deletePhoto = {
-                "meal":chooseIntakeMeal,
-                "date":timestamp,
-                "photoUrl":photoImg
-            };
-            fetch("/api/photo/meal",{
-                method:"DELETE",
-                body:JSON.stringify(deletePhoto),
-                headers:new Headers({
-                    "content-type":"application/json"
-                })
-            }).then(function(response){
-                return response.json();  
-            }).then(function(data){
-                if(data.ok == true){
-                    deleteOnePhoto.remove();
-                    const havePhoto = document.querySelector(".foodPhotoBlock")
-                    if (havePhoto == null){
-                        foodPhotoRegion.style.display="none";
-                        noPhotos.style.display="block";
-                    }
-                }else{
-                    noticeWindow.style.display="block";
-                    noticeMain.textContent = data.message; 
-                }
+function deleteOnePhotos(foodPhotoBlock, photoDeleteIcon, mealPhotoID){
+    photoDeleteIcon.addEventListener("click",() => {
+        const deletePhoto = {
+            "mealPhotoID": mealPhotoID,
+        };
+        fetch("/api/photo/meal",{
+            method:"DELETE",
+            body:JSON.stringify(deletePhoto),
+            headers:new Headers({
+                "content-type":"application/json"
             })
+        }).then(function(response){
+            return response.json();  
+        }).then(function(data){
+            if(data.ok == true){
+                foodPhotoBlock.remove();
+                const havePhoto = document.querySelector(".foodPhotoBlock")
+                if (havePhoto == null){
+                    foodPhotoRegion.style.display="none";
+                    noPhotos.style.display="block";
+                }
+            }else{
+                noticeWindow.style.display="block";
+                noticeMain.textContent = data.message; 
+            }
         })
     })
 }

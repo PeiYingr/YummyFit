@@ -1,5 +1,6 @@
 const express = require("express");
-const photoRouter = express.Router();  
+const photoRouter = express.Router();
+const mealRecordModel = require("../model/mealRecord");
 const photoModel = require("../model/photo");
 const multer = require("multer");
 const AWS = require("aws-sdk");
@@ -117,19 +118,20 @@ photoRouter.post("/meal", upload.array("images", 3), async(req, res) => {
             const userID = userCookie.userID;
             const imageFiles = req.files; // 取得上傳的照片
             const date = req.body.date;  // 哪一餐
-            const whichMeal = req.body.whichMeal;  // 哪一餐
+            const meal = req.body.whichMeal;  // 哪一餐
             if(imageFiles[0] == null){
                 res.status(400).json({ 			
                     "error": true,
                     "message": "No file selected." 
                 });
             }else{
+                let mealRecordID;
                 handleUploads(req, res)
                 async function handleUploads(req, res) {
                     await uploadFiles(imageFiles);
-                    const result = await photoModel.getMealPhoto(userID, date, whichMeal);
+                    const result = await photoModel.getMealPhoto(mealRecordID);
                     let response;
-                    if (result) {
+                    if (result[0]) {
                         response = {
                             "data": result,
                         };
@@ -141,6 +143,12 @@ photoRouter.post("/meal", upload.array("images", 3), async(req, res) => {
                     res.status(200).json(response);
                 }
                 async function uploadFiles(imageFiles) {
+                    let mealRecordIDSearch = await mealRecordModel.searchMealRecord(userID, date, meal);
+                    if (mealRecordIDSearch == undefined){
+                        await mealRecordModel.addMealRecord(userID, date, meal);
+                        mealRecordIDSearch = await mealRecordModel.searchMealRecord(userID, date, meal);
+                    }
+                    mealRecordID = mealRecordIDSearch.mealRecordID;                    
                     let promises = [];
                     for (let i = 0; i < imageFiles.length; i++) {
                         // Generate a 32 character alpha-numeric token as file name
@@ -164,7 +172,7 @@ photoRouter.post("/meal", upload.array("images", 3), async(req, res) => {
                                         "https://peiprojectbucket.s3.us-west-2.amazonaws.com",
                                         "https://dle57qor2pt0d.cloudfront.net"
                                     );
-                                    await photoModel.addMealPhoto(userID, date, whichMeal, mealCloudFrontUrl);
+                                    await photoModel.addMealPhoto(mealRecordID, mealCloudFrontUrl);
                                     resolve(mealCloudFrontUrl);
                                 }catch (error) {
                                     reject(error);
@@ -199,18 +207,27 @@ photoRouter.get("/meal", async(req, res) => {
             const userID = userCookie.userID;
             const meal = req.query.meal || "";
             const date = req.query.date || "";
-            const result = await photoModel.getMealPhoto(userID, date, meal);
+            let mealRecordID;
             let response;
-            if (result[0]){
-                response = {
-                    "data": result
-                }                
+            let mealRecordIDSearch = await mealRecordModel.searchMealRecord(userID, date, meal);
+            if (mealRecordIDSearch){
+                mealRecordID = mealRecordIDSearch.mealRecordID;
+                const result = await photoModel.getMealPhoto(mealRecordID);
+                if (result[0]) {
+                    response = {
+                        "data": result,
+                    };
+                } else {
+                    response = {
+                        "data": null,
+                    };
+                }   
             }else{
-                response = {
+                response= {
                     "data": null
-                }                 
+                }
             }
-            res.status(200).json(response);
+            res.status(200).json(response);  
         }else{
             res.status(403).json({
                 "error": true,
@@ -233,11 +250,8 @@ photoRouter.delete("/meal", async(req, res) => {
             const token = cookie.replace("token=","");
             const userCookie = jwt.verify(token, JwtSecret);
             const userID = userCookie.userID;
-            const deletePhotoInfo = req.body;
-            const date = deletePhotoInfo.date;
-            const meal = deletePhotoInfo.meal;
-            const photoUrl = deletePhotoInfo.photoUrl;
-            await photoModel.deleteMealPhoto(userID, date, meal, photoUrl);
+            const deleteMealPhotoID = req.body.mealPhotoID;
+            await photoModel.deleteMealPhoto(deleteMealPhotoID);
             let response= {
                 "ok": true
             }

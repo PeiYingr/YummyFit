@@ -145,7 +145,8 @@ body{
     line-height:50px;
     text-align: center;
     color: #666666;
-    margin: 20px auto;
+    padding: 15px;
+    box-sizing: border-box;
 }
 .footer{
     display:flex;

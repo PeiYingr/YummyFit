@@ -10,6 +10,7 @@ const foodInput = document.querySelector(".foodInput")
 const searchResultBox =  document.querySelector(".searchResultBox");
 const gramInput = document.querySelector(".gramInput")
 const add = document.querySelector(".add")
+const addLoading = document.querySelector(".addLoading")
 const records = document.querySelector(".records")
 const noRecord = document.querySelector(".noRecord")
 const mealRecordFrame = document.querySelector(".mealRecordFrame")
@@ -58,10 +59,9 @@ const timezoneOffset = today.getTimezoneOffset();
 const correctedDate = new Date(today.getTime() - timezoneOffset * 60 * 1000);
 const isoString = correctedDate.toISOString().substring(0, 10);
 calendarInput.value = isoString;
-// convert to timestamp format
+
 let chooseIntakeDate = calendarInput.value;
-let convertDateFormat = new Date(chooseIntakeDate);
-let timestamp = convertDateFormat.getTime();
+chooseIntakeDate = chooseIntakeDate.replace(/-/g, "");
 
 // show meal intake data
 function showMealIntake(userIntakeData){
@@ -98,50 +98,43 @@ function showMealIntake(userIntakeData){
     deleteIcon.appendChild(deleteIconImg);
     oneRecord.appendChild(deleteIcon);
     records.appendChild(oneRecord);
+    const intakeID = userIntakeData.intakeID
+    deleteOneIntakeRecords(oneRecord, deleteIcon, intakeID);
 };
 
 // delete intake food
-function deleteOneIntakeRecords(){
-    const oneRecords = document.querySelectorAll(".oneRecord")
-    oneRecords.forEach((deleteOneRecord) =>{
-        const recordDeleteIcon = deleteOneRecord.querySelector(".deleteIcon");
-        recordDeleteIcon.addEventListener("click",() => {
-            const food = deleteOneRecord.querySelector(".food").textContent;
-            const amount = deleteOneRecord.querySelector(".amount").textContent;
-            const deleteFood = {
-                "meal":chooseIntakeMeal,
-                "foodName":food,
-                "date":timestamp,
-                "amount":amount
-            };
-            fetch("/api/intake",{
-                method:"DELETE",
-                body:JSON.stringify(deleteFood),
-                headers:new Headers({
-                    "content-type":"application/json"
-                })
-            }).then(function(response){
-                return response.json();  
-            }).then(function(data){
-                if(data.ok == true){
-                    deleteOneRecord.remove();
-                    const haveRecord = document.querySelector(".oneRecord")
-                    if (haveRecord == null){
-                        records.style.display="none";
-                        noRecord.style.display="block";
-                    }
-                }else{
-                    noticeWindow.style.display="block";
-                    noticeMain.textContent = data.message; 
-                }
+function deleteOneIntakeRecords(oneRecord, deleteIcon, intakeID){
+    deleteIcon.addEventListener("click",() => {
+        const deleteFood = {
+            "intakeID":intakeID
+        };
+        fetch("/api/intake",{
+            method:"DELETE",
+            body:JSON.stringify(deleteFood),
+            headers:new Headers({
+                "content-type":"application/json"
             })
+        }).then(function(response){
+            return response.json();  
+        }).then(function(data){
+            if(data.ok == true){
+                oneRecord.remove();
+                const haveRecord = document.querySelector(".oneRecord")
+                if (haveRecord == null){
+                    records.style.display="none";
+                    noRecord.style.display="block";
+                }
+            }else{
+                noticeWindow.style.display="block";
+                noticeMain.textContent = data.message; 
+            }
         })
     })
 }
 
 // get meals intake data
 async function getMealIntakeData(){
-    const response = await fetch(`/api/intake?meal=${chooseIntakeMeal}&date=${timestamp}`);
+    const response = await fetch(`/api/intake?meal=${chooseIntakeMeal}&date=${chooseIntakeDate}`);
     const data = await response.json();
     if(data.error == true){
         noticeWindow.style.display="block";
@@ -161,13 +154,12 @@ async function getMealIntakeData(){
         for(i=0; i<userIntakeData.length; i++){
             showMealIntake(userIntakeData[i]);
         }
-        deleteOneIntakeRecords();
     } 
 }
 
 // get daily intake data
 async function getDailyIntakeData(){
-    const response = await fetch(`/api/intake/daily?date=${timestamp}`)
+    const response = await fetch(`/api/intake/daily?date=${chooseIntakeDate}`)
     const data = await response.json();
     if(data.error == true){
         noticeWindow.style.display="block";
@@ -318,8 +310,8 @@ calendarInput.addEventListener("change", () => {
     localeDateString = convertDateFormat.toLocaleDateString("en-US", {month: "short", day: "numeric", year: "numeric"});
     // put date text content on the right side of calender 
     date.textContent = localeDateString;
-    // convert to timestamp format
-    timestamp = convertDateFormat.getTime();
+    // convert to no "-" format
+    chooseIntakeDate = chooseIntakeDate.replace(/-/g, "");
     if (chooseIntakeMeal == "dailyIntake"){
         getDailyIntakeData();
     }else{
@@ -399,13 +391,16 @@ add.addEventListener("click", () => {
     }else if(amount == "" || Number(amount)<0){
         noticeWindow.style.display="block";
         noticeMain.textContent = "Enter right amount of food."; 
+    }else if(isNaN(amount)){
+        noticeWindow.style.display="block";
+        noticeMain.textContent = "Please enter correct amount of food."; 
     }else{
-        const chooseIntakeDate = calendarInput.value;
-        const convertDateFormat = new Date(chooseIntakeDate);
-        const timestamp = convertDateFormat.getTime();
-        // const date = new Date(timestamp).toDateString();
+        add.style.display = "none";
+        addLoading.style.display = "block";
+        let chooseIntakeDate = calendarInput.value;
+        chooseIntakeDate = chooseIntakeDate.replace(/-/g, "");
         const addIntake = { 
-            "date":timestamp,
+            "date":chooseIntakeDate,
             "meal": chooseIntakeMeal,
             "foodName":food,
             "amount":amount
@@ -419,6 +414,8 @@ add.addEventListener("click", () => {
         }).then(function(response){
             return response.json();  
         }).then(function(data){
+            add.style.display = "block";
+            addLoading.style.display = "none";
             if(data.error == true){
                 noticeWindow.style.display="block";
                 noticeMain.textContent = data.message;  
@@ -438,7 +435,6 @@ add.addEventListener("click", () => {
                 for(i=0; i<userIntakeData.length; i++){
                     showMealIntake(userIntakeData[i]);
                 }
-                deleteOneIntakeRecords();
             }
         })
     }
