@@ -789,7 +789,7 @@ div {
 }
 .contentPhoto img:hover{
     opacity: 0.8;
-    transform: scale(1.2);
+    transform: scale(1.15);
 }
 .otherPostFunction{
     width:95%;
@@ -819,21 +819,25 @@ div {
     font-weight: bold;
     cursor: pointer;
     text-decoration: underline;
+    transform: scale(1.05);
 }
 .interact{
     width:100%;
     height:35px;
     display: flex;
+    justify-content: center;
     align-items: center;
     border-top:1px solid #d4ac97;
     border-bottom:1px solid #d4ac97;
 }
 .like, .comment{
-    width: 50%;
+    width: 49%;
     display: flex;
     font-size: 15px;
+    border-radius: 10px;
     justify-content: center;
     cursor: pointer;
+    user-select: none;
 }
 .like img, .comment img{
     width: 25px;
@@ -844,6 +848,10 @@ div {
 .like:hover, .comment:hover{
     font-weight: bold;
     transform: scale(1.05);
+    background:#faebd7;
+}
+.like:active, .comment:active{
+    transform:translateZ(1px);
 }
 .commentFrame{
     display: flex;
@@ -857,6 +865,7 @@ div {
     cursor: pointer;
     font-weight: 500;
     display:none;
+    user-select: none;
 }
 .viewAllComment:hover, .hideAllComment:hover{
     text-decoration: underline;
@@ -877,6 +886,7 @@ div {
     margin-right: 10px;
     object-fit:cover;
     border-radius: 50%;
+    user-select: none;
 }
 .userCommentBlock{
     margin-right: auto;
@@ -930,4 +940,97 @@ div {
 .leaveComment:focus{
     border: 1px solid #cc5f55;
     box-shadow: 0px 5px 15px rgba(187, 126, 119, 50%)
+}
+
+.postLikeFrame{
+    width:400px;
+    height:400px;
+    z-index: 6;
+    background: #ede0d4;
+    border-radius: 15px;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display:none;
+    font-size: 16px;
+}
+.whoLikes{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    background: linear-gradient(45deg, #ec5c30, #e48269,#db776c, #bf7e78, #c23d2f);
+    font-weight: 500;
+    border-radius: 10px 10px 0px 0px;
+    height: 55px;
+}
+.whoLikesText{
+    height:35px;
+    text-align: center;
+    line-height: 35px;
+    font-size: 18px;
+}
+.closePostLikeFrame{
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    top: 16px;
+    right: 17px;
+    cursor: pointer;
+}
+.closePostLikeFrame img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.closePostLikeFrame:hover{
+    transform: scale(1.1);
+}
+.postLikeList{
+    width:100%;   
+    height: 340px;
+    overflow-y: scroll;
+}
+.oneLike{
+    display: flex;
+    align-items: center;
+    padding: 10px 5px;
+    border-bottom: 1px solid #d4ac97;
+    width: 95%;
+    margin: auto;
+}
+.oneLike img{
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+.likeUserName{
+    line-height: 26px;
+}
+/* searchLocationResultList scrollbar style */
+.postLikeList::-webkit-scrollbar{
+    width: 6px;
+}
+.postLikeList::-webkit-scrollbar-thumb {
+    background-color: #f0d4bc;
+    border: 1px solid #922c21;
+    border-radius: 15px;
+}
+.noLike{
+    flex-direction: column;
+    gap: 60px;
+    align-items: center;
+    margin-top:50px;
+    font-size: 18px;
+    display: none;
+}
+.noLike img{
+    width: 100px;
+    height: 100px;
 }

@@ -1,5 +1,5 @@
 const express = require("express");
-const postRouter = express.Router();    //產生router物件，存入變數
+const postRouter = express.Router();
 const postModel = require("../model/post");
 const photoModel = require("../model/photo");
 const multer = require("multer");
@@ -7,7 +7,6 @@ const AWS = require("aws-sdk");
 // Create a token generator with the default settings:
 const randtoken = require("rand-token");
 const jwt = require("jsonwebtoken");
-const { NUMBER } = require("sequelize");
 require("dotenv").config({ path: ".env" });
 const JwtSecret = process.env.JWT_SECRET_KEY;
 
@@ -135,7 +134,7 @@ postRouter.post("/", upload.array("images", 3), async(req, res) => {
     }
 });
 
-// get post & comment data
+// get post, comment, like data
 postRouter.get("/", async(req, res) => {
     try{
         const cookie = req.headers.cookie;
@@ -144,13 +143,12 @@ postRouter.get("/", async(req, res) => {
             const userCookie = jwt.verify(token, JwtSecret);
             const userID = userCookie.userID;
             const forum = req.query.forum || "";
-            let photos;
             let allData=[];
             let response;
             if(forum == "all"){
                 const postInfo = await postModel.getAllPosts();
                 if(postInfo[0]){
-                    await getPostData(userID, postInfo, photos, allData);
+                    await getPostData(userID, postInfo, allData);
                     response = {
                         "data": allData
                     }
@@ -162,7 +160,7 @@ postRouter.get("/", async(req, res) => {
             }else{
                 const postInfo = await postModel.getChooseForumPosts(forum);
                 if(postInfo[0]){
-                    await getPostData(userID, postInfo, photos, allData);
+                    await getPostData(userID, postInfo, allData);
                     response = {
                         "data": allData
                     }
@@ -297,18 +295,90 @@ postRouter.delete("/comment", async(req, res) => {
     }
 })
 
-async function getPostData(userID, postInfo, photos, allData){
+//add new like
+postRouter.post("/like", async(req, res) => {
+    try{
+        const cookie = req.headers.cookie;
+        if (cookie){
+            const token = cookie.replace("token=","");
+            const userCookie = jwt.verify(token, JwtSecret);
+            const likeUserID = userCookie.userID;
+            const likePostID = req.body.postID;
+            await postModel.addLike(likePostID , likeUserID);
+            const result =  await postModel.getAllLikes(likePostID);
+            let response;
+            if(result[0]){
+                response = {
+                    "data": result
+                }
+            }else{
+                response = {
+                    "data":  null
+                }
+            }
+            res.status(200).json(response);
+        }else{
+            res.status(403).json({
+                "error": true,
+                "message": "Access Denied.Please Login."
+            });        
+        } 
+    }catch{
+        res.status(500).json({ 			
+            "error": true,
+            "message": "Server error" 
+        })
+    }
+})
+
+// delete like
+postRouter.delete("/like", async(req, res) => {
+    try{
+        const cookie = req.headers.cookie;
+        if (cookie){
+            const token = cookie.replace("token=","");
+            const userCookie = jwt.verify(token, JwtSecret);
+            const deleteLikeUserID = userCookie.userID;
+            const deleteLikePostID = req.body.postID;
+            await postModel.deleteLike(deleteLikePostID, deleteLikeUserID);
+            const result =  await postModel.getAllLikes(deleteLikePostID);
+            if(result[0]){
+                response = {
+                    "data": result
+                }
+            }else{
+                response= {
+                    "data": null
+                }
+            }
+            res.status(200).json(response);       
+        }else{
+            res.status(403).json({
+                "error": true,
+                "message": "Access Denied.Please Login."
+            });        
+        } 
+    }catch{
+        res.status(500).json({ 			
+            "error": true,
+            "message": "Server error" 
+        })
+    }
+})
+
+async function getPostData(userID, postInfo, allData){
     for(let i=0 ;i < postInfo.length ;i++){
         const postPhoto = await postModel.getPostPhoto(postInfo[i].postID);
+        let photos;
         if(postPhoto[0]){
             photos = postPhoto;
         }else{
             photos =null;
         }
         const getAllComments = await postModel.getAllComments(postInfo[i].postID);
-        let comment;
+        let comments;
         if (getAllComments[0]){
-            comment = []
+            comments = []
             for(let i=0 ;i < getAllComments.length ;i++){
                 const oneComment = {
                     "commentID": getAllComments[i].commentID,
@@ -318,10 +388,26 @@ async function getPostData(userID, postInfo, photos, allData){
                     "commentText": getAllComments[i].commentText,
                     "postCommentAvatar": getAllComments[i].postCommentAvatar
                 }
-                comment.push(oneComment)
+                comments.push(oneComment)
             }
         }else{
-            comment = null;
+            comments = null;
+        }
+        const getAllLikes = await postModel.getAllLikes(postInfo[i].postID);
+        let likes;
+        if (getAllLikes[0]){
+            likes = []
+            for(let i=0 ;i < getAllLikes.length ;i++){
+                const oneLike = {
+                    "LikeID": getAllLikes[i].LikeID,
+                    "postLikeUserID": getAllLikes[i].postLikeUserID,
+                    "postLikeUserName": getAllLikes[i].postLikeUserName,
+                    "postLikeAvatar": getAllLikes[i].postLikeAvatar
+                }
+                likes.push(oneLike)
+            }
+        }else{
+            likes = null;
         }
         const oneData = {
             "userID": userID,
@@ -334,8 +420,8 @@ async function getPostData(userID, postInfo, photos, allData){
             "postText": postInfo[i].postText,
             "postLocation": postInfo[i].location,
             "postPhoto": photos,
-            "postLike": postInfo[i].likes,
-            "comment": comment
+            "postLike": likes,
+            "postComment": comments
         }
         allData.push(oneData);
     }

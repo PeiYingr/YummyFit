@@ -46,8 +46,8 @@ body{
     line-height:40px;
     display: flex;
     align-items: center;
-    margin-right: 15px;
     letter-spacing:0.3px;
+    padding: 5px 7px;
 }
 .userIcon, .diaryIcon, .socialMediaIcon{
     width: 30px;
@@ -91,7 +91,7 @@ body{
 .socialMedia:hover,.diary:hover, .memberCenter:hover, .memberInfo:hover, .signoutText:hover{
     background-color: antiquewhite;
     cursor: pointer;
-    border-radius:5px;
+    border-radius:15px;
     color: #9f6a47;
     font-weight: bold;
 }

@@ -36,6 +36,10 @@ const showPostsLoading = document.querySelector(".showPostsLoading");
 const contentPhotoEnlargeFrame = document.querySelector(".contentPhotoEnlargeFrame");
 const contentPhotoEnlarge = document.querySelector(".contentPhotoEnlarge");
 const closePhotoEnlargeFrame = document.querySelector(".closePhotoEnlargeFrame");
+const postLikeFrame = document.querySelector(".postLikeFrame");
+const closePostLikeFrame = document.querySelector(".closePostLikeFrame");
+const postLikeList = document.querySelector(".postLikeList");
+const noLike = document.querySelector(".noLike");
 
 let postForumBlockStatus = 0 // status = close
 // click postForum : show/hide postForumBlock
@@ -44,6 +48,7 @@ let postLocationChoose = null;
 let postLocationPlaceID;
 let userAvatar = null;
 let forumPage = "all";
+let thisUserID;
 
 all.addEventListener("click", () => {
     forumPage = "all";
@@ -118,6 +123,27 @@ closeLocationFrame.addEventListener("click", () => {
     locationInput.value = "";
 })
 
+closePostLikeFrame.addEventListener("click", () => {
+    noticeWindow.style.display = "none";
+    noticeSection.style.display = "block";
+    postLikeFrame.style.display = "none";
+})
+
+noticeWindow.addEventListener("click", () => {
+    noticeWindow.style.display = "none";
+    noticeSection.style.display = "block";
+    locationFrame.style.display = "none";
+    searchLocationResultList.style.display="none";
+    noSearchLocationResult.style.display="none";
+    goSearchLocation.style.display="block";
+    locationInput.value = "";
+    
+    contentPhotoEnlargeFrame.style.display = "none";
+    contentPhotoEnlarge.src = "";
+
+    postLikeFrame.style.display = "none";
+})
+
 locationInput.addEventListener("click", () => {
     locationInput.select();
 });
@@ -138,6 +164,7 @@ fetch("/api/user").then(function(response){
     }else{
         const userData = data.data;
         memberName.textContent = userData.name;
+        thisUserID = userData.userID;
     }
 });
 

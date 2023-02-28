@@ -16,20 +16,27 @@ async function getPosts(){
     }else{
         const posts = data.data
         posts.forEach((post) => {
-            if(post.comment == null){
-                showPost(post, post.postLike, 0);
+            let totalComments;
+            let totalLikes;
+            if(post.postComment == null){
+                totalComments = 0;
             }else{
-                showPost(post, post.postLike, post.comment.length, post.comment);
-            }
+                totalComments = post.postComment.length;
+            };
+            if(post.postLike == null){
+                totalLikes = 0;
+            }else{
+                totalLikes = post.postLike.length;
+            };
+            showPost(post, totalLikes, totalComments, post.postLike, post.postComment);
         })
     }
 }
 
 // show post
-function showPost(postInfos, totalLikes, totalComments, totalCommentsInfo){
+function showPost(postInfos, totalLikes, totalComments, totalLikesInfo, totalCommentsInfo){
     const postID = postInfos.postID;
     const postUserAvatar = postInfos.postUserAvatar;
-    const thisUserID =  postInfos.userID;
     const postArticle = document.createElement("div");
     postArticle.setAttribute("class","postArticle");
     /*------------------------poster------------------------*/ 
@@ -125,10 +132,10 @@ function showPost(postInfos, totalLikes, totalComments, totalCommentsInfo){
         }
         postArticle.appendChild(contentRegion);
     }
-    showPostInteractBlock(postArticle, postID, totalLikes, totalComments, totalCommentsInfo, thisUserID);
+    showPostInteractBlock(postArticle, postID, totalLikes, totalComments, totalLikesInfo, totalCommentsInfo);
 };
 
-function showPostInteractBlock(postArticle, postID, totalLikes, totalComments, totalCommentsInfo, thisUserID){
+function showPostInteractBlock(postArticle, postID, totalLikes, totalComments, totalLikesInfo, totalCommentsInfo){
     /*------------------otherPostFunction--------------------*/    
     const otherPostFunction = document.createElement("div");
     otherPostFunction.setAttribute("class", "otherPostFunction");
@@ -141,14 +148,20 @@ function showPostInteractBlock(postArticle, postID, totalLikes, totalComments, t
     const totalLikesImg = document.createElement("img");
     totalLikesImg.setAttribute("src", "/Images/allLikes.png");
     totalLikesAmount.appendChild(totalLikesImg);
-
     const totalLikesText = document.createElement("span");
     if(totalLikes < 2 ){
-        totalLikesText.textContent = totalLikes + " Like";       
+        totalLikesText.textContent = totalLikes + " Like";     
     }else{
         totalLikesText.textContent = totalLikes + " Likes";
     }
     totalLikesAmount.appendChild(totalLikesText);
+
+    totalLikesAmount.addEventListener("click", () => {
+        showPostLikeList(totalLikes, totalLikesInfo);
+        noticeWindow.style.display = "block";
+        noticeSection.style.display = "none";
+        postLikeFrame.style.display = "block";
+    })
 
     const totalCommentsAmount = document.createElement("span");
     totalCommentsAmount.setAttribute("class", "totalCommentsAmount");
@@ -171,6 +184,12 @@ function showPostInteractBlock(postArticle, postID, totalLikes, totalComments, t
     likeSpan.textContent = "Like";
     like.appendChild(likeImg);
     like.appendChild(likeSpan);
+
+    let likeStatus = 0 //dislike;
+    if(totalLikes > 0){
+        likeStatus = checkUserLike(totalLikesInfo, likeImg, likeStatus);
+    }
+    updateLikes(postID, like, likeImg, likeStatus, totalLikesText, totalLikesAmount);
 
     const comment = document.createElement("div");
     comment.setAttribute("class", "comment");
@@ -199,7 +218,7 @@ function showPostInteractBlock(postArticle, postID, totalLikes, totalComments, t
 
     if(totalComments > 0){
         viewAllComment.style.display="block";
-        createAllComments(totalCommentsInfo,  totalCommentsAmount, viewAllComment, allComments, postID, thisUserID);
+        createAllComments(totalCommentsInfo,  totalCommentsAmount, viewAllComment, allComments, postID);
     }
 
     const leaveCommentBlock = document.createElement("div");
@@ -232,10 +251,10 @@ function showPostInteractBlock(postArticle, postID, totalLikes, totalComments, t
     comment.addEventListener("click", () => {
         leaveCommentInput.focus();
     })
-    addComment(postID, postArticle, viewAllComment, allComments, totalCommentsAmount, thisUserID);
+    addComment(postID, postArticle, viewAllComment, allComments, totalCommentsAmount);
 }
 
-function createAllComments(totalCommentsInfo, totalCommentsAmount, viewAllComment, allComments, postID, thisUserID){
+function createAllComments(totalCommentsInfo, totalCommentsAmount, viewAllComment, allComments, postID){
     /*-------------------totalComments------------------------*/ 
     for(let i=0 ; i < totalCommentsInfo.length ; i++){
         const oneComment = document.createElement("div");
@@ -279,7 +298,7 @@ function createAllComments(totalCommentsInfo, totalCommentsAmount, viewAllCommen
             deleteCommentImg.setAttribute("src", "/Images/delete.png");
             deleteComment.appendChild(deleteCommentImg);
             oneComment.appendChild(deleteComment);
-            deleteUserComment(postID, commentID, deleteComment, viewAllComment, allComments, totalCommentsAmount, thisUserID);
+            deleteUserComment(postID, commentID, deleteComment, viewAllComment, allComments, totalCommentsAmount);
         }
         allComments.appendChild(oneComment);
     }
@@ -347,7 +366,7 @@ function deleteUserPost(postArticle, deletePost, postID){
 }
 
 // add post's comment
-function addComment(postID, postArticle, viewAllComment, allComments, totalCommentsAmount, thisUserID){
+function addComment(postID, postArticle, viewAllComment, allComments, totalCommentsAmount){
     const leaveComment = postArticle.querySelector(".leaveComment")
     leaveComment.addEventListener("keydown", (e) =>{
         const comment = leaveComment.value;
@@ -383,7 +402,7 @@ function addComment(postID, postArticle, viewAllComment, allComments, totalComme
                         totalCommentsAmount.textContent = "0 Comment";
                     }else{
                         allComments.innerHTML = "";
-                        createAllComments(totalCommentsInfo, totalCommentsAmount, viewAllComment, allComments, postID, thisUserID);
+                        createAllComments(totalCommentsInfo, totalCommentsAmount, viewAllComment, allComments, postID);
                         if(totalCommentsInfo.length == 1){
                             viewAllComment.style.display="block";
                         }
@@ -401,7 +420,7 @@ function addComment(postID, postArticle, viewAllComment, allComments, totalComme
 };
 
 // delete comment
-function deleteUserComment(postID, commentID, deleteComment, viewAllComment, allComments, totalCommentsAmount, thisUserID){
+function deleteUserComment(postID, commentID, deleteComment, viewAllComment, allComments, totalCommentsAmount){
     deleteComment.addEventListener("click", () => {
         noticeWindow.style.display = "block";
         noticeSection.style.display = "none";
@@ -438,7 +457,7 @@ function deleteUserComment(postID, commentID, deleteComment, viewAllComment, all
                     totalCommentsAmount.textContent = "0 Comment";
                 }else{
                     allComments.innerHTML = "";
-                    createAllComments(totalCommentsInfo, totalCommentsAmount, viewAllComment, allComments, postID, thisUserID);
+                    createAllComments(totalCommentsInfo, totalCommentsAmount, viewAllComment, allComments, postID);
                     if(totalCommentsInfo.length <  2 ){
                         totalCommentsAmount.textContent =totalCommentsInfo.length + " Comment";        
                     }else{
@@ -448,6 +467,122 @@ function deleteUserComment(postID, commentID, deleteComment, viewAllComment, all
             })
         })
     })
+}
+
+function checkUserLike(totalLikesInfo, likeImg, likeStatus){
+    for(let i=0 ; i < totalLikesInfo.length ; i++){
+        if(thisUserID == totalLikesInfo[i].postLikeUserID){
+            likeImg.src = "/Images/likeAfter.png";
+            likeStatus = 1;
+        }
+    }
+    return likeStatus;
+}
+
+function updateLikes(postID, like, likeImg, likeStatus, totalLikesText, totalLikesAmount){
+    like.addEventListener("click", () => {
+        like.style.pointerEvents = "none";
+        let newTotalLikesInfo;
+        let totalLikes;
+        if(likeStatus == 0){
+            const addLikeInfo = {
+                "postID": postID
+            }
+            fetch("/api/post/like",{
+                method:"POST",
+                body:JSON.stringify(addLikeInfo),
+                headers:new Headers({
+                    "content-type":"application/json"
+                })
+            }).then(function(response){
+                return response.json();  
+            }).then(function(data){
+                like.style.pointerEvents = "auto";
+                if(data.error == true){
+                    noticeWindow.style.display="block";
+                    noticeMain.textContent = data.message;
+                }else{
+                    likeImg.src = "/Images/likeAfter.png";
+                    likeStatus = 1; //like
+                    newTotalLikesInfo = data.data;
+                    totalLikes = newTotalLikesInfo.length;
+                    if(totalLikes < 2 ){
+                        totalLikesText.textContent = totalLikes + " Like";       
+                    }else{
+                        totalLikesText.textContent = totalLikes + " Likes";
+                    }
+                }
+            })
+        }else{
+            const deleteLikeInfo = {
+                "postID": postID 
+            }
+            fetch("/api/post/like",{
+                method:"DELETE",
+                body:JSON.stringify(deleteLikeInfo),
+                headers:new Headers({
+                    "content-type":"application/json"
+                })
+            }).then(function(response){
+                return response.json();  
+            }).then(function(data){
+                like.style.pointerEvents = "auto";
+                if(data.error == true){
+                    noticeWindow.style.display="block";
+                    noticeMain.textContent = data.message;
+                }else if(data.data == null){;
+                    newTotalLikesInfo = data.data;
+                    totalLikes = 0;
+                    totalLikesText.textContent = "0 Like";
+                    likeImg.src = "/Images/like.png";
+                    likeStatus = 0; //dislike
+                }else{
+                    likeImg.src = "/Images/like.png";
+                    likeStatus = 0;
+                    newTotalLikesInfo = data.data;
+                    totalLikes = newTotalLikesInfo.length;
+                    if(totalLikes < 2 ){
+                        totalLikesText.textContent = totalLikes + " Like";       
+                    }else{
+                        totalLikesText.textContent = totalLikes + " Likes";
+                    }
+                }
+            })
+        }
+        totalLikesAmount.addEventListener("click", () => {
+            showPostLikeList(totalLikes, newTotalLikesInfo);
+            noticeWindow.style.display = "block";
+            noticeSection.style.display = "none";
+            postLikeFrame.style.display = "block";
+        })
+    })
+}
+
+function showPostLikeList(totalLikes, totalLikesInfo){
+    if(totalLikes == 0){
+        postLikeList.style.display = "none";
+        noLike.style.display = "flex";
+    }else{
+        noLike.style.display = "none";
+        postLikeList.style.display = "block";
+        postLikeList.innerHTML = "";
+        for(let i=0 ; i < totalLikesInfo.length ; i++){
+            const oneLike = document.createElement("div");
+            oneLike.setAttribute("class", "oneLike");
+            const likeAvatarImg = document.createElement("img");
+            if(totalLikesInfo[i].postLikeAvatar){
+               likeAvatarImg.setAttribute("src", totalLikesInfo[i].postLikeAvatar);  
+            }else{
+               likeAvatarImg.setAttribute("src", "/Images/avatar.png");
+            }
+            const likeUserName = document.createElement("div");
+            likeUserName.setAttribute("class", "likeUserName");
+            likeUserName.textContent = totalLikesInfo[i].postLikeUserName;
+            oneLike.appendChild(likeAvatarImg);
+            oneLike.appendChild(likeUserName);
+            postLikeList.appendChild(oneLike);
+        }        
+    }
 }
 
 function timeCalculate(dateTime) {

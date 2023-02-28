@@ -20,12 +20,7 @@
             <div class="searchLocationBar">
                 <input type="text" class="locationInput" placeholder="Search Location" autocomplete="off"/>
             </div>
-            <div class="searchLocationResultList">
-                <div class="oneSearchLocationResult">
-                    <div class="oneSearchLocationResultName"></div>
-                    <div class="oneSearchLocationResultAddress"></div>                               
-                </div>
-            </div>
+            <div class="searchLocationResultList"></div>
             <div class="goSearchLocation">
                 <div class="goSearchPicture"><img src="/Images/earth.png"></div>
                 <div class="goSearchText">Go search!</div>
@@ -52,6 +47,17 @@
         <div class="contentPhotoEnlargeFrame">
             <img class="contentPhotoEnlarge"/>
             <div class="closePhotoEnlargeFrame"><img src="/Images/close2.png"/></div>
+        </div>
+        <div class="postLikeFrame">
+            <div class="whoLikes">
+                <div class="whoLikesText">Who Likes</div>
+                <div class="closePostLikeFrame"><img src ="/Images/close.png"/></div>
+            </div>
+            <div class="postLikeList"></div>
+            <div class="noLike">
+                <div>Nobody likes yet.</div>
+                <img src ="/Images/crying.png"/>
+            </div>
         </div>
         <div class="socialMediaFrame">
             <div class="list">
@@ -101,19 +107,6 @@
                             <textarea class="postTextInput" placeholder="share your food & thoughts !"></textarea>                            
                         </div>
                     </div>
-                    <!-- <div class="postPhotoRegion">
-                        <div class="postPhotoBlock">
-                            <div class="postPhoto"><img/></div>
-                            <div class="postPhotoCancelIcon"><img src="/Images/cancel.png"/></div>
-                        </div>
-                    </div> -->
-                    <!-- <div class="locationLinkBlock">
-                        <a href="https://www.google.com/maps/search/?api=1&query=123髮廊" class=locationLink>
-                            <div class="locationChooseIcon"><img src="/Images/region.png"/></div> 
-                            <div class="locationChoose">123</div>                  
-                        </a>    
-                        <div class="removeLocationIcon"><img src="/Images/removetag.png"></div>  
-                    </div> -->
                     <div class="postBlockHr"></div>
                     <div class="postBlockItems">
                         <div class="addPostPhoto">
@@ -141,66 +134,6 @@
                     <div class="showPostsLoadingText">Loading</div>
                     <img src="/Images/loading.gif"/>
                 </div>
-                <!-- (post put in showPostsFrame)
-                <div class="postArticle">
-                    <div class="poster">
-                        <div class="posterForum">Yummy Food</div>
-                        <div class="posterSection">
-                            <div class="posterAvatar"><img src="/Images/avatar.png"/></div>
-                            <div class="posterInfo">
-                                <div class="posterUserName">haha(posterUserName)</div>
-                                <div class="posterLocation">
-                                    <a href="https://www.google.com/maps/search/?api=1&query=123髮廊" class=posterLocationLink> 
-                                        <div class="posterLocationName">123髮廊</div>                  
-                                    </a>    
-                                </div>
-                                <div class="posterTime">52m</div>
-                            </div>
-                        </div>
-                        <div class="deletePost"><img src="/Images/delete.png"/></div>
-                    </div>
-                    <div class="contentText">1222333333333333</div>
-                    <div class="contentRegion">
-                        <div class="contentPhoto">
-                            <img src="https://dle57qor2pt0d.cloudfront.net/norecord.jpg"/>
-                        </div>
-                    </div>
-                    <div class="otherPostFunction">
-                        <div class="totalLikesComments">
-                            <span class="totalLikesAmount">
-                                <img src="/Images/allLikes.png"/>
-                                <span>4 Likes</span> 
-                             </span>
-                            <span class="totalCommentsAmount">4 Comments</span>
-                        </div>
-                        <div class="interact">
-                            <div class="like">
-                                <img src="/Images/like.png"/>
-                                <span>Like</span>
-                            </div>
-                            <div class="comment">
-                                <img src="/Images/comment.png"/>
-                                <span>Comment</span>
-                            </div>
-                        </div>
-                        <div class="commentFrame">
-                            <div class="viewAllComment">View All comments</div>
-                            <div class="allComments">
-                                <div class="oneComment">
-                                    <img src="/Images/avatar.png"/>
-                                    <div class="userCommentBlock">
-                                        <div class="commentInfo">haha<span class="commentTime">6d</span></div>
-                                        <div class="userComment">1231233</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="leaveCommentBlock">
-                                <img src="/Images/avatar.png"/>
-                                <input type="text"  class="leaveComment" placeholder="Write a comment" autocomplete="off"/>
-                            </div>
-                        </div>                        
-                    </div>
-                </div> -->
             </div>
         </div>
         <%- include("footer") %>
