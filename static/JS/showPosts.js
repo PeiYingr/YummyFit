@@ -3,6 +3,7 @@ getPosts();
 
 // get post data
 async function getPosts(){
+    list.style.pointerEvents = "none";
     showPostsFrame.innerHTML ="";
     showPostsLoading.style.display="flex";
     const response = await fetch(`/api/post?forum=${forumPage}`);
@@ -30,6 +31,7 @@ async function getPosts(){
             };
             showPost(post, totalLikes, totalComments, post.postLike, post.postComment);
         })
+        list.style.pointerEvents = "auto";
     }
 }
 
@@ -166,7 +168,10 @@ function showPostInteractBlock(postArticle, postID, totalLikes, totalComments, t
     const totalCommentsAmount = document.createElement("span");
     totalCommentsAmount.setAttribute("class", "totalCommentsAmount");
     if(totalComments <  2 ){
-        totalCommentsAmount.textContent = totalComments + " Comment";        
+        totalCommentsAmount.textContent = totalComments + " Comment";
+        if(totalComments == 0){
+            totalCommentsAmount.style.pointerEvents = "none";
+        }     
     }else{
         totalCommentsAmount.textContent = totalComments + " Comments"; 
     }
@@ -400,8 +405,10 @@ function addComment(postID, postArticle, viewAllComment, allComments, totalComme
                         allComments.style.display = "none";
                         viewAllComment.style.display = "none";
                         totalCommentsAmount.textContent = "0 Comment";
+                        totalCommentsAmount.style.pointerEvents = "none";
                     }else{
                         allComments.innerHTML = "";
+                        totalCommentsAmount.style.pointerEvents = "auto";
                         createAllComments(totalCommentsInfo, totalCommentsAmount, viewAllComment, allComments, postID);
                         if(totalCommentsInfo.length == 1){
                             viewAllComment.style.display="block";
@@ -455,6 +462,7 @@ function deleteUserComment(postID, commentID, deleteComment, viewAllComment, all
                     allComments.style.display = "none";
                     viewAllComment.style.display = "none";
                     totalCommentsAmount.textContent = "0 Comment";
+                    totalCommentsAmount.style.pointerEvents = "none";
                 }else{
                     allComments.innerHTML = "";
                     createAllComments(totalCommentsInfo, totalCommentsAmount, viewAllComment, allComments, postID);

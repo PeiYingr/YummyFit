@@ -187,12 +187,17 @@
                             </div>                    
                         </div>                        
                     </div>
+                    <div class="weekChart">
+                        <canvas id="weekChart"></canvas>
+                        <div class="weekKcalButton">Calories</div>
+                        <div class="weekMarcosButton">Marcos</div>
+                    </div>
                 </div>
                 <div class="recordChart">
                     <canvas id="myChart"></canvas>
                     <div class="noChart">
                         <div class="noChartPicture"><img src="https://dle57qor2pt0d.cloudfront.net/norecord.jpg"></div>
-                        <div class="noChartText">No record yet.
+                        <div class="noChartText">No daily record yet.
                             <br/>Go ahead to add your food records!
                         </div>
                         <div class="upIcon"><img src="/Images/up.png"><img src="/Images/up.png"><img src="/Images/up.png"></div>
@@ -204,6 +209,7 @@
     </div>
     <script src="/JS/index.js"></script>
     <script src="/JS/mealPhoto.js"></script>
+    <script src="/JS/lineChart.js"></script>
     <script src="/JS/chart.js"></script>
     <script src="/JS/ocr.js"></script> 
 </body>

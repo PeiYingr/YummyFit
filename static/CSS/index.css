@@ -590,9 +590,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     width:50%;
 }
 .macroCompareList{
-    width:80%;
-    margin: 50px auto 10px;
-    height:40%;
+    width: 80%;
+    margin: 35px auto 10px;
+    height: 37%;
 }
 .compareText{
     width:100%;
@@ -686,11 +686,49 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .goAddTarget:active{
     transform:translateZ(1px) rotate(2deg) ;
 }
+.weekChart{
+    width: 95%;
+    height: 53%;
+    margin-left: auto;
+    position: relative;
+}
+.weekKcalButton, .weekMarcosButton{
+    width:100px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 8px 5px;
+    line-height: 18px;
+    text-align: center;
+    font-size: 15px;
+    color: #FFFFFF;
+    cursor: pointer;
+    position: absolute;
+    right:50px;
+    top: 15px;
+}
+.weekKcalButton{
+    background: linear-gradient(45deg, #dea897, #e48269, #d86d61);
+}
+.weekKcalButton:hover{
+    background: linear-gradient(225deg, #dea897, #e48269, #d86d61);
+    font-weight: bold;
+    transform: scale(1.02);
+}
+.weekMarcosButton{
+    background: linear-gradient(45deg, #ec5c30, #e48269, #c23d2f);
+    display:none
+}
+.weekMarcosButton:hover{
+    background: linear-gradient(225deg, #ec5c30, #e48269, #c23d2f);
+    font-weight: bold;
+    transform: scale(1.02);
+}
+.weekKcalButton:active, .weekMarcosButton:active{
+    transform:translateZ(2px);
+}
 .recordChart{
     width:50%;
     display: flex;
-    /* justify-content: center;
-	align-items: center; */
 }
 .noChart{
     width:100%;   
@@ -699,7 +737,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .noChartPicture{
     width: 300px;
     height: 300px;
-    margin: 60px auto 40px;
+    margin: 80px auto 50px;
 }
 .noChartPicture img{
     width: 100%;

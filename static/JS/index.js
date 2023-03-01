@@ -7,7 +7,7 @@ const dinner = document.querySelector(".dinner")
 const snacks = document.querySelector(".snacks")
 const dailyIntake = document.querySelector(".dailyIntake")
 const foodInput = document.querySelector(".foodInput")
-const searchResultBox =  document.querySelector(".searchResultBox");
+const searchResultBox = document.querySelector(".searchResultBox");
 const gramInput = document.querySelector(".gramInput")
 const add = document.querySelector(".add")
 const addLoading = document.querySelector(".addLoading")
@@ -47,6 +47,7 @@ const noOwnFood = document.querySelector(".noOwnFood");
 const pieChart = document.querySelector("#myChart");
 const noChart = document.querySelector(".noChart");
 let chooseIntakeMeal = "breakfast"; //default
+let weekIntakeData;
 
 const today = new Date();
 const todayDate = today.toLocaleDateString("en-US", {month: "short", day: "numeric", year: "numeric"});
@@ -164,34 +165,38 @@ async function getDailyIntakeData(){
     if(data.error == true){
         noticeWindow.style.display="block";
         noticeMain.textContent = data.message;  
-    }else if (data.data == null){
-        mealRecordFrame.style.display = "none";
-        dailyRecordFrame.style.display ="flex";
-        pieChart.style.display = "none";
-        noChart.style.display = "block";
-        await getTargetData();
-        dailyKcal.textContent = "0";
-        dailyProtein.textContent = "0";
-        dailyFat.textContent = "0";
-        dailyCarbs.textContent = "0";
-        dailyProteinPercentage.textContent = "(0%)";
-        dailyFatPercentage.textContent = "(0%)";
-        dailyCarbsPercentage.textContent = "(0%)";
     }else{
-        const dailyIntakeData = data.data;
-        mealRecordFrame.style.display="none";
-        dailyRecordFrame.style.display="flex";
-        noChart.style.display = "none";
-        pieChart.style.display = "block";
-        await updateChart(dailyIntakeData);
-        await getTargetData();
-        dailyKcal.textContent = dailyIntakeData.totalKcal;
-        dailyProtein.textContent = dailyIntakeData.totalProtein;
-        dailyFat.textContent = dailyIntakeData.totalFat;
-        dailyCarbs.textContent = dailyIntakeData.totalCarbs;
-        dailyProteinPercentage.textContent = "(" + dailyIntakeData.proteinPercentage + "%)";
-        dailyFatPercentage.textContent = "(" + dailyIntakeData.fatPercentage + "%)";
-        dailyCarbsPercentage.textContent = "(" + dailyIntakeData.carbsPercentage + "%)";
+        weekIntakeData = data.data.week;
+        await updateWeekMarcosChart(weekIntakeData);
+        const dailyIntakeData = data.data.daily;
+        if(dailyIntakeData){
+            mealRecordFrame.style.display="none";
+            dailyRecordFrame.style.display="flex";
+            noChart.style.display = "none";
+            pieChart.style.display = "block";
+            await updatePieChart(dailyIntakeData);
+            await getTargetData();
+            dailyKcal.textContent = dailyIntakeData.totalKcal;
+            dailyProtein.textContent = dailyIntakeData.totalProtein;
+            dailyFat.textContent = dailyIntakeData.totalFat;
+            dailyCarbs.textContent = dailyIntakeData.totalCarbs;
+            dailyProteinPercentage.textContent = "(" + dailyIntakeData.proteinPercentage + "%)";
+            dailyFatPercentage.textContent = "(" + dailyIntakeData.fatPercentage + "%)";
+            dailyCarbsPercentage.textContent = "(" + dailyIntakeData.carbsPercentage + "%)";            
+        }else{
+            mealRecordFrame.style.display = "none";
+            dailyRecordFrame.style.display ="flex";
+            pieChart.style.display = "none";
+            noChart.style.display = "block";
+            await getTargetData();
+            dailyKcal.textContent = "0";
+            dailyProtein.textContent = "0";
+            dailyFat.textContent = "0";
+            dailyCarbs.textContent = "0";
+            dailyProteinPercentage.textContent = "(0%)";
+            dailyFatPercentage.textContent = "(0%)";
+            dailyCarbsPercentage.textContent = "(0%)";
+        }
     }
 }
 
@@ -388,7 +393,7 @@ add.addEventListener("click", () => {
     if(food == ""){
         noticeWindow.style.display="block";
         noticeMain.textContent = "Enter name of food."; 
-    }else if(amount == "" || Number(amount)<0){
+    }else if(amount == "" || Number(amount) <= 0){
         noticeWindow.style.display="block";
         noticeMain.textContent = "Enter right amount of food."; 
     }else if(isNaN(amount)){
@@ -530,6 +535,12 @@ searchOwnFoodButton.addEventListener("click", () => {
 })
 
 closeOwnFoodFrame.addEventListener("click", () => {
+    noticeWindow.style.display = "none";
+    noticeSection.style.display = "block";
+    ownFoodFrame.style.display = "none";
+})
+
+noticeWindow.addEventListener("click", () => {
     noticeWindow.style.display = "none";
     noticeSection.style.display = "block";
     ownFoodFrame.style.display = "none";

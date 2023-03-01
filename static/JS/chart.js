@@ -1,23 +1,21 @@
-const ctx = document.getElementById('myChart');
+const ctx = document.getElementById("myChart");
 
 const data = {
   labels: [],
   datasets: [{
-      // label: 'Daily intake',
       data: [],
       backgroundColor: [
-      'rgb(255, 137, 0)',
-      'rgb(121, 87, 61)',
-      'rgb(204, 112, 102)'
+      "rgb(255, 137, 0)",
+      "rgb(121, 87, 61)",
+      "rgb(204, 112, 102)"
       ],
       borderWidth: 3,
-      // tension: 0.4,
       hoverOffset: 10,
   }]
 };
 
 const config = {
-  type: 'pie',
+  type: "pie",
   data: data,
   options: {
     responsive: true, // 設置圖表為響應式，根據屏幕窗口變化而變化
@@ -34,7 +32,7 @@ const config = {
       title: {
         display: true, 
         text: "Macros percentages for Daily Intake",
-        color: '#7f5539', 
+        color: "#7f5539", 
         font: {
           size: 24,
           weight:600,
@@ -47,12 +45,12 @@ const config = {
       },
       legend: {
         borderWidth:1,
-        position:'bottom',
+        position:"bottom",
         onClick: null,
         labels: {
           boxHeight:500,
           padding:30,
-          color: '#711c14',
+          color: "#711c14",
           font: {
             size: 14,
             weight:500,
@@ -66,8 +64,8 @@ const config = {
 
 const myChart = new Chart(ctx, config);
 
-function updateChart(dailyIntakeData){
-  myChart.data.labels = ['Protein(%)', 'Fat(%)' , 'Carbs(%)']
+async function updatePieChart(dailyIntakeData){
+  myChart.data.labels = ["Protein(%)", "Fat(%)" , "Carbs(%)"]
   myChart.data.datasets[0].data = [dailyIntakeData.proteinPercentage, dailyIntakeData.fatPercentage, dailyIntakeData.carbsPercentage]
   myChart.update()
 };
