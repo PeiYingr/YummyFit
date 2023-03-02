@@ -48,8 +48,10 @@ let postForumChoose;
 let postLocationChoose = null;
 let postLocationPlaceID;
 let userAvatar = null;
-let forumPage = "all";
 let thisUserID;
+let forumPage = "all";  // 左邊list選取哪個看版
+let postPage = 0;   //計算目前的叫出來的文章是第幾頁(5 posts/page)
+let isLoading = false;    // 追蹤、記錄目前頁面是否正在載入 API(true 代表還正在載入其他 API)
 
 all.addEventListener("click", () => {
     forumPage = "all";
@@ -70,6 +72,7 @@ all.addEventListener("click", () => {
     chat.style.background = "none";
     chat.style.fontWeight = "normal";
 });
+
 yummyFood.addEventListener("click", () => {
     forumPage = 1;
     getPosts();
@@ -89,6 +92,7 @@ yummyFood.addEventListener("click", () => {
     chat.style.background = "none";
     chat.style.fontWeight = "normal";
 }); 
+
 weightLoss.addEventListener("click", () => {
     forumPage = 2;
     getPosts();
@@ -108,6 +112,7 @@ weightLoss.addEventListener("click", () => {
     chat.style.background = "none";
     chat.style.fontWeight = "normal";
 });
+
 cooking.addEventListener("click", () => {
     forumPage = 3;
     getPosts();
@@ -127,6 +132,7 @@ cooking.addEventListener("click", () => {
     chat.style.background = "none";
     chat.style.fontWeight = "normal";
 });
+
 chat.addEventListener("click", () => {
     forumPage = 4;
     getPosts();
@@ -414,6 +420,7 @@ locationInput.addEventListener("input", () => {
                         const locationChooseLink = document.createElement("a");
                         locationChooseLink.setAttribute("class","locationLink");
                         locationChooseLink.setAttribute("href",`https://www.google.com/maps/search/?api=1&query=${locationName}&query_place_id=${queryPlaceId}`);
+                        locationChooseLink.setAttribute("target", "_blank");
                         const locationChooseIcon = document.createElement("div");
                         locationChooseIcon.setAttribute("class","locationChooseIcon");
                         const locationChooseImg = document.createElement("img");

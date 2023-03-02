@@ -1,20 +1,22 @@
-const date = document.querySelector(".date")
-const calendar = document.querySelector(".calendar")
+const mealType = document.querySelector(".mealType");
+const date = document.querySelector(".date");
+const calendar = document.querySelector(".calendar");
 const calendarInput = document.querySelector('input[type="date"]');
-const breakfast = document.querySelector(".breakfast")
-const lunch = document.querySelector(".lunch")
-const dinner = document.querySelector(".dinner")
-const snacks = document.querySelector(".snacks")
-const dailyIntake = document.querySelector(".dailyIntake")
-const foodInput = document.querySelector(".foodInput")
+const breakfast = document.querySelector(".breakfast");
+const lunch = document.querySelector(".lunch");
+const dinner = document.querySelector(".dinner");
+const snacks = document.querySelector(".snacks");
+const dailyIntake = document.querySelector(".dailyIntake");
+const foodInput = document.querySelector(".foodInput");
 const searchResultBox = document.querySelector(".searchResultBox");
-const gramInput = document.querySelector(".gramInput")
-const add = document.querySelector(".add")
-const addLoading = document.querySelector(".addLoading")
-const records = document.querySelector(".records")
-const noRecord = document.querySelector(".noRecord")
-const mealRecordFrame = document.querySelector(".mealRecordFrame")
-const dailyRecordFrame = document.querySelector(".dailyRecordFrame")
+const gramInput = document.querySelector(".gramInput");
+const add = document.querySelector(".add");
+const addLoading = document.querySelector(".addLoading");
+const records = document.querySelector(".records");
+const noRecord = document.querySelector(".noRecord");
+const mealRecordFrame = document.querySelector(".mealRecordFrame");
+const dailyRecordFrame = document.querySelector(".dailyRecordFrame");
+const loadingRecordFrame = document.querySelector(".loadingRecordFrame");
 const targetMacrosValue = document.querySelector(".targetMacrosValue");
 const targetMacrosPercentage = document.querySelector(".targetMacrosPercentage");
 const noTargetData = document.querySelector(".noTargetData");
@@ -26,13 +28,13 @@ const targetProteinPercentage = document.querySelector(".targetProteinPercentage
 const targetFatPercentage = document.querySelector(".targetFatPercentage");
 const targetCarbsPercentage = document.querySelector(".targetCarbsPercentage");
 const goAddTarget = document.querySelector(".goAddTarget");
-const dailyKcal = document.querySelector(".dailyKcal")
-const dailyProtein = document.querySelector(".dailyProtein")
-const dailyFat = document.querySelector(".dailyFat")
-const dailyCarbs = document.querySelector(".dailyCarbs")
-const dailyProteinPercentage = document.querySelector(".dailyProteinPercentage")
-const dailyFatPercentage = document.querySelector(".dailyFatPercentage")
-const dailyCarbsPercentage = document.querySelector(".dailyCarbsPercentage")
+const dailyKcal = document.querySelector(".dailyKcal");
+const dailyProtein = document.querySelector(".dailyProtein");
+const dailyFat = document.querySelector(".dailyFat");
+const dailyCarbs = document.querySelector(".dailyCarbs");
+const dailyProteinPercentage = document.querySelector(".dailyProteinPercentage");
+const dailyFatPercentage = document.querySelector(".dailyFatPercentage");
+const dailyCarbsPercentage = document.querySelector(".dailyCarbsPercentage");
 const newFoodNameInput = document.querySelector(".newFoodNameInput");
 const newFoodProteinInput = document.querySelector(".newFoodProteinInput");
 const newFoodFatInput = document.querySelector(".newFoodFatInput");
@@ -135,6 +137,7 @@ function deleteOneIntakeRecords(oneRecord, deleteIcon, intakeID){
 
 // get meals intake data
 async function getMealIntakeData(){
+    mealType.style.pointerEvents = "none";
     const response = await fetch(`/api/intake?meal=${chooseIntakeMeal}&date=${chooseIntakeDate}`);
     const data = await response.json();
     if(data.error == true){
@@ -155,11 +158,16 @@ async function getMealIntakeData(){
         for(i=0; i<userIntakeData.length; i++){
             showMealIntake(userIntakeData[i]);
         }
-    } 
+    }
+    mealType.style.pointerEvents = "auto";
 }
 
 // get daily intake data
 async function getDailyIntakeData(){
+    mealType.style.pointerEvents = "none";
+    mealRecordFrame.style.display="none";
+    dailyRecordFrame.style.display="none";
+    loadingRecordFrame.style.display="flex";
     const response = await fetch(`/api/intake/daily?date=${chooseIntakeDate}`)
     const data = await response.json();
     if(data.error == true){
@@ -169,9 +177,9 @@ async function getDailyIntakeData(){
         weekIntakeData = data.data.week;
         await updateWeekMarcosChart(weekIntakeData);
         const dailyIntakeData = data.data.daily;
+        loadingRecordFrame.style.display="none";
+        dailyRecordFrame.style.display="flex";
         if(dailyIntakeData){
-            mealRecordFrame.style.display="none";
-            dailyRecordFrame.style.display="flex";
             noChart.style.display = "none";
             pieChart.style.display = "block";
             await updatePieChart(dailyIntakeData);
@@ -184,8 +192,6 @@ async function getDailyIntakeData(){
             dailyFatPercentage.textContent = "(" + dailyIntakeData.fatPercentage + "%)";
             dailyCarbsPercentage.textContent = "(" + dailyIntakeData.carbsPercentage + "%)";            
         }else{
-            mealRecordFrame.style.display = "none";
-            dailyRecordFrame.style.display ="flex";
             pieChart.style.display = "none";
             noChart.style.display = "block";
             await getTargetData();
@@ -198,6 +204,7 @@ async function getDailyIntakeData(){
             dailyCarbsPercentage.textContent = "(0%)";
         }
     }
+    mealType.style.pointerEvents = "auto";
 }
 
 // get user nutrients target
@@ -552,16 +559,16 @@ addNewFoodButton.addEventListener("click", ()=> {
     const newFoodProtein = newFoodProteinInput.value;
     const newFoodFat = newFoodFatInput.value;
     const newFoodCarbs =newFoodCarbsInput.value;
-    if(newFoodName == ""){
+    if(newFoodName == "" || newFoodName == "Can't detect"){
         noticeWindow.style.display="block";
         noticeMain.textContent = "Enter name of new food."; 
-    }else if(newFoodProtein == ""){
+    }else if(newFoodProtein == "" || newFoodProtein == "Can't detect"){
         noticeWindow.style.display="block";
         noticeMain.textContent = "Enter protein of new food."; 
-    }else if(newFoodFat == ""){
+    }else if(newFoodFat == "" || newFoodFat == "Can't detect"){
         noticeWindow.style.display="block";
         noticeMain.textContent = "Enter fat of new food."; 
-    }else if(newFoodCarbs == ""){
+    }else if(newFoodCarbs == "" || newFoodCarbs == "Can't detect"){
         noticeWindow.style.display="block";
         noticeMain.textContent = "Enter carbs of new food."; 
     }else if(isNaN(newFoodProtein) || isNaN(newFoodFat) || isNaN(newFoodCarbs)){

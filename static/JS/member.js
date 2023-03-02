@@ -23,6 +23,8 @@ const targetCarbsValue = document.querySelector(".targetCarbsValue");
 const targetProteinPercentage = document.querySelector(".targetProteinPercentage");
 const targetFatPercentage = document.querySelector(".targetFatPercentage");
 const targetCarbsPercentage = document.querySelector(".targetCarbsPercentage");
+const avatarLoading = document.querySelector(".avatarLoading");
+const form = document.querySelector("#form");
 let imageType;
 let arrayBuffer;
 
@@ -70,6 +72,9 @@ avatarFile.addEventListener("change", (e) => {
 
 // send/upload new avatar photo to server
 avatarUpload.addEventListener("click",() => {
+    avatarPreviewText.style.display="none";
+    form.style.display="none";
+    avatarLoading.style.display="flex";
     const file = document.querySelector('input[type="file"]');
     const imageFile = file.files[0];
     let formData = new FormData();
@@ -80,13 +85,14 @@ avatarUpload.addEventListener("click",() => {
     }).then((response) => {
         return response.json();
     }).then((data) => {
+        form.style.display="flex";
+        avatarLoading.style.display="none";
         if (data.error == true){
             noticeWindow.style.display="block";
             noticeMain.textContent = data.message;
         }else{
             memberPhotoImg.src = data.data;
             file.value = "";            
-            avatarPreviewText.style.display="none";
         }
     })
 })

@@ -9,13 +9,14 @@ async function getPosts(){
     const response = await fetch(`/api/post?forum=${forumPage}`);
     const data = await response.json();
     showPostsLoading.style.display="none";
+    list.style.pointerEvents = "auto";
     if(data.error == true){
         noticeWindow.style.display="block";
         noticeMain.textContent = data.message;  
     }else if(data.data == null){
         return;
     }else{
-        const posts = data.data
+        const posts = data.data;
         posts.forEach((post) => {
             let totalComments;
             let totalLikes;
@@ -31,7 +32,74 @@ async function getPosts(){
             };
             showPost(post, totalLikes, totalComments, post.postLike, post.postComment);
         })
-        list.style.pointerEvents = "auto";
+        const nextPostPage = data.nextPostPage;
+        if(nextPostPage){
+            postPage = nextPostPage;
+        }else{
+            postPage = null;
+        }
+        getFollowUpPost(postPage);
+    }
+}
+
+// 完成⾃動載入後續 post 的功能(利⽤ IntersectionObserver 物件)
+function getFollowUpPost(postPage){
+    const postArticle = document.querySelectorAll(".postArticle");
+    const options = {
+        root: null, // root為鏡頭，預設是null，就是整個視窗
+        rootMargin: "0px 0px 0px 0px",
+        // 指目標本身出現了多少部份在你的鏡頭裡，而出現的部份到了指定的百分比後，都會執行 callback。
+        threshold: 0.05,
+    };
+
+    // 建立觀察器（observer）
+    const observer = new IntersectionObserver(callback, options);
+    observer.observe(postArticle[postArticle.length - 2]);  // 開始觀察目標(倒數第2篇post)
+    // callback 就是當目標（entry）進入到觀察器的鏡頭（root）內時，要做什麼事的 function
+    async function callback(entry){
+        if(entry[0].isIntersecting){
+            // 如果沒有下一頁的話，就不會再去連線取資料
+            if (postPage && isLoading == false){    // 偵測頁面滑到底部，檢查 isLoading，如果是 true 代表正在載入 API，先不要動作。若是 false 才動作。
+                isLoading = true;
+                list.style.pointerEvents = "none";
+                showPostsLoading.style.display="flex";
+                const response = await fetch(`/api/post?forum=${forumPage}&postPage=${postPage}`);
+                const data = await response.json();
+                showPostsLoading.style.display="none";
+                list.style.pointerEvents = "auto";
+                if(data.error == true){
+                    noticeWindow.style.display="block";
+                    noticeMain.textContent = data.message;  
+                }else if(data.data == null){
+                    return;
+                }else{
+                    const posts = data.data;
+                    posts.forEach((post) => {
+                        let totalComments;
+                        let totalLikes;
+                        if(post.postComment == null){
+                            totalComments = 0;
+                        }else{
+                            totalComments = post.postComment.length;
+                        };
+                        if(post.postLike == null){
+                            totalLikes = 0;
+                        }else{
+                            totalLikes = post.postLike.length;
+                        };
+                        showPost(post, totalLikes, totalComments, post.postLike, post.postComment);
+                    })
+                    const nextPostPage = data.nextPostPage;
+                    if(nextPostPage){
+                        postPage = nextPostPage;
+                    }else{
+                        postPage = null;
+                    }
+                }
+                isLoading = false;
+                getFollowUpPost(postPage);
+            }
+        }
     }
 }
 
@@ -75,6 +143,7 @@ function showPost(postInfos, totalLikes, totalComments, totalLikesInfo, totalCom
         const posterLocationLink = document.createElement("a");
         posterLocationLink.setAttribute("class", "posterLocationLink"); 
         posterLocationLink.setAttribute("href", `https://www.google.com/maps/search/?api=1&query=${postInfos.postLocation}&query_place_id=${postLocationPlaceID}`);       
+        posterLocationLink.setAttribute("target", "_blank");
         const posterLocationName = document.createElement("div");
         posterLocationName.setAttribute("class", "posterLocationName");
         posterLocationName.textContent = postInfos.postLocation;

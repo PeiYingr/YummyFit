@@ -143,31 +143,32 @@ postRouter.get("/", async(req, res) => {
             const userCookie = jwt.verify(token, JwtSecret);
             const userID = userCookie.userID;
             const forum = req.query.forum || "";
+            let postPage = req.query.postPage || 0;
+            postPage = Number(postPage);
+            let nextPostPage;
+            let postInfo;
             let allData=[];
             let response;
             if(forum == "all"){
-                const postInfo = await postModel.getAllPosts();
-                if(postInfo[0]){
-                    await getPostData(userID, postInfo, allData);
-                    response = {
-                        "data": allData
-                    }
+                postInfo = await postModel.getAllPosts(postPage);
+            }else{
+                postInfo = await postModel.getChooseForumPosts(forum, postPage);
+            }
+            if(postInfo[0]){
+                if(postInfo.length > 3){
+                    nextPostPage = postPage + 1;
+                    postInfo = postInfo.slice(0, 3)
                 }else{
-                    response= {
-                        "data": null
-                    }
+                    nextPostPage = null;
+                }
+                await getPostData(userID, postInfo, allData);
+                response = {
+                    "nextPostPage":nextPostPage,
+                    "data": allData
                 }
             }else{
-                const postInfo = await postModel.getChooseForumPosts(forum);
-                if(postInfo[0]){
-                    await getPostData(userID, postInfo, allData);
-                    response = {
-                        "data": allData
-                    }
-                }else{
-                    response= {
-                        "data": null
-                    }
+                response= {
+                    "data": null
                 }
             }
             res.status(200).json(response);       

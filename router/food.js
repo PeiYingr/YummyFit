@@ -59,11 +59,16 @@ foodRouter.post("/userfood", async(req, res) => {
             const protein = newFoodInfo.protein;
             const fat = newFoodInfo.fat;
             const carbs = newFoodInfo.carbs;
-            if( name == "" || protein == "" || fat == "" || carbs == "" ){
+            if(name == "" || protein == "" || fat == "" || carbs == ""){
                 res.status(400).json({ 			
                     "error": true,
                     "message": "Enter new food information incompletely."
                 });  
+            }else if(name == "Can't detect" || protein == "Can't detect" || fat == "Can't detect" || carbs == "Can't detect"){
+                res.status(400).json({ 			
+                    "error": true,
+                    "message": "Please enter correct amount."
+                }); 
             }else if(isNaN(protein) || isNaN(fat) || isNaN(carbs)){
                 res.status(400).json({ 			
                     "error": true,

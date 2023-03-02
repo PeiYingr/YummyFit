@@ -152,6 +152,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     font-size: 18px;
     text-align: center;
     line-height: 60px;
+    user-select: none;
 }
 .breakfast{
     color: #922c21;
@@ -458,7 +459,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     color: #922c21;
     font-size: 14px;
     margin-left: 25px;
-    text-shadow: -1px -1px 0 #bf9d7e, 1px -1px 0 #bf9d7e, -1px 1px 0 #bf9d7e, 1px 1px 0 #bf9d7e, 2px 2px 2px black;
+    text-shadow: -1px -1px 0 #bf9d7e, 1px -1px 0 #bf9d7e, -1px 1px 0 #bf9d7e, 1px 1px 0 #bf9d7e, 2px 2px 2px #352317;
 }
 .foodRecordFrame{
     width: 70%;
@@ -876,7 +877,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     transform: scale(1.05);
 }
 .sendImageButton:active{
-    transform:translateZ(1px) rotate(2deg) ;
+    transform:translateZ(2px);
 }
 .foodPhotoRegion{
     width: 100%;
@@ -982,10 +983,32 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 .foodPhotosUploadLoadingText{
     color: #db776c;
-    font-size: 18px;
+    font-size: 24px;
     margin-bottom: 20px;
 }
 .foodPhotosUploadLoading img{
-    width:70px;
-    height:70px;
+    width:65px;
+    height:65px;
+}
+.loadingRecordFrame{  
+    width: 100%;
+    height: 655px;
+    margin: auto;
+    background-color: #ede0d4;
+    border-radius:0px 0px 15px 15px;
+    text-align: center;
+    font-weight: 500;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+.loadingRecordFrameText{
+    color: #db776c;
+    font-size: 48px;
+    margin-right: 70px;
+    text-shadow: -1px -1px 0 #e48269, 1px -1px 0 #e48269, -1px 1px 0 #e48269, 1px 1px 0 #e48269, 2px 2px 2px #352317;
+}
+.loadingRecordFrame img{
+    width:80px;
+    height:80px;
 }

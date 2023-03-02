@@ -56,7 +56,7 @@ const postModel = {
             conn.release();
         }
     },
-    getAllPosts: async() => {
+    getAllPosts: async(postPage) => {
         const conn = await pool.getConnection();
         try{
             const sql = `
@@ -68,16 +68,18 @@ const postModel = {
             INNER JOIN postForum ON post.postForumID = postForum.forumID
             INNER JOIN user ON post.userID = user.userID
             ORDER BY post.dateTime DESC
+            LIMIT ?, 4 
             `;
-            const [result] = await conn.query(sql);
+            const [result] = await conn.query(sql, [(postPage)*3]);
             return result
         }finally{
             conn.release();
         }
     },
-    getChooseForumPosts: async(forum) => {
+    getChooseForumPosts: async(forum, postPage) => {
         const conn = await pool.getConnection();
         try{
+            const data = [forum, (postPage)*3]
             const sql = `
             SELECT
                 post.postID, post.userID AS postUserID, post.dateTime AS postDateTime,
@@ -88,8 +90,9 @@ const postModel = {
             INNER JOIN user ON post.userID = user.userID
             WHERE postForum.forumID = ?
             ORDER BY post.dateTime DESC
+            LIMIT ?, 4
             `;
-            const [result] = await conn.query(sql, [forum]);
+            const [result] = await conn.query(sql, data);
             return result
         }finally{
             conn.release();
@@ -165,7 +168,7 @@ const postModel = {
     deleteLike: async(deleteLikePostID, deleteLikeUserID) => {
         const conn = await pool.getConnection();
         try{
-            const data =[deleteLikePostID, deleteLikeUserID]
+            const data =[deleteLikePostID, deleteLikeUserID];
             const sql = "DELETE FROM postLike WHERE postID = ? AND userID = ?";
             await conn.query(sql, data);
         }finally{
