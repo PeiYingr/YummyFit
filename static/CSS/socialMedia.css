@@ -335,6 +335,9 @@ div {
     border: 1px solid #922c21;
     border-radius: 15px;
 }
+.postFrame::-webkit-scrollbar-track-piece:end {
+    margin-bottom: 3px; 
+}
 .postBlock{
     width: 800px;
     min-height: 230px;

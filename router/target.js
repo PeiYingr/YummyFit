@@ -88,7 +88,7 @@ targetRouter.get("/", async(req, res) => {
             const fatAmount = Math.round(((result.targetKcal*result.targetFat/100)/9 + Number.EPSILON) * 100) / 100;
             const carbsAmount = Math.round(((result.targetKcal*result.targetCarbs/100)/4 + Number.EPSILON) * 100) / 100;
             let response;
-            if (result.targetKcal && result.targetProtein && result.targetFat && result.targetCarbs){
+            if (result.targetKcal || result.targetProtein || result.targetFat || result.targetCarbs){
                 response = {
                     "data": {
                         "targetKcal": result.targetKcal,

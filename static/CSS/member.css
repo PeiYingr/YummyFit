@@ -186,8 +186,8 @@ li{
     height: auto;
 }
 .targetBlock, .targetInputBlock{
-    width:63%; 
-    margin: auto;
+    width:73%; 
+    margin-left: auto;
     border:1.5px groove #e0bfa0;;
     border-radius: 15px;
 }
@@ -225,10 +225,10 @@ li{
     font-size:12px;
 }
 .editTarget,.cancelEditTarget{
-    margin-left: 30px;
+    margin-left: 75px;
 }
 .updateTarget{
-    margin: 10px 0px 10px 245px;
+    margin: 10px 0px 10px 312px;
 }
 .editTarget:hover ,.updateTarget:hover ,.cancelEditTarget:hover{
     background: #9f6a47;
@@ -254,12 +254,13 @@ li{
     margin-right: 70px;
 }
 .targetMacrosValue{
-    width:100px;
+    min-width:100px;
     flex:none;
 }
 .targetMacrosPercentage{
     font-size: 14px;
     width:50px;
+    margin-left: auto;
 }
 .targetKcalPercentage{
     height:50px;
@@ -280,7 +281,7 @@ li{
     color: #db776c;
 }
 .targetKcalInput,.targetProteinInput,.targetFatInput,.targetCarbsInput{
-    width:95%;
+    width:100%;
     box-sizing: border-box;
     font-size: 16px;
     padding:5px 8px;
