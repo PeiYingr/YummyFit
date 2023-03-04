@@ -7,6 +7,20 @@ const signupEmailBlock = document.querySelector(".signupEmail");
 const signupPasswordBlock = document.querySelector(".signupPassword");
 const signinEmailBlock = document.querySelector(".signinEmail");
 const signinPasswordBlock = document.querySelector(".signinPassword");
+const sign = document.querySelector(".sign");
+const introductionPage = document.querySelector(".introductionPage");
+const login = document.querySelector(".login");
+const changeToIntroductionButton = document.querySelector(".changeToIntroductionButton");
+
+changeToIntroductionButton.addEventListener("click", () => {
+    sign.style.display = "none";
+    introductionPage.style.display = "block";
+});
+
+login.addEventListener("click", () => {
+    introductionPage.style.display = "none";
+    sign.style.display = "flex";
+});
 
 changeToSignup.addEventListener("click", () => {
     signinSection.style.display="none";
@@ -18,6 +32,7 @@ changeToSignup.addEventListener("click", () => {
     signupEmailBlock.value = "";
     signupPasswordBlock.value = "";
 })
+
 changeToSignin.addEventListener("click", () => {
     signinSection.style.display="block";
     signupSection.style.display="none";
@@ -29,8 +44,8 @@ changeToSignin.addEventListener("click", () => {
 })
 
 // signup API
-const signupButton=document.querySelector(".signupButton");
-const signupResult=document.createElement("div");
+const signupButton = document.querySelector(".signupButton");
+const signupResult = document.createElement("div");
 signupResult.setAttribute("class","signupResult");
 const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-.]+){1,}$/;
 const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,20}$/;
@@ -80,13 +95,13 @@ signupButton.addEventListener("click", () => {
             })
         }        
     }
-    const changeToSignin=document.querySelector(".changeToSignin");
+    const changeToSignin = document.querySelector(".changeToSignin");
     signupSection.insertBefore(signupResult,changeToSignin);      
 })
 
 // signin API
-const signinButton=document.querySelector(".signinButton");
-const signinResult=document.createElement("div");
+const signinButton = document.querySelector(".signinButton");
+const signinResult = document.createElement("div");
 signinResult.setAttribute("class","signinResult");
 signinButton.addEventListener("click", () => {
     const signinEmail = document.querySelector(".signinEmail").value;

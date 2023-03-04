@@ -144,9 +144,12 @@ function showPost(postInfos, totalLikes, totalComments, totalLikesInfo, totalCom
         posterLocationLink.setAttribute("class", "posterLocationLink"); 
         posterLocationLink.setAttribute("href", `https://www.google.com/maps/search/?api=1&query=${postInfos.postLocation}&query_place_id=${postLocationPlaceID}`);       
         posterLocationLink.setAttribute("target", "_blank");
+        const posterLocationImg = document.createElement("img");
+        posterLocationImg.setAttribute("src", "/Images/place.png");
         const posterLocationName = document.createElement("div");
         posterLocationName.setAttribute("class", "posterLocationName");
         posterLocationName.textContent = postInfos.postLocation;
+        posterLocationLink.appendChild(posterLocationImg);
         posterLocationLink.appendChild(posterLocationName);
         posterLocation.appendChild(posterLocationLink);
         posterInfo.appendChild(posterLocation);

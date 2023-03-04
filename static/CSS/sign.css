@@ -7,15 +7,16 @@ body{
     margin:0;
     padding:0;
 }
-.desktop,.mobile{
+div {
+    word-wrap: break-word;
+}
+.sign{
     height: 100%;
     background-color:#bf9d7e;
     display: flex;
 	align-items: center;
 	justify-content: center;
     padding:70px 0;
-}
-.mobile{
     display:none;
 }
 .entireContainer{
@@ -96,16 +97,6 @@ body{
     /*input icon*/
     background-position: 20px center;
     background-repeat: no-repeat;
-    /* text-indent: 60px; 
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -ms-border-radius: 4px;
-    -o-border-radius: 4px;
-    border-radius: 4px;
-    /padding: 10px 5px 10px 20px;
-    -webkit-transition: all 0.2s;
-    -moz-transition: all 2s;
-    transition: all 0.2s; */
 }
 .signupPassword{
     width: 100%;
@@ -240,6 +231,9 @@ a{
     align-items: center;
     justify-content: center;
 }
+.sloganFrame{
+    position: relative;
+}
 .sloganRWD{
     display:none;
 }
@@ -260,7 +254,29 @@ a{
     height:50px;
     font-size:46px;
     line-height:50px;
-    margin:40px auto;
+    margin:30px auto;
+}
+.changeToIntroductionButton{
+    background:linear-gradient(45deg, #ec5c30,#bf9d7e, #e48269, #bf7e78, #c23d2f);
+    box-sizing: border-box;
+    padding: 8px 5px;
+    line-height: 25px;
+    text-align: center;
+    color: #FFFFFF;
+    cursor: pointer;
+    position: absolute;
+    bottom: 90px;
+    width: 100%;
+    font-weight:500;
+    text-shadow: -1px -1px 0 #bf9d7e, 1px -1px 0 #bf9d7e,-1px 1px 0 #bf9d7e, 1px 1px 0 #bf9d7e,2px 2px 2px black;
+}
+.changeToIntroductionButton:hover{
+    font-weight: bold;
+    cursor: pointer;
+    background: linear-gradient(225deg, #ec5c30,#bf9d7e, #e48269, #bf7e78, #c23d2f);
+}
+.changeToIntroductionButton:active{
+    transform:translateZ(2px);
 }
 .sloganTextMobile{
     height:40px;
@@ -275,6 +291,168 @@ a{
     bottom:0px;
     border-radius: 0px 0px 15px 15px;
 }
+.introductionFrameColor{
+    width:100%;
+    background:#e6dacd;
+    position: sticky;
+    top:0px;
+    z-index:5;
+    border-bottom: 0.5px solid #d16960;
+    box-shadow: 10px 10px 20px #bf9d7e;
+}
+.introductionFrame{
+    display:flex;
+    width:1200px;
+    height:90px;
+    margin:auto;
+    background:#e6dacd;
+    align-items: center;
+}
+.introductionFrameTitle{
+    width:300px;
+    height:40px;
+    font-size:38px;
+    font-weight:700;
+    color: #922c21;
+    text-align:center;
+    line-height:40px;
+    margin-right:auto;
+    text-shadow: -1px -1px 0 #bf9d7e, 1px -1px 0 #bf9d7e,-1px 1px 0 #bf9d7e, 1px 1px 0 #bf9d7e,2px 2px 2px black;
+}
+.login{
+    height:40px;
+    color: #6c0807;
+    font-weight:600;
+    font-size: 24px;
+    text-align: center;
+    line-height:40px;
+    display: flex;
+    align-items: center;
+    padding: 5px 7px;
+    cursor: pointer;
+}
+.loginIcon{
+    width: 40px;
+    height: 40px;
+    margin-right:10px;
+}
+.loginIcon img{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+    border-radius: 5px;
+}
+.login:hover{
+    transform: scale(1.05);
+    text-shadow: -1px -1px 0 #efc59e, 1px -1px 0 #efc59e,-1px 1px 0 #efc59e, 1px 1px 0 #efc59e,2px 2px 2px #d9ae87;
+}
+.login:active{
+    transform: translateZ(2px);
+}
+/*introductionPage*/
+.introductionMainFrame{
+    width:100%;
+    background:#e6dacd;
+}
+.introductionMain{
+    width: 100%;
+    height: auto;
+}
+.introductionTextFrame{
+    width:100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+    position: relative;
+    margin: 0px auto 300px;
+}
+.introductionTextBackground{
+    width:100%;
+    height: 300px;
+    background-image: url("/Images/meal.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: 50% 20%;
+    opacity: 0.15;
+    position: absolute;
+}
+.introductionSlogan{
+    letter-spacing: 3px;
+    width: 1200px;
+    padding: auto;
+    font-size:34px;
+    font-weight:700;
+    text-align: center;
+    color: #922c21;
+    position: absolute;
+    z-index: 3;
+    top: 120px;
+    left: 65%;
+    transform: translateX(-65%);
+}
+.mealIntakePhotoFrame, .dailyIntakeTargetPhotoFrame, .addOwnFoodPhotoFrame{
+    width: 100%;
+    height:auto;
+}
+.mealIntakePhotoFrame, .addOwnFoodPhotoFrame{
+    background: #e2ccbe;
+}
+.dailyIntakeTargetFrame, .socialMediaPhotoFrame{
+    background: #e6dacd;
+}
+.photoBlock{
+    width:1150px;
+    margin: auto;
+    padding: 55px 20px;
+    display: flex;
+    justify-content: center;
+}
+.leftGif{
+    width:700px;
+    height: 500px;
+    margin-right: 40px;
+}
+.rightGif{
+    width:700px;
+    height: 500px;
+    margin-left: 40px;
+}
+.leftGif img, .rightGif img{
+    width:auto;
+    height:auto;
+    max-width: 700px;
+    max-height: 500px;
+    object-fit: contain;
+    border-radius: 15px;
+}
+.leftGif img{
+    box-shadow: -10px 10px 30px 10px #f4b891;
+}
+.rightGif img{
+    box-shadow: 10px 10px 30px 10px #f4b891;
+}
+.text{
+    letter-spacing: 2px;
+    padding-top: 20px;
+}
+.titleText{
+    font-weight:700;
+    color: #922c21;
+    font-size: 28px;
+    text-shadow: -1px -1px 0 #d59b8f, 1px -1px 0 #d59b8f,-1px 1px 0 #d59b8f, 1px 1px 0 #d59b8f,2px 2px 2px #d98170;
+    line-height: 50px;
+}
+.contentText{
+    font-size: 22px;
+    line-height: 40px;
+}
+.dataSource{
+    margin-top: 50px;
+    font-size: 14px;
+    line-height: 15px;
+}
+
 @media (max-width:1230px){
     .entireContainer{
         width:95%;
