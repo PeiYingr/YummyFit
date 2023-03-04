@@ -17,13 +17,10 @@ const intakeModel = {
             const sql = `
             SELECT
                 mealRecord.userID, mealRecord.date, intake.intakeID, intake.foodName,
-                intake.amount, food.kcal, food.protein, food.fat, food.carbs,
-                userFood.kcal AS userFoodKcal, userFood.protein AS userFoodProtein, 
-                userFood.fat AS userFoodFat, userFood.carbs AS userFoodCarbs
+                intake.amount, food.kcal, food.protein, food.fat, food.carbs
             FROM intake
             INNER JOIN mealRecord ON mealRecord.mealRecordID = intake.mealRecordID
-            LEFT JOIN food ON food.name = intake.foodName
-            LEFT JOIN userFood ON userFood.name = intake.foodName
+            INNER JOIN food ON food.name = intake.foodName
             WHERE intake.mealRecordID = ?
             `;
             const [result] = await conn.query(sql, data);
@@ -47,16 +44,30 @@ const intakeModel = {
             const sql = `
             SELECT
                 mealRecord.userID, mealRecord.date, intake.intakeID, intake.foodName,
-                intake.amount,food.kcal, food.protein, food.fat, food.carbs,
-                userFood.kcal AS userFoodKcal, userFood.protein AS userFoodProtein, 
-                userFood.fat AS userFoodFat, userFood.carbs AS userFoodCarbs
+                intake.amount,food.kcal, food.protein, food.fat, food.carbs
             FROM intake
             INNER JOIN mealRecord ON mealRecord.mealRecordID = intake.mealRecordID
-            LEFT JOIN food ON food.name = intake.foodName
-            LEFT JOIN userFood ON userFood.name = intake.foodName
+            INNER JOIN food ON food.name = intake.foodName
             WHERE intake.mealRecordID IN (?)
             `;
             const [result] = await conn.query(sql, [dailyMealRecordIDList]);
+            return result
+        }finally{
+            conn.release();
+        }
+    },
+    findThisOwnFoodIntake:async(userID, foodName) => {
+        const conn = await pool.getConnection();
+        try{
+            const findThisOwnFoodData = [userID, foodName];
+            const findThisOwnFoodIntakeID = `
+            SELECT 
+                intakeID
+            FROM intake
+            INNER JOIN mealRecord ON mealRecord.mealRecordID = intake.mealRecordID
+            WHERE mealRecord.userID = ? AND intake.foodName = ?;
+            `;
+            const [result] = await conn.query(findThisOwnFoodIntakeID,  findThisOwnFoodData);
             return result
         }finally{
             conn.release();

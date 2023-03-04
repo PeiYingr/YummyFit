@@ -1,5 +1,6 @@
 const express = require("express");
 const foodRouter = express.Router();    //產生router物件，存入變數
+const intakeModel = require("../model/intake");
 const foodModel = require("../model/food");
 const jwt = require("jsonwebtoken");
 require("dotenv").config({ path: ".env" });
@@ -15,11 +16,9 @@ foodRouter.get("/", async(req, res) => {
                 const token = cookie.replace("token=","");
                 const userCookie = jwt.verify(token, JwtSecret);
                 const userID = userCookie.userID;
-                const publicResult = await foodModel.searchPublicFood(foodNameInput);
-                const ownResult = await foodModel.searchOwnFood(userID, foodNameInput);
-                const result = publicResult.concat(ownResult);
-                if (result[0]){
-                    res.status(200).json(result);
+                const foodResult = await foodModel.searchFood(userID, foodNameInput);
+                if(foodResult[0]){
+                    res.status(200).json(foodResult);
                 }else{
                     res.status(200).json({ 			
                         "error": true,
@@ -80,9 +79,8 @@ foodRouter.post("/userfood", async(req, res) => {
                     "message": "Enter correct amount of nutrients."
                 }); 
             }else{
-                const publicResult = await foodModel.searchIfPublicFoodExist(name);
-                const ownResult = await foodModel.searchIfOwnFoodExist(name);
-                if(publicResult || ownResult){
+                const foodResult = await foodModel.searchIfFoodExist(userID, name);
+                if(foodResult){
                     res.status(400).json({
                         "error": true,
                         "message": "Already have the same food name."
@@ -151,8 +149,14 @@ foodRouter.delete("/userfood", async(req, res) => {
             const token = cookie.replace("token=","");
             const userCookie = jwt.verify(token, JwtSecret);
             const userID = userCookie.userID;
-            const deleteIntakeInfo = req.body;
-            const foodName = deleteIntakeInfo.foodName;
+            const deleteFoodInfo = req.body;
+            const foodName = deleteFoodInfo.foodName;
+            const ownFoodIntakeID = await intakeModel.findThisOwnFoodIntake(userID, foodName);
+            if(ownFoodIntakeID[0]){
+                for(let x = 0 ; x < ownFoodIntakeID.length ; x++){
+                    await intakeModel.deleteIntakeFood(ownFoodIntakeID[x].intakeID);
+                }
+            }
             await foodModel.deleteOwnFood(userID, foodName);
             let response= {
                 "ok": true

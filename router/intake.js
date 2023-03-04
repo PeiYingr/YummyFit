@@ -36,9 +36,8 @@ intakeRouter.post("/", async(req, res) => {
                     "message": "Please enter correct amount of food."
                 }); 
             }else{
-                const publicResult = await foodModel.searchIfPublicFoodExist(foodName);
-                const ownResult = await foodModel.searchIfOwnFoodExist(foodName);
-                if(publicResult || ownResult){
+                const foodResult = await foodModel.searchIfFoodExist(userID, foodName);
+                if(foodResult){
                     let mealRecordID;
                     let mealRecordIDSearch = await mealRecordModel.searchMealRecord(userID, date, meal);
                     if (mealRecordIDSearch == undefined){
@@ -219,17 +218,10 @@ async function responseMealData(result, allData){
         let fat;
         let carbs;
         let kcal;
-        if(result[i].kcal){
-            protein = Math.round(((result[i].amount/100)*result[i].protein + Number.EPSILON) * 100) / 100,
-            fat = Math.round(((result[i].amount/100)*result[i].fat + Number.EPSILON) * 100) / 100,
-            carbs = Math.round(((result[i].amount/100)*result[i].carbs + Number.EPSILON) * 100) / 100,
-            kcal = Math.round(((result[i].amount/100)*result[i].kcal + Number.EPSILON) * 10) / 10
-        }else{
-            protein = Math.round(((result[i].amount/100)*result[i].userFoodProtein + Number.EPSILON) * 100) / 100,
-            fat = Math.round(((result[i].amount/100)*result[i].userFoodFat + Number.EPSILON) * 100) / 100,
-            carbs = Math.round(((result[i].amount/100)*result[i].userFoodCarbs + Number.EPSILON) * 100) / 100,
-            kcal = Math.round(((result[i].amount/100)*result[i].userFoodKcal + Number.EPSILON) * 10) / 10
-        }
+        protein = Math.round(((result[i].amount/100)*result[i].protein + Number.EPSILON) * 100) / 100,
+        fat = Math.round(((result[i].amount/100)*result[i].fat + Number.EPSILON) * 100) / 100,
+        carbs = Math.round(((result[i].amount/100)*result[i].carbs + Number.EPSILON) * 100) / 100,
+        kcal = Math.round(((result[i].amount/100)*result[i].kcal + Number.EPSILON) * 10) / 10
         const oneData = {
             "userID": result[i].userID,
             "date": result[i].date,
@@ -286,17 +278,10 @@ async function calculateDailyIntake(userID, date){
             let carbs;
             let kcal;
             for(let i=0 ; i < result.length ; i++){
-                if(result[i].kcal){
-                    protein = (result[i].amount/100)*result[i].protein;
-                    fat = (result[i].amount/100)*result[i].fat;
-                    carbs = (result[i].amount/100)*result[i].carbs;
-                    kcal = (result[i].amount/100)*result[i].kcal;                    
-                }else{
-                    protein = (result[i].amount/100)*result[i].userFoodProtein;
-                    fat = (result[i].amount/100)*result[i].userFoodFat;
-                    carbs = (result[i].amount/100)*result[i].userFoodCarbs;
-                    kcal = (result[i].amount/100)*result[i].userFoodKcal;   
-                }
+                protein = (result[i].amount/100)*result[i].protein;
+                fat = (result[i].amount/100)*result[i].fat;
+                carbs = (result[i].amount/100)*result[i].carbs;
+                kcal = (result[i].amount/100)*result[i].kcal;                    
                 totalProtein = totalProtein + protein;
                 totalFat = totalFat + fat;
                 totalCarbs = totalCarbs + carbs;
