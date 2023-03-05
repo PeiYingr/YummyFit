@@ -71,7 +71,7 @@ YummyFit is a food diary website that aims to help you record your daily diet an
 * Docker
 
 #### Language / Web Framework
-* Node.js/ Express.js
+* Node.js / Express.js
 
 #### Database
 * MySQL
