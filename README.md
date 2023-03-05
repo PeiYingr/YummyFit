@@ -86,7 +86,7 @@ YummyFit is a food diary website that aims to help you record your daily diet an
 * HTTP & HTTPS
 * Domain Name System (DNS)
 * NGINX
-* SSL (Let's Encrypt)
+* SSL
 
 #### Authentication
 * Google OAuth/ passport.js
