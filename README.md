@@ -61,7 +61,7 @@ YummyFit is a food diary website that aims to help you record your daily diet an
 ## Architecture
 * Server Architecture
 
-![](https://i.imgur.com/dJAFkkj.jpg)
+![](https://i.imgur.com/n7stRhj.jpg)
 
 ## Database Schema
 ![](https://i.imgur.com/81cFu0K.jpg)
