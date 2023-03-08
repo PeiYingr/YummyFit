@@ -33,7 +33,7 @@ YummyFit is a food diary website that aims to help you record your daily diet an
 - [Database Schema](#database-schema)
 - [Backend Technique](#backend-technique)
     - [Deployment](#deployment)
-    - [Language / Web Framework](#language--web-framework)
+    - [Environment](#environment)
     - [Database](#database)
     - [AWS Cloud Service](#aws-cloud-service)
     - [Networking](networking)
@@ -70,7 +70,7 @@ YummyFit is a food diary website that aims to help you record your daily diet an
 #### Deployment
 * Docker
 
-#### Language / Web Framework
+#### Environment
 * Node.js / Express.js
 
 #### Database
