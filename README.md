@@ -37,7 +37,7 @@ YummyFit is a food diary website that aims to help you record your daily diet an
     - [Database](#database)
     - [AWS Cloud Service](#aws-cloud-service)
     - [Networking](networking)
-    * [Authentication](authentication)
+    - [Authentication](authentication)
     - [Third Party Library](#third-party-library)
     - [Version Control](#version-control)
 - [Frontend Technique](#frontend-technique)
