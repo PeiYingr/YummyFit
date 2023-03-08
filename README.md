@@ -111,4 +111,4 @@ YummyFit is a food diary website that aims to help you record your daily diet an
 ## Contact
 🍭 盧佩瑩 Pei Ying Lu
 
-📧 peggy2000000@gmail.com
+📧 Email : peggy2000000@gmail.com
