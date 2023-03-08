@@ -89,16 +89,16 @@ YummyFit is a food diary website that aims to help you record your daily diet an
 * SSL
 
 #### Authentication
-* Google OAuth/ passport.js
+* Google OAuth / passport.js
 * Bcrypt
 * JSON Web Token (JWT)
 
 #### Third Party Library
 * Google Cloud Vision API
-* Google Maps API
+* Google Maps JavaScript API
 
 #### Version Control
-* Git/GitHub
+* Git / GitHub
 
 ## Frontend Technique
 * HTML
