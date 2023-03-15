@@ -41,7 +41,7 @@ YummyFit is a food diary website that aims to help you record your daily diet an
     - [Third Party Library](#third-party-library)
     - [Version Control](#version-control)
 - [Frontend Technique](#frontend-technique)
-- [API Doc 📃](#api-doc📃)
+- [API Doc 📃](#api-doc-📃)
 - [Contact](#contact)
 
 
