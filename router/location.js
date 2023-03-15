@@ -51,7 +51,7 @@ locationRouter.get("/", async(req, res) => {
         }else{
             res.status(403).json({
                 "error": true,
-                "message": "Access Denied.Please Login."
+                "message": "Access Denied. Please Login."
             });        
         }
     }catch{

@@ -182,6 +182,7 @@ ocrRouter.post("/", upload.single("image"), async(req, res) => {
                                         "carbsValue": carbsValue
                                     }
                                 }
+                                console.log(response)
                                 res.status(200).json(response);
                             }
                         }else{
@@ -201,7 +202,7 @@ ocrRouter.post("/", upload.single("image"), async(req, res) => {
         }else{
             res.status(403).json({
                 "error": true,
-                "message": "Access Denied.Please Login."
+                "message": "Access Denied. Please Login."
             });        
         } 
     }catch{

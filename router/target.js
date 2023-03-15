@@ -6,7 +6,7 @@ require("dotenv").config({ path: ".env" });
 const JwtSecret = process.env.JWT_SECRET_KEY;
 
 //add or edit target data
-targetRouter.post("/", async(req, res) => {
+targetRouter.patch("/", async(req, res) => {
     try{
         const cookie = req.headers.cookie;
         if (cookie){

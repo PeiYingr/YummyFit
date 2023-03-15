@@ -70,7 +70,7 @@ intakeRouter.post("/", async(req, res) => {
         }else{
             res.status(403).json({
                 "error": true,
-                "message": "Access Denied.Please Login."
+                "message": "Access Denied. Please Login."
             });        
         } 
     }catch{
@@ -117,7 +117,7 @@ intakeRouter.get("/", async(req, res) => {
         }else{
             res.status(403).json({
                 "error": true,
-                "message": "Access Denied.Please Login."
+                "message": "Access Denied. Please Login."
             });        
         } 
     }catch{
@@ -136,16 +136,24 @@ intakeRouter.delete("/", async(req, res) => {
             const token = cookie.replace("token=","");
             const userCookie = jwt.verify(token, JwtSecret);
             const userID = userCookie.userID;
-            const deleteIntakeID = req.body.intakeID;
-            await intakeModel.deleteIntakeFood(deleteIntakeID);
-            let response= {
-                "ok": true
+            const deleteIntakeID = req.query.intakeID || "";
+            const intakeUserID = await intakeModel.findUserID(deleteIntakeID);
+            if(userID == intakeUserID.userID){
+                await intakeModel.deleteIntakeFood(deleteIntakeID);
+                let response= {
+                    "ok": true
+                }
+                res.status(200).json(response);   
+            }else{
+                res.status(400).json({
+                    "error": true,
+                    "message": "The intake record does not exist or does not belong to this member."
+                }); 
             }
-            res.status(200).json(response);        
         }else{
             res.status(403).json({
                 "error": true,
-                "message": "Access Denied.Please Login."
+                "message": "Access Denied. Please Login."
             });        
         } 
     }catch{
@@ -201,7 +209,7 @@ intakeRouter.get("/daily", async(req, res) => {
         }else{
             res.status(403).json({
                 "error": true,
-                "message": "Access Denied.Please Login."
+                "message": "Access Denied. Please Login."
             });        
         } 
     }catch{

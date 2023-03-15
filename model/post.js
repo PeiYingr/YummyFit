@@ -141,6 +141,16 @@ const postModel = {
             conn.release();
         }
     },
+    findPostUserID:async(deletePostID) => {
+        const conn = await pool.getConnection();
+        try{
+            const sql = "SELECT userID FROM post WHERE postID = ?";
+            const [[result]] = await conn.query(sql, [deletePostID]);
+            return result
+        }finally{
+            conn.release();
+        }
+    },
     deletePost: async(deletePostID) => {
         const conn = await pool.getConnection();
         try{
@@ -156,6 +166,16 @@ const postModel = {
             conn.release();
         }
     },
+    findCommentUserID:async(deleteCommentID) => {
+        const conn = await pool.getConnection();
+        try{
+            const sql = "SELECT userID FROM postComment WHERE commentID = ?";
+            const [[result]] = await conn.query(sql, [deleteCommentID]);
+            return result
+        }finally{
+            conn.release();
+        }
+    },
     deleteComment: async(deleteCommentID) => {
         const conn = await pool.getConnection();
         try{
@@ -165,12 +185,21 @@ const postModel = {
             conn.release();
         }
     },
-    deleteLike: async(deleteLikePostID, deleteLikeUserID) => {
+    findLikeUserID:async(deleteLikeID) => {
         const conn = await pool.getConnection();
         try{
-            const data =[deleteLikePostID, deleteLikeUserID];
-            const sql = "DELETE FROM postLike WHERE postID = ? AND userID = ?";
-            await conn.query(sql, data);
+            const sql = "SELECT userID FROM postLike WHERE postLikeID = ?";
+            const [[result]] = await conn.query(sql, [deleteLikeID]);
+            return result
+        }finally{
+            conn.release();
+        }
+    },
+    deleteLike: async(deleteLikeID) => {
+        const conn = await pool.getConnection();
+        try{
+            const sql = "DELETE FROM postLike WHERE postLikeID = ?";
+            await conn.query(sql, [deleteLikeID]);
         }finally{
             conn.release();
         }

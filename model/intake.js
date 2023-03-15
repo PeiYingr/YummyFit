@@ -29,6 +29,19 @@ const intakeModel = {
             conn.release();
         }
     },
+    findUserID:async(deleteIntakeID) => {
+        const conn = await pool.getConnection();
+        try{
+            const sql = `    
+            SELECT userID FROM mealRecord
+            INNER JOIN intake ON mealRecord.mealRecordID = intake.mealRecordID
+            WHERE intake.intakeID = ?`;
+            const [[result]] = await conn.query(sql, [deleteIntakeID]);
+            return result
+        }finally{
+            conn.release();
+        }
+    },
     deleteIntakeFood:async(deleteIntakeID) => {
         const conn = await pool.getConnection();
         try{

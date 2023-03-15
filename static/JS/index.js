@@ -108,15 +108,8 @@ function showMealIntake(userIntakeData){
 // delete intake food
 function deleteOneIntakeRecords(oneRecord, deleteIcon, intakeID){
     deleteIcon.addEventListener("click",() => {
-        const deleteFood = {
-            "intakeID":intakeID
-        };
-        fetch("/api/intake",{
+        fetch(`/api/intake?intakeID=${intakeID}`,{
             method:"DELETE",
-            body:JSON.stringify(deleteFood),
-            headers:new Headers({
-                "content-type":"application/json"
-            })
         }).then(function(response){
             return response.json();  
         }).then(function(data){
@@ -231,36 +224,24 @@ async function getTargetData(){
 }
 
 // delete user's own food data
-function deleteOwnFood(){
-    const ownFoods = document.querySelectorAll(".ownFood")
-    ownFoods.forEach((deleteOneOwnFood) =>{
-        const deleteOwnFoodIcon = deleteOneOwnFood.querySelector(".deleteOwnFoodIcon");
-        deleteOwnFoodIcon.addEventListener("click",() => {
-            const ownFoodName = deleteOneOwnFood.querySelector(".ownFoodName").textContent;
-            const deleteOwnFood = {
-                "foodName":ownFoodName,
-            };
-            fetch("/api/food/userfood",{
-                method:"DELETE",
-                body:JSON.stringify(deleteOwnFood),
-                headers:new Headers({
-                    "content-type":"application/json"
-                })
-            }).then(function(response){
-                return response.json();  
-            }).then(function(data){
-                if(data.ok == true){
-                    deleteOneOwnFood.remove();
-                    const haveOwnFood = document.querySelector(".ownFood")
-                    if (haveOwnFood == null){
-                        ownFoodList.style.display="none";
-                        noOwnFood.style.display="block";
-                    }
-                }else{
-                    noticeWindow.style.display="block";
-                    noticeMain.textContent = data.message; 
+function deleteOwnFood(ownFood, deleteOwnFoodIcon, foodID){
+    deleteOwnFoodIcon.addEventListener("click",() => {
+        fetch(`/api/food/userfood?foodID=${foodID}`,{
+            method:"DELETE",
+        }).then(function(response){
+            return response.json();  
+        }).then(function(data){
+            if(data.ok == true){
+                ownFood.remove();
+                const haveOwnFood = document.querySelector(".ownFood")
+                if (haveOwnFood == null){
+                    ownFoodList.style.display="none";
+                    noOwnFood.style.display="block";
                 }
-            })
+            }else{
+                noticeWindow.style.display="block";
+                noticeMain.textContent = data.message; 
+            }
         })
     })
 }
@@ -306,8 +287,9 @@ async function getOwnFoodData(){
             deleteOwnFoodIcon.appendChild(deleteOwnFoodIconImg);
             ownFood.appendChild(deleteOwnFoodIcon);
             ownFoodList.appendChild(ownFood);
-        };
-        deleteOwnFood();      
+            const foodID = ownFoodData[i].foodID;
+            deleteOwnFood(ownFood, deleteOwnFoodIcon, foodID);
+        };      
     }
 }
 

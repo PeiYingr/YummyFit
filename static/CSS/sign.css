@@ -391,14 +391,14 @@ a{
     left: 65%;
     transform: translateX(-65%);
 }
-.mealIntakePhotoFrame, .dailyIntakeTargetPhotoFrame, .addOwnFoodPhotoFrame{
+.mealIntakePhotoFrame, .dailyIntakeTargetPhotoFrame, .addOwnFoodPhotoFrame, .socialMediaPhotoFrame{
     width: 100%;
     height:auto;
 }
-.mealIntakePhotoFrame, .addOwnFoodPhotoFrame{
+.mealIntakePhotoFrame, .dailyIntakeTargetPhotoFrame{
     background: #e2ccbe;
 }
-.dailyIntakeTargetFrame, .socialMediaPhotoFrame{
+.addOwnFoodPhotoFrame, .socialMediaPhotoFrame{
     background: #e6dacd;
 }
 .photoBlock{

@@ -200,7 +200,7 @@ div {
     color: #FFFFFF;
     cursor: pointer;
 }
-.deletePostCancelButton:hover ,.deleteCommentCancelButton{
+.deletePostCancelButton:hover ,.deleteCommentCancelButton:hover{
     background:linear-gradient(225deg, #bf9d7e, #af8162, #9f6a47);
     font-weight: bold;
     transform: scale(1.05);

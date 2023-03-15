@@ -160,15 +160,8 @@ sendImageButton.addEventListener("click",() => {
 // delete meal photo
 function deleteOnePhotos(foodPhotoBlock, photoDeleteIcon, mealPhotoID){
     photoDeleteIcon.addEventListener("click",() => {
-        const deletePhoto = {
-            "mealPhotoID": mealPhotoID,
-        };
-        fetch("/api/photo/meal",{
+        fetch(`/api/photo/meal?mealPhotoID=${mealPhotoID}`,{
             method:"DELETE",
-            body:JSON.stringify(deletePhoto),
-            headers:new Headers({
-                "content-type":"application/json"
-            })
         }).then(function(response){
             return response.json();  
         }).then(function(data){

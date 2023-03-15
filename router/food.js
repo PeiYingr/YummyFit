@@ -34,7 +34,7 @@ foodRouter.get("/", async(req, res) => {
         }else{
             res.status(403).json({
                 "error": true,
-                "message": "Access Denied.Please Login."
+                "message": "Access Denied. Please Login."
             });        
         }
     }catch{
@@ -96,7 +96,7 @@ foodRouter.post("/userfood", async(req, res) => {
         }else{
             res.status(403).json({
                 "error": true,
-                "message": "Access Denied.Please Login."
+                "message": "Access Denied. Please Login."
             });        
         }
     }catch{
@@ -130,7 +130,7 @@ foodRouter.get("/userfood", async(req, res) => {
         }else{
             res.status(403).json({
                 "error": true,
-                "message": "Access Denied.Please Login."
+                "message": "Access Denied. Please Login."
             });        
         }
     }catch{
@@ -149,8 +149,9 @@ foodRouter.delete("/userfood", async(req, res) => {
             const token = cookie.replace("token=","");
             const userCookie = jwt.verify(token, JwtSecret);
             const userID = userCookie.userID;
-            const deleteFoodInfo = req.body;
-            const foodName = deleteFoodInfo.foodName;
+            const deleteFoodID = req.query.foodID || "";
+            let foodName = await foodModel.findThisOwnFoodName(deleteFoodID);
+            foodName = foodName.name
             const ownFoodIntakeID = await intakeModel.findThisOwnFoodIntake(userID, foodName);
             if(ownFoodIntakeID[0]){
                 for(let x = 0 ; x < ownFoodIntakeID.length ; x++){
@@ -165,7 +166,7 @@ foodRouter.delete("/userfood", async(req, res) => {
         }else{
             res.status(403).json({
                 "error": true,
-                "message": "Access Denied.Please Login."
+                "message": "Access Denied. Please Login."
             });        
         } 
     }catch{
