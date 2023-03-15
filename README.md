@@ -95,7 +95,7 @@ YummyFit is a food diary website that aims to help you record your daily diet an
 
 #### Third Party Library
 * Google Cloud Vision API
-* Google Maps JavaScript API
+* Google Places API
 
 #### Version Control
 * Git / GitHub
