@@ -22,7 +22,7 @@ const upload = multer();
 
 // avatar uploads(update)
 let avatarCloudFrontUrl;
-photoRouter.post("/avatar", upload.single("image"), async(req, res) => {
+photoRouter.patch("/avatar", upload.single("image"), async(req, res) => {
     try{
         const cookie = req.headers.cookie;
         if (cookie){
@@ -62,7 +62,7 @@ photoRouter.post("/avatar", upload.single("image"), async(req, res) => {
         }else{
             res.status(403).json({
                 "error": true,
-                "message": "Access Denied.Please Login."
+                "message": "Access Denied. Please Login."
             });        
         } 
     }catch{
@@ -96,7 +96,7 @@ photoRouter.get("/avatar", async(req, res) => {
         }else{
             res.status(403).json({
                 "error": true,
-                "message": "Access Denied.Please Login."
+                "message": "Access Denied. Please Login."
             });        
         } 
     }catch{
@@ -186,7 +186,7 @@ photoRouter.post("/meal", upload.array("images", 3), async(req, res) => {
         }else{
             res.status(403).json({
                 "error": true,
-                "message": "Access Denied.Please Login."
+                "message": "Access Denied. Please Login."
             });        
         } 
     }catch{
@@ -231,7 +231,7 @@ photoRouter.get("/meal", async(req, res) => {
         }else{
             res.status(403).json({
                 "error": true,
-                "message": "Access Denied.Please Login."
+                "message": "Access Denied. Please Login."
             });        
         } 
     }catch{
@@ -250,16 +250,24 @@ photoRouter.delete("/meal", async(req, res) => {
             const token = cookie.replace("token=","");
             const userCookie = jwt.verify(token, JwtSecret);
             const userID = userCookie.userID;
-            const deleteMealPhotoID = req.body.mealPhotoID;
-            await photoModel.deleteMealPhoto(deleteMealPhotoID);
-            let response= {
-                "ok": true
+            const deleteMealPhotoID = req.query.mealPhotoID || "";
+            const mealPhotoUserID = await photoModel.findUserID(deleteMealPhotoID);
+            if(userID == mealPhotoUserID.userID){
+                await photoModel.deleteMealPhoto(deleteMealPhotoID);
+                let response= {
+                    "ok": true
+                }
+                res.status(200).json(response);   
+            }else{
+                res.status(400).json({
+                    "error": true,
+                    "message": "The meal photo does not exist or does not belong to this member."
+                }); 
             }
-            res.status(200).json(response);        
         }else{
             res.status(403).json({
                 "error": true,
-                "message": "Access Denied.Please Login."
+                "message": "Access Denied. Please Login."
             });        
         } 
     }catch{

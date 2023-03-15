@@ -123,7 +123,7 @@ postRouter.post("/", upload.array("images", 3), async(req, res) => {
         }else{
             res.status(403).json({
                 "error": true,
-                "message": "Access Denied.Please Login."
+                "message": "Access Denied. Please Login."
             });        
         } 
     }catch{
@@ -175,7 +175,7 @@ postRouter.get("/", async(req, res) => {
         }else{
             res.status(403).json({
                 "error": true,
-                "message": "Access Denied.Please Login."
+                "message": "Access Denied. Please Login."
             });        
         } 
     }catch{
@@ -194,16 +194,24 @@ postRouter.delete("/", async(req, res) => {
             const token = cookie.replace("token=","");
             const userCookie = jwt.verify(token, JwtSecret);
             const userID = userCookie.userID;
-            const deletePostID = req.body.postID;
-            await postModel.deletePost(deletePostID);
-            let response= {
-                "ok": true
-            }
-            res.status(200).json(response);        
+            const deletePostID = req.query.postID || "";
+            const postUserID = await postModel.findPostUserID(deletePostID);
+            if(userID == postUserID.userID){
+                await postModel.deletePost(deletePostID);
+                let response= {
+                    "ok": true
+                }
+                res.status(200).json(response);   
+            }else{
+                res.status(400).json({
+                    "error": true,
+                    "message": "The post does not exist or does not belong to this member."
+                }); 
+            }     
         }else{
             res.status(403).json({
                 "error": true,
-                "message": "Access Denied.Please Login."
+                "message": "Access Denied. Please Login."
             });        
         } 
     }catch{
@@ -249,7 +257,7 @@ postRouter.post("/comment", async(req, res) => {
         }else{
             res.status(403).json({
                 "error": true,
-                "message": "Access Denied.Please Login."
+                "message": "Access Denied. Please Login."
             });        
         } 
     }catch{
@@ -268,24 +276,32 @@ postRouter.delete("/comment", async(req, res) => {
             const token = cookie.replace("token=","");
             const userCookie = jwt.verify(token, JwtSecret);
             const userID = userCookie.userID;
-            const commentPostID = req.body.postID;
-            const deleteCommentID = req.body.commentID;
-            await postModel.deleteComment(deleteCommentID);
-            const result =  await postModel.getAllComments(commentPostID);
-            if(result[0]){
-                response = {
-                    "data": result
+            const commentPostID = req.query.postID || "";
+            const deleteCommentID = req.query.commentID || "";
+            const commentUserID = await postModel.findCommentUserID(deleteCommentID);
+            if(userID == commentUserID.userID){
+                await postModel.deleteComment(deleteCommentID);
+                const result =  await postModel.getAllComments(commentPostID);
+                if(result[0]){
+                    response = {
+                        "data": result
+                    }
+                }else{
+                    response= {
+                        "data": null
+                    }
                 }
+                res.status(200).json(response); 
             }else{
-                response= {
-                    "data": null
-                }
-            }
-            res.status(200).json(response);       
+                res.status(400).json({
+                    "error": true,
+                    "message": "The comment does not exist or does not belong to this member."
+                }); 
+            }          
         }else{
             res.status(403).json({
                 "error": true,
-                "message": "Access Denied.Please Login."
+                "message": "Access Denied. Please Login."
             });        
         } 
     }catch{
@@ -321,7 +337,7 @@ postRouter.post("/like", async(req, res) => {
         }else{
             res.status(403).json({
                 "error": true,
-                "message": "Access Denied.Please Login."
+                "message": "Access Denied. Please Login."
             });        
         } 
     }catch{
@@ -339,24 +355,33 @@ postRouter.delete("/like", async(req, res) => {
         if (cookie){
             const token = cookie.replace("token=","");
             const userCookie = jwt.verify(token, JwtSecret);
-            const deleteLikeUserID = userCookie.userID;
-            const deleteLikePostID = req.body.postID;
-            await postModel.deleteLike(deleteLikePostID, deleteLikeUserID);
-            const result =  await postModel.getAllLikes(deleteLikePostID);
-            if(result[0]){
-                response = {
-                    "data": result
+            const userID = userCookie.userID;
+            const deleteLikePostID = req.query.postID || "";
+            const deleteLikeID = req.query.likeID || "";
+            const likeUserID = await postModel.findLikeUserID(deleteLikeID);
+            if(userID == likeUserID.userID){
+                await postModel.deleteLike(deleteLikeID);
+                const result =  await postModel.getAllLikes(deleteLikePostID);
+                if(result[0]){
+                    response = {
+                        "data": result
+                    }
+                }else{
+                    response= {
+                        "data": null
+                    }
                 }
+                res.status(200).json(response); 
             }else{
-                response= {
-                    "data": null
-                }
-            }
-            res.status(200).json(response);       
+                res.status(400).json({
+                    "error": true,
+                    "message": "The like does not exist or does not belong to this member."
+                }); 
+            }        
         }else{
             res.status(403).json({
                 "error": true,
-                "message": "Access Denied.Please Login."
+                "message": "Access Denied. Please Login."
             });        
         } 
     }catch{
@@ -400,7 +425,7 @@ async function getPostData(userID, postInfo, allData){
             likes = []
             for(let i=0 ;i < getAllLikes.length ;i++){
                 const oneLike = {
-                    "LikeID": getAllLikes[i].LikeID,
+                    "postLikeID": getAllLikes[i].postLikeID,
                     "postLikeUserID": getAllLikes[i].postLikeUserID,
                     "postLikeUserName": getAllLikes[i].postLikeUserName,
                     "postLikeAvatar": getAllLikes[i].postLikeAvatar

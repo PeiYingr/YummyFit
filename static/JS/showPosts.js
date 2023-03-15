@@ -263,11 +263,18 @@ function showPostInteractBlock(postArticle, postID, totalLikes, totalComments, t
     like.appendChild(likeSpan);
 
     let likeStatus = 0 //dislike;
+    let likeID;
     if(totalLikes > 0){
-        likeStatus = checkUserLike(totalLikesInfo, likeImg, likeStatus);
+        for(let i=0 ; i < totalLikesInfo.length ; i++){
+            if(thisUserID == totalLikesInfo[i].postLikeUserID){
+                likeImg.src = "/Images/likeAfter.png";
+                likeStatus = 1;
+                likeID = totalLikesInfo[i].postLikeID;
+            }
+        }
     }
-    updateLikes(postID, like, likeImg, likeStatus, totalLikesText, totalLikesAmount);
-
+    updateLikes(postID, like, likeImg, likeStatus, totalLikesText, totalLikesAmount, likeID);
+    
     const comment = document.createElement("div");
     comment.setAttribute("class", "comment");
     const commentImg = document.createElement("img");
@@ -416,15 +423,8 @@ function deleteUserPost(postArticle, deletePost, postID){
             deletePostCheckFrame.style.display = "none";
         })
         deletePostConfirmButton.addEventListener("click", () => {
-            const deletePostInfo = {
-                "postID": postID
-            };
-            fetch("/api/post",{
+            fetch(`/api/post?postID=${postID}`,{
                 method:"DELETE",
-                body:JSON.stringify(deletePostInfo),
-                headers:new Headers({
-                    "content-type":"application/json"
-                })
             }).then(function(response){
                 return response.json();  
             }).then(function(data){
@@ -510,16 +510,8 @@ function deleteUserComment(postID, commentID, deleteComment, viewAllComment, all
             deleteCommentCheckFrame.style.display = "none";
         })
         deleteCommentConfirmButton.addEventListener("click", () => {
-            const deleteCommentInfo = {
-                "postID": postID,
-                "commentID": commentID
-            };
-            fetch("/api/post/comment",{
+            fetch(`/api/post/comment?postID=${postID}&commentID=${commentID}`,{
                 method:"DELETE",
-                body:JSON.stringify(deleteCommentInfo),
-                headers:new Headers({
-                    "content-type":"application/json"
-                })
             }).then(function(response){
                 return response.json();  
             }).then(function(data){
@@ -549,17 +541,7 @@ function deleteUserComment(postID, commentID, deleteComment, viewAllComment, all
     })
 }
 
-function checkUserLike(totalLikesInfo, likeImg, likeStatus){
-    for(let i=0 ; i < totalLikesInfo.length ; i++){
-        if(thisUserID == totalLikesInfo[i].postLikeUserID){
-            likeImg.src = "/Images/likeAfter.png";
-            likeStatus = 1;
-        }
-    }
-    return likeStatus;
-}
-
-function updateLikes(postID, like, likeImg, likeStatus, totalLikesText, totalLikesAmount){
+function updateLikes(postID, like, likeImg, likeStatus, totalLikesText, totalLikesAmount, likeID){
     like.addEventListener("click", () => {
         like.style.pointerEvents = "none";
         let newTotalLikesInfo;
@@ -585,24 +567,22 @@ function updateLikes(postID, like, likeImg, likeStatus, totalLikesText, totalLik
                     likeImg.src = "/Images/likeAfter.png";
                     likeStatus = 1; //like
                     newTotalLikesInfo = data.data;
+                    for(let i=0 ; i < newTotalLikesInfo.length ; i++){
+                        if(thisUserID == newTotalLikesInfo[i].postLikeUserID){
+                            likeID = newTotalLikesInfo[i].postLikeID;
+                        }
+                    }
                     totalLikes = newTotalLikesInfo.length;
                     if(totalLikes < 2 ){
                         totalLikesText.textContent = totalLikes + " Like";       
                     }else{
                         totalLikesText.textContent = totalLikes + " Likes";
-                    }
+                    }                 
                 }
             })
         }else{
-            const deleteLikeInfo = {
-                "postID": postID 
-            }
-            fetch("/api/post/like",{
+            fetch(`/api/post/like?postID=${postID}&likeID=${likeID}`,{
                 method:"DELETE",
-                body:JSON.stringify(deleteLikeInfo),
-                headers:new Headers({
-                    "content-type":"application/json"
-                })
             }).then(function(response){
                 return response.json();  
             }).then(function(data){

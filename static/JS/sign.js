@@ -11,6 +11,11 @@ const sign = document.querySelector(".sign");
 const introductionPage = document.querySelector(".introductionPage");
 const login = document.querySelector(".login");
 const changeToIntroductionButton = document.querySelector(".changeToIntroductionButton");
+const signinEmail = document.querySelector(".signinEmail");
+const signinPassword = document.querySelector(".signinPassword");
+
+signinEmail.value = "test@test.com";
+signinPassword.value = "test1234";
 
 changeToIntroductionButton.addEventListener("click", () => {
     sign.style.display = "none";

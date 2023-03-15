@@ -224,6 +224,9 @@ noticeWindow.addEventListener("click", () => {
     contentPhotoEnlarge.src = "";
 
     postLikeFrame.style.display = "none";
+
+    deletePostCheckFrame.style.display = "none";
+    deleteCommentCheckFrame.style.display = "none";
 })
 
 locationInput.addEventListener("click", () => {

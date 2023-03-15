@@ -39,6 +39,15 @@ const foodModel = {
             conn.release();
         }
     },
+    findThisOwnFoodName:async(deleteFoodID) => {
+        const conn = await pool.getConnection();
+        try{
+            const [[result]] = await conn.query("SELECT name FROM food WHERE foodID = ?",[deleteFoodID])
+            return result
+        }finally{
+            conn.release();
+        }
+    },
     deleteOwnFood:async(userID, foodName) => {
         const conn = await pool.getConnection();
         try{

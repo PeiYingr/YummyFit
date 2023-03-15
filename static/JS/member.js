@@ -80,7 +80,7 @@ avatarUpload.addEventListener("click",() => {
     let formData = new FormData();
     formData.append("image", imageFile)
     fetch("/api/photo/avatar",{
-        method:"POST",
+        method:"PATCH",
         body:formData            
     }).then((response) => {
         return response.json();
@@ -159,7 +159,7 @@ updateTarget.addEventListener("click",() => {
             "targetCarbs":targetCarbs
         };
         fetch("/api/target",{  
-            method:"POST",
+            method:"PATCH",
             body:JSON.stringify(addTarget),
             headers:new Headers({
                 "content-type":"application/json"

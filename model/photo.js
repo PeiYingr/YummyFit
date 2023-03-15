@@ -37,6 +37,19 @@ const photoModel = {
             conn.release();
         }
     },
+    findUserID:async(deleteMealPhotoID) => {
+        const conn = await pool.getConnection();
+        try{
+            const sql = `    
+            SELECT userID FROM mealRecord
+            INNER JOIN mealPhoto ON mealRecord.mealRecordID = mealPhoto.mealRecordID
+            WHERE mealPhoto.mealPhotoID = ?`;
+            const [[result]] = await conn.query(sql, [deleteMealPhotoID]);
+            return result
+        }finally{
+            conn.release();
+        }
+    },
     deleteMealPhoto: async(deleteMealPhotoID) => {
         const conn = await pool.getConnection();
         try{
