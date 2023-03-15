@@ -106,7 +106,7 @@ YummyFit is a food diary website that aims to help you record your daily diet an
 * JavaScript
 * AJAX
 * Third Party Library
-    * chart.js
+    * Chart.js
 
 ## Contact
 🍭 盧佩瑩 Pei Ying Lu
