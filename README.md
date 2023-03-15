@@ -110,7 +110,7 @@ YummyFit is a food diary website that aims to help you record your daily diet an
     * Chart.js
 
 ## API Doc
-📃 [API Doc](https://app.swaggerhub.com/apis-docs/PeiYingr/YummyFit/1.0.0)
+📃 [API Doc](https://app.swaggerhub.com/apis-docs/PeiYingr/YummyFit/1.0.0){:target"_blank"}
 
 ## Contact
 🍭 盧佩瑩 Pei Ying Lu
