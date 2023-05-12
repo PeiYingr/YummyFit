@@ -57,7 +57,7 @@ YummyFit is a food diary website that aims to help you record your daily diet an
     * Supports recording photos of meals.
 * Social Media Platform
     * Allows users to create posts, check in at specific locations, and share photos and articles.
-    * Enables users to comment on or like posts.les users to comment on or like the posts.
+    * Enables users to comment on or like posts.
 
 ## Architecture
 * Server Architecture
